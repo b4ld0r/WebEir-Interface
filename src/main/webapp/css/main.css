@@ -1,0 +1,132 @@
+/* render html5 elements as block */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
+	display: block;}
+ 
+body {
+	background: #014F91;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #666;
+	font-size: 14px;
+	line-height: 18px;}
+	
+/* Header */
+#header{
+	height:96px;
+	width: 1320px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-image:url(../img/01.jpg);
+	background-repeat: no-repeat;
+	box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-moz-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	text-shadow: #fff 0px 1px 1px;
+	margin-left:5px;
+	margin-right:5px;}
+	
+#logoSystem{
+	float:left;
+	margin-top:25px;
+	margin-left:30px;}
+	
+img[src*="telefonica"]{
+	float:right;
+	margin-top:25px;
+	margin-right:60px;}
+	
+img[src*="huawei"]{
+	float:right;
+	margin-top:10px;
+	margin-right:80px;}
+	
+/* Layout */
+
+#welcome{
+	color:#FFF;
+	text-align:right;
+	font-size:14px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-image:url(../img/bgWelcome.png);
+	margin-bottom: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;}
+#welcome a{
+	color:#E3E3E2;
+	font-size:12px;
+	text-decoration: none;}
+#welcome a:hover{
+	color:#A9D0F5;}
+
+#sidebar {
+	float: left;
+	width: 225px;
+	font-size: 12px;
+	margin-left: 5px;}
+
+#accordion a{
+	text-decoration:none;}
+#accordion div div{
+	margin-top: 5px;
+	padding-top: 5px;
+	padding-left: 10px;
+	height:20px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;}
+
+#accordion div div:hover{
+	background-color:#A9D0F5;
+	color:#FFFFFF;}
+
+#content {
+	height:470px;
+	width: 1050px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color:#ededed;
+	box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-moz-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	margin-right:5px;
+	margin-left: 245px;
+	padding-right: 15px;
+	padding-left: 15px;}
+
+/** ARTICLES **/
+#article img {
+	border: none;
+	box-shadow: 3px 3px 7px #777;
+	-webkit-box-shadow: 3px 3px 7px #777;
+	-moz-box-shadow: 3px 3px 7px #777;}
+
+#footer{
+	height:40px;
+	width: 1320px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color:#595959;
+	box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-moz-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	margin-top:15px;
+	margin-left:5px;
+	margin-right:5px;}
+
+#footer-area{
+	color:#E3E3E2;
+	font-size:13px;
+	position:relative;
+	margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    padding-top:1px;}
+
+#footer-area a{
+	color:#E3E3E2;
+	text-decoration: underline;}

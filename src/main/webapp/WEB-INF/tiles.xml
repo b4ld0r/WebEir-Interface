@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+  
+ <!--
+  We declare a new template named template-main.
+  This template is used for displaying the main page.
+  It has 4 attributes. These attributes are placeholder for our contents
+  For each attribute, we have assigned a corresponding JSP
+ -->
+ <definition name="main-template" template="/WEB-INF/home/mainForm.jsp">
+  <put-attribute name="header" value="/WEB-INF/home/template/header.jsp" />
+  <put-attribute name="menu" value="/WEB-INF/home/template/menu.jsp" />
+  <put-attribute name="title" value="Pet Type" />
+  <put-attribute name="body" value="" />
+  <put-attribute name="footer" value="/WEB-INF/home/template/footer.jsp" />
+ </definition>
+  
+  
+ <!-- Concrete page. To use this page, your controller must return the name "pet-tiles" -->
+ <definition name="welcome" extends="main-template">
+  <put-attribute name="body" value="Welcome ñ_ñ!!!" />
+ </definition>
+  
+  
+</tiles-definitions>

@@ -1,10 +1,9 @@
 package com.ciia.webeirinterface.controllers;
 
+import com.ciia.webeirinterface.forms.LoginForm;
 import java.util.Map;
 
 import javax.validation.Valid;
-
-import com.ciia.webeirinterface.forms.LoginForm;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,8 +23,8 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(@Valid LoginForm loginForm, BindingResult result,
 			Map<String,Object> model) {
-		String userName = "a";
-		String password = "a";
+		String userName = loginForm.getUserName();
+		String password = loginForm.getPassword();
 		if (result.hasErrors()) {
 			return "loginForm";
 		}
@@ -35,7 +34,7 @@ public class LoginController {
 			return "loginForm";
 		}
 		model.put("mainForm", loginForm);
-		return "mainForm";
+		return "welcome";
 	}
 
 }

@@ -9,9 +9,7 @@
 	<title>Interfaz Web EIR</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-1.8.17.custom.css"  type="text/css" media="screen" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" type="text/css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="print.css" media="print" />
 	
-	<script src="${pageContext.request.contextPath}/js/html5.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 	  
@@ -23,37 +21,22 @@
 
 </head>
 <body>
-	<div id="header">
-		<div id="logoSystem" >
-			<img src="${pageContext.request.contextPath}/img/iweir.png" />
-		</div>
-		<div>
-			<img src="${pageContext.request.contextPath}/img/huawei.png"/>
-		</div>
-		<div>
-			<img src="${pageContext.request.contextPath}/img/telefonica.png"/>
-		</div>
-	</div>
-	
-	<div id="main_content"><!-- content and sidebar area -->
-		<div id="sidebar">
-			<tiles:insertAttribute name="menu" />
-		</div>
-		
-		<div id="content">
-			<div>
-				<h3><tiles:insertAttribute name="title" /></h3>
-				<p>Contenido</p>
-                                <div id="banner-style"><tiles:insertAttribute name="header" /></div>
-<div id="primary-style"><tiles:insertAttribute name="body" /></div>
+    <div id="container">
+        <tiles:insertAttribute name="header" />
 
-		</div>
-		
-	</div><!-- end of content and sidebar-->
-	
-	<div id="footer">
-		<tiles:insertAttribute name="footer" />
-	</div>
+        <div id="main_content"><!-- content and sidebar area -->
+            <tiles:insertAttribute name="menu" />
+            <div id="contentBG">
+                <div id="content">
+                    <tiles:insertAttribute name="body" />
+                    <p>Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont </p></br>
+                </div>
+            </div>
+        </div><!-- end of content and sidebar-->
+
+        <div id="break"></div>
+    </div>
+    <tiles:insertAttribute name="footer" />
 	
 </body>
 </html>

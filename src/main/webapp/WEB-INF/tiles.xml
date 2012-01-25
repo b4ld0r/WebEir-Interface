@@ -20,7 +20,7 @@
   
  <!-- Concrete page. To use this page, your controller must return the name "pet-tiles" -->
  <definition name="welcome" extends="main-template">
-  <put-attribute name="body" value="Welcome ñ_ñ!!!" />
+  <put-attribute name="body" value="loginForm.htm" />
  </definition>
   
   

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
-<div id="sidebar">
+			<div id="sidebar">
 				<div id="welcome">
 					<strong>Bienvenido <span id="user"><core:out value="${loginForm.userName}" />!</span></Strong>
 					</br>

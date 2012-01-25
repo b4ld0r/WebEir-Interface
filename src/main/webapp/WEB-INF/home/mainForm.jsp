@@ -29,7 +29,6 @@
             <div id="contentBG">
                 <div id="content">
                     <tiles:insertAttribute name="body" />
-                    <p>Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont </p></br>
                 </div>
             </div>
         </div><!-- end of content and sidebar-->

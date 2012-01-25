@@ -1,0 +1,22 @@
+#loginBG{
+	width:498px;
+	height:358px;
+	margin-top:60px;
+	margin-left:27%;
+	padding:15px;
+	background-image:url(../img/bgLogin.png);
+	background-repeat:no-repeat;}
+
+#loginBG h2{
+	color:#FFFFFF;
+	padding-right:100px;
+	text-align:right;}
+	
+#loginBG div{
+	color:#CEF6F5;
+	padding-left:95px;}
+	
+img[src*="lock"]{
+	float:right;
+	margin-right:100px;
+	padding-top:110px;}

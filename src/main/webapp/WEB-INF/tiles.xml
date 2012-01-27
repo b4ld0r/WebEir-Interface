@@ -10,7 +10,7 @@
   It has 4 attributes. These attributes are placeholder for our contents
   For each attribute, we have assigned a corresponding JSP
  -->
- <definition name="main-template" template="/WEB-INF/home/mainForm.jsp">
+ <definition name="main-template" template="/WEB-INF/home/template/main.jsp">
   <put-attribute name="header" value="/WEB-INF/home/template/header.jsp" />
   <put-attribute name="menu" value="/WEB-INF/home/template/menu.jsp" />
   <put-attribute name="body" value="" />
@@ -19,9 +19,14 @@
   
   
  <!-- Concrete page. To use this page, your controller must return the name "pet-tiles" -->
- <definition name="welcome" extends="main-template">
-  <put-attribute name="body" value="loginForm.htm" />
+ <definition name="loginTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/loginForm.jsp"/>
  </definition>
-  
+ 
+ <definition name="principalTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/catalogos/holaForm.jsp"/>
+ </definition>
+ 
+ 
   
 </tiles-definitions>

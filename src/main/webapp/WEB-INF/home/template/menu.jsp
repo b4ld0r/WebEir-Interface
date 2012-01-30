@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<div id="sidebar">
-				<div id="welcome">
-					<strong>Bienvenido <span id="user"><!-- c:out value="${loginForm.userName}" / -->!</span></Strong>
-					</br>
-					<a href="cierreSesion.htm"><strong>Cerrar sesi&oacute;n</strong></a>
-				</div>
+				<c:if test="${!empty login.perfiles}">	
+					<div id="welcome">
+						<strong>Bienvenido <span id="user"><c:out value="${login.usuario}" />!</span></Strong>
+						</br>
+						<a href="cierreSesion.htm"><strong>Cerrar sesi&oacute;n</strong></a>
+					</div>
+				</c:if>
+				
 				<div id="accordion"> <!-- #accordion -->
 					<h3><a href="#">Solicitudes</a></h3>
 						<div>

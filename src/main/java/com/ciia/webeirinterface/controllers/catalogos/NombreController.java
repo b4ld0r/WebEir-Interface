@@ -1,4 +1,4 @@
-package com.ciia.webeirinterface.controllers.login;
+package com.ciia.webeirinterface.controllers.catalogos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import com.ciia.webeirinterface.model.login.Perfil;
 
 @Controller
 @RequestMapping("login.htm")
-public class LoginController {
+public class NombreController {
 	
 	private final String tilesAsignado = "loginTiles";
 	private final String tilesSiguiente = "principalTiles";

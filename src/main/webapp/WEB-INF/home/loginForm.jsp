@@ -34,10 +34,10 @@
 		<form:form method="POST" commandName="login">
 			<div>
 				<img src="${pageContext.request.contextPath}/img/lock.png">
-				</br><strong>Usuario:</strong><form:errors path="usuario" />
-				</br><form:input path="usuario" cssClass="error"/>
-				</br></br><strong>Contrase&ntilde;a:</strong><form:errors path="contrasenia" />
-				</br><form:password path="contrasenia" cssClass="error"/>
+				</br><strong>Usuario:</strong><form:errors path="usuario" cssClass="error"/>
+				</br><form:input path="usuario"/>
+				</br></br><strong>Contrase&ntilde;a:</strong><form:errors path="contrasenia" cssClass="error"/>
+				</br><form:password path="contrasenia"/>
 				</br></br><input class="ui-corner-all" type="submit" value="Entrar" />
 			</div>
 		</form:form>

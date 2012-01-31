@@ -1,10 +1,10 @@
 package com.ciia.webeirinterface.model.login;
 
-public class Perfil {
+public class Permiso {
 	private Integer id;
 	private String nombre;
 	
-	public Perfil(Integer id, String nombre){
+	public Permiso(Integer id, String nombre){
 		this.id = id;
 		this.nombre = nombre;
 	}

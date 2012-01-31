@@ -113,7 +113,7 @@ img[src*="huawei"]{
 	top: 116px;
 	bottom: 85px;
 	z-index:5;}
-	
+
 #contentBG {
 	overflow:visible;
 	min-height:460px;
@@ -121,6 +121,33 @@ img[src*="huawei"]{
 	margin-left:245px;
 	margin-right:auto;
 	z-index: 0;}
+
+#contentEmpty {
+	overflow:auto;
+	position: absolute;
+	min-height:470px;
+	width: 1320px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color:#ededed;
+	box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	-moz-box-shadow: 10px 10px 20px rgba(0,0,0,.5);
+	padding-right: 0;
+	margin-right:auto;
+	top: 116px;
+	bottom: 85px;
+	z-index:5;}
+
+#contentBGEmpty {
+	overflow:visible;
+	min-height:460px;
+	width: 1320px;
+	margin-right:auto;
+	z-index: 0;}
+
+
 
 #break {clear: both;padding-top: 77px;}
 

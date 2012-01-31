@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
+
 
 public class Login {
 	@NotEmpty
@@ -15,7 +17,7 @@ public class Login {
 	@Size(min = 0, max = 20)
 	private String contrasenia;
 	
-	private List<Perfil> perfiles;
+	private List<Permiso> permisos;
 	
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
@@ -33,12 +35,12 @@ public class Login {
 		return contrasenia;
 	}
 
-	public void setPerfiles(List<Perfil> perfiles) {
-		this.perfiles = perfiles;
+	public void setPermisos(List<Permiso> permisos) {
+		this.permisos = permisos;
 	}
 
-	public List<Perfil> getPerfiles() {
-		return perfiles;
+	public List<Permiso> getPermisos() {
+		return permisos;
 	}
 
 }

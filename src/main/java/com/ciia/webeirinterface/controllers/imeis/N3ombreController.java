@@ -1,4 +1,4 @@
-package com.ciia.webeirinterface.controllers.catalogos;
+package com.ciia.webeirinterface.controllers.imeis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
 import com.ciia.webeirinterface.model.login.Login;
-import com.ciia.webeirinterface.model.login.Perfil;
+import com.ciia.webeirinterface.model.login.Permiso;
 
 @Controller
-@RequestMapping("login.htm")
-public class NombreController {
+@RequestMapping("3.htm")
+public class N3ombreController {
 	
 	private final String tilesAsignado = "loginTiles";
 	private final String tilesSiguiente = "principalTiles";
@@ -41,14 +41,6 @@ public class NombreController {
 				result.rejectValue("contrasenia","NotMatch.contrasenia");
 				return tilesAsignado;
 			}
-			//Obtiene perfiles
-			List<Perfil> listaPerfiles =new ArrayList<Perfil>();
-			Perfil tmp = new Perfil(1,"Admin");
-			listaPerfiles.add(tmp);
-			tmp = new Perfil(2,"Fraudes");
-			listaPerfiles.add(tmp);
-			loginBD = formulario;
-			loginBD.setPerfiles(listaPerfiles);
 			
 			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, formulario);
 			return tilesSiguiente;

@@ -73,7 +73,7 @@ public class LoginController {
 			submenu.add(new Menu("Perfiles","#"));
 			submenu.add(new Menu("Permisos","#"));
 			submenu.add(new Menu("Reportes","#"));
-			submenu.add(new Menu("Cambiar contrase&ntilde;a","#"));
+			submenu.add(new Menu("Cambiar contrase&ntilde;a",request.getContextPath()+"/cambioClave.htm"));
 			menu.add(new Menu("Administraci&oacute;n", submenu));
 			
 			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_MENU, menu);

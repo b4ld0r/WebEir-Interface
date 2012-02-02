@@ -1,17 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb" %>
 <!DOCTYPE html>
 <html lang="es-GB">
-<head>
-	<meta charset="utf-8"/>
-	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
-</head>
+<head></head>
 <body>
-	<h1>$tituloPagina</h1>
+	<div class="forms">
+	<h1>${tituloPagina}</h1>
 		
-		<form:form method="POST" commandName="login">
+		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>">
 			<div>
 				</br><strong>Nombre de escenario:</strong><form:errors path="nombre" cssClass="error"/>
 				</br><form:input path="nombre"/>
@@ -20,13 +18,14 @@
 				</br>
 				<fieldset>
 					<legend>Motivos</legend>
-					</br><strong>Motivo:</strong><form:errors path="motivo" cssClass="error"/>
-					</br><form:input path="motivo"/>
+					</br><strong>Motivo:</strong><form:errors path="motivos." cssClass="error"/>
+					</br><form:input path="motivos"/>
 				</fieldset>
 				</br></br>
 				<input class="ui-corner-all" type="submit" value="Entrar" />
 				<input class="ui-corner-all" type="button" value="Cancelar" />
 			</div>
 		</form:form>
+	</div>
 </body>
 </html>

@@ -30,5 +30,8 @@
   <put-attribute name="body" value="/WEB-INF/home/catalogos/escenarioForm.jsp"/>
  </definition>
  
-  
+ <definition name="cambioContraseniaTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/cambioContraseniaForm.jsp"/>
+ </definition> 
+ 
 </tiles-definitions>

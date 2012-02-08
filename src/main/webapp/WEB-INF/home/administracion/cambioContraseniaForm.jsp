@@ -7,7 +7,7 @@
 <head></head>
 <body>
 	<div class="forms">
-	<h1>${tituloPagina}</h1>
+	<h2>${tituloPagina}</h2>
 		
 		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA%>">
 			<div>

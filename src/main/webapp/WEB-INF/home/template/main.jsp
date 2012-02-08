@@ -12,12 +12,15 @@
 	
 	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
-	  
+	<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
+	 
+	<c:if test="${empty login.permisos}">
 	<script type="text/javascript">
-	$(document).ready(function() {
-	  $("#accordion").accordion();
-	});
+		$(document).ready(function() {
+			$("#accordion").accordion();
+		});
 	</script>
+	</c:if>
 
 </head>
 <body>

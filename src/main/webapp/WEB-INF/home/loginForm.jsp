@@ -7,22 +7,6 @@
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css" media="screen" />
 	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
-	
-<style>
-.error {
-	color: #ff0000;
-}
-.errorblock{
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding:8px;
-	margin:16px;
-}
-
-</style>
-
-
 </head>
 <body>
 

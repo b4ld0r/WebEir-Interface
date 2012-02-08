@@ -6,4 +6,5 @@ public final class ConstantesWeb {
 	public static final String CONST_ATTRIBUTE_TITULO_PAGINA = "tituloPagina";
 	public static final String CONST_ATTRIBUTE_ESCENARIO = "escenario";
 	public static final String CONST_ATTRIBUTE_CONTRASENIA = "contrasenia";
+	public static final String CONST_ATTRIBUTE_SOLICITUD_INTERNA = "solicitudInterna";
 }

@@ -13,10 +13,10 @@ import com.ciia.webeirinterface.model.administracion.Contrasenia;
 
 @Controller
 @RequestMapping("cambioClave.htm")
-public class CambiarContraseniaController {
+public class ContraseniaController {
 	
 	private final String tilesAsignado = "cambioContraseniaTiles";
-	private final String nombrePagina = "Cambiar contraseña";
+	private final String nombrePagina = "Cambiar contrase&ntilde;a";
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.TipoEstatus">
+	<select id="getListaTipoEstatus" resultType="TipoEstatus">
+		SELECT
+			idTipoEstatus,
+			descripcion			
+		FROM TIPO_ESTATUS	
+	</select>
+	<select id="getTipoEstatus" parameterType="TipoEstatus" resultType="TipoEstatus">
+		SELECT
+			idTipoEstatus,
+			descripcion			
+		FROM TIPO_ESTATUS
+		WHERE idTipoEstatus = #{idTipoEstatus}
+	</select>
+	<update id="updateTipoEstatus" parameterType="TipoEstatus">
+		UPDATE TIPO_ESTATUS
+		SET descripcion = #{descripcion}
+		WHERE idTipoEstatus = #{idTipoEstatus}
+	</update>
+	<insert id="insertTipoEstatus" parameterType="TipoEstatus" keyProperty="idTipoEstatus">
+		INSERT INTO TIPO_ESTATUS
+			(descripcion)
+		VALUES 
+			(#{descripcion})
+	</insert>
+</mapper>

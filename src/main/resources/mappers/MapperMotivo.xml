@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Motivo">
+	<select id="getCatMotivo" resultType="Motivo">
+		SELECT
+			idMotivo,
+			descripcion,			
+			activo			
+		FROM MOTIVO	
+	</select>
+	<select id="getListaMotivo" resultType="Motivo">
+		SELECT
+			idMotivo,
+			descripcion,			
+			activo			
+		FROM MOTIVO
+		WHERE activo = TRUE
+	</select>
+	<select id="getMotivo" parameterType="Motivo" resultType="Motivo">
+		SELECT
+			idMotivo,
+			descripcion,			
+			activo			
+		FROM MOTIVO
+		WHERE idMotivo = #{idMotivo}
+	</select>
+	<update id="updateMotivo" parameterType="Motivo">
+		UPDATE MOTIVO
+		SET descripcion = #{descripcion},			
+			activo = #{activo}
+		WHERE idMotivo = #{idMotivo}
+	</update>
+	<insert id="insertMotivo" parameterType="Motivo" keyProperty="idMotivo">
+		INSERT INTO MOTIVO
+			(descripcion,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{activo})
+	</insert>
+</mapper>

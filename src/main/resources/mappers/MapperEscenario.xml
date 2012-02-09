@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Escenario">
+	<select id="getCatEscenario" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+	</select>
+	<select id="getListaEscenario" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE activo = TRUE
+	</select>
+	<select id="getEscenario" parameterType="Escenario" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE idEscenario = #{idEscenario}
+	</select>
+	<update id="updateEscenario" parameterType="Escenario">
+		UPDATE ESCENARIO
+		SET descripcion = #{descripcion},			
+			inicial = #{inicial},			
+			activo = #{activo}
+		WHERE idEscenario = #{idEscenario} 
+	</update>
+	<insert id="insertEscenario" parameterType="Escenario" keyProperty="idEscenario">
+		INSERT INTO ESCENARIO
+			(descripcion,			
+			inicial,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{inicial},			
+			#{activo})
+	</insert>
+</mapper>

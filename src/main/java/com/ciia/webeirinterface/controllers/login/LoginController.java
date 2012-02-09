@@ -56,7 +56,7 @@ public class LoginController {
 			menu.add(new Menu("Solicitudes", submenu));
 			
 			submenu = new ArrayList<Menu>();
-			submenu.add(new Menu("Consulta","#"));
+			submenu.add(new Menu("Consulta",request.getContextPath()+"/consultaIMEI.htm"));
 			submenu.add(new Menu("Alta","#"));
 			menu.add(new Menu("IMEIs", submenu));
 			
@@ -69,7 +69,7 @@ public class LoginController {
 			
 			submenu = new ArrayList<Menu>();
 			submenu.add(new Menu("Usuarios","#"));
-			submenu.add(new Menu("Perfiles","#"));
+			submenu.add(new Menu("Perfiles",request.getContextPath()+"/perfiles.htm"));
 			submenu.add(new Menu("Permisos","#"));
 			submenu.add(new Menu("Reportes","#"));
 			submenu.add(new Menu("Cambiar contrase&ntilde;a",request.getContextPath()+"/cambioClave.htm"));

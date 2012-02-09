@@ -14,7 +14,7 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
 	 
-	<c:if test="${empty login.permisos}">
+	<c:if test="${!empty login.permisos}">
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#accordion").accordion();

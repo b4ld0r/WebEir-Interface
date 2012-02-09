@@ -20,6 +20,7 @@ public class ContraseniaController {
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
+    	
     	model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, new Contrasenia());
 		return this.tilesAsignado;
@@ -28,11 +29,10 @@ public class ContraseniaController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(@Valid Contrasenia form, BindingResult result, ModelMap model) {
 		
-		form = (Contrasenia) model.get(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, form);
 		
 		if (!result.hasErrors()) {
-			
-			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, form);
 			return tilesAsignado;
 		}
 		

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Nomenclatura">
+	<select id="getCatNomenclatura" resultType="Nomenclatura">
+		SELECT
+			idNomenclatura,
+			descripcion,			
+			extension,			
+			definicion,			
+			activo			
+		FROM NOMENCLATURA	
+	</select>
+	<select id="getListaNomenclatura" resultType="Nomenclatura">
+		SELECT
+			idNomenclatura,
+			descripcion,			
+			extension,			
+			definicion,			
+			activo			
+		FROM NOMENCLATURA
+		WHERE activo = TRUE
+	</select>
+	<select id="getNomenclatura" parameterType="Nomenclatura" resultType="Nomenclatura">
+		SELECT
+			idNomenclatura,
+			descripcion,			
+			extension,			
+			definicion,			
+			activo
+		FROM NOMENCLATURA
+		WHERE idNomenclatura = #{idNomenclatura}
+	</select>
+	<update id="updateNomenclatura" parameterType="Nomenclatura">
+		UPDATE NOMENCLARTURA
+		SET descripcion = #{descripcion},			
+			extension = #{extension},			
+			definicion = #{definicion},			
+			activo = #{activo}
+		WHERE idNomenclatura = #{idNomenclatura}
+	</update>
+	<insert id="insertNomenclatura" parameterType="Nomenclatura" keyProperty="idNomenclatura">
+		INSERT INTO NOMENCLATURA
+			(descripcion,			
+			extension,			
+			definicion,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{extension},			
+			#{definicion},			
+			#{activo})
+	</insert>
+</mapper>

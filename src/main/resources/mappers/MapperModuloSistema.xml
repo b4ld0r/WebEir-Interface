@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.ModuloSistema">
+	<select id="getCatModuloSistema" resultType="ModuloSistema">
+		SELECT 
+			idModuloSistema,
+			descripcion,		
+			activo			
+		FROM MODULO_SISTEMA	
+	</select>
+	<select id="getListaModuloSistema" resultType="ModuloSistema">
+		SELECT 
+			idModuloSistema,
+			descripcion,		
+			activo			
+		FROM MODULO_SISTEMA	
+		WHERE activo = TRUE
+	</select>
+	<select id="getModuloSistema" parameterType="ModuloSistema" resultType="ModuloSistema">
+		SELECT 
+			idModuloSistema,
+			descripcion,		
+			activo			
+		FROM MODULO_SISTEMA
+		WHERE idModuloSistema = #{idModuloSistema}	
+	</select>
+	<update id="updateModuloSistema" parameterType="ModuloSistema">
+		UPDATE MODULO_SISTEMA
+		SET descripcion = #{descripcion},		
+			activo = #{activo}
+		WHERE idModuloSistema = #{idModuloSistema}
+	</update>
+	<insert id="insertModuloSistema" parameterType="ModuloSistema" keyProperty="idModuloSistema">
+		INSERT INTO MODULO_SISTEMA
+			(descripcion,		
+			activo)
+		VALUES
+			(#{descripcion},		
+			#{activo})
+	</insert>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties resource="MyBatisProp.properties"/>
+
+	<settings>
+		<setting name="useGeneratedKeys" value="true"/>	
+	</settings>
+	
+	<typeAliases>		
+		<typeAlias alias="Accion" type="com.ciia.webeirinterface.model.db.Accion"/>
+		<typeAlias alias="Archivo" type="com.ciia.webeirinterface.model.db.Archivo"/>
+		<typeAlias alias="Bitacora" type="com.ciia.webeirinterface.model.db.Bitacora"/>
+		<typeAlias alias="Directorio" type="com.ciia.webeirinterface.model.db.Directorio"/>
+		<typeAlias alias="Documento" type="com.ciia.webeirinterface.model.db.Documento"/>
+		<typeAlias alias="Empleado" type="com.ciia.webeirinterface.model.db.Empleado"/>
+		<typeAlias alias="Escenario" type="com.ciia.webeirinterface.model.db.Escenario"/>
+		<typeAlias alias="Estatus" type="com.ciia.webeirinterface.model.db.Estatus"/>
+		<typeAlias alias="Imei" type="com.ciia.webeirinterface.model.db.Imei"/>
+		<typeAlias alias="ModuloSistema" type="com.ciia.webeirinterface.model.db.ModuloSistema"/>
+		<typeAlias alias="Motivo" type="com.ciia.webeirinterface.model.db.Motivo"/>
+		<typeAlias alias="Nomenclatura" type="com.ciia.webeirinterface.model.db.Nomenclatura"/>
+		<typeAlias alias="Operadora" type="com.ciia.webeirinterface.model.db.Operadora"/>
+		<typeAlias alias="PerfilSistema" type="com.ciia.webeirinterface.model.db.PerfilSistema"/>
+		<typeAlias alias="PermisoSistema" type="com.ciia.webeirinterface.model.db.PermisoSistema"/>
+		<typeAlias alias="Solicitud" type="com.ciia.webeirinterface.model.db.Solicitud"/>
+		<typeAlias alias="TipoEstatus" type="com.ciia.webeirinterface.model.db.TipoEstatus"/>
+		<typeAlias alias="TipoLista" type="com.ciia.webeirinterface.model.db.TipoLista"/>
+		<typeAlias alias="TipoSolicitud" type="com.ciia.webeirinterface.model.db.TipoSolicitud"/>
+		<typeAlias alias="Usuario" type="com.ciia.webeirinterface.model.db.Usuario"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="JNDI">
+				<!-- <property name="initial_context" value="java:comp/env"/> -->
+				<property name="data_source" value="${JNDI.DataSource}"/>	
+			</dataSource>
+		</environment>
+		
+		<environment id="testing">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${JDBC.Driver}"/>
+				<property name="url" value="${JDBC.Url}"/>
+				<property name="username" value="${JDBC.Username}"/>
+				<property name="password" value="${JDBC.Password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="mappers/MapperAccion.xml"/>
+		<mapper resource="mappers/MapperArchivo.xml"/>
+		<mapper resource="mappers/MapperBitacora.xml"/>
+		<mapper resource="mappers/MapperDirectorio.xml"/>
+		<mapper resource="mappers/MapperDocumento.xml"/>
+		<mapper resource="mappers/MapperEmpleado.xml"/>
+		<mapper resource="mappers/MapperEscenario.xml"/>
+		<mapper resource="mappers/MapperEstatus.xml"/>
+		<mapper resource="mappers/MapperImei.xml"/>
+		<mapper resource="mappers/MapperModuloSistema.xml"/>
+		<mapper resource="mappers/MapperMotivo.xml"/>
+		<mapper resource="mappers/MapperNomenclatura.xml"/>
+		<mapper resource="mappers/MapperOperadora.xml"/>
+		<mapper resource="mappers/MapperPerfilSistema.xml"/>
+		<mapper resource="mappers/MapperPermisoSistema.xml"/>
+		<mapper resource="mappers/MapperSolicitud.xml"/>
+		<mapper resource="mappers/MapperTipoEstatus.xml"/>
+		<mapper resource="mappers/MapperTipoLista.xml"/>
+		<mapper resource="mappers/MapperTipoSolicitud.xml"/>
+		<mapper resource="mappers/MapperUsuario.xml"/>
+	</mappers>
+</configuration>

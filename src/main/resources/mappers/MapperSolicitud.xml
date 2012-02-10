@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Solicitud">
+	<select id="getListaSolicitud" resultType="Solicitud">
+		SELECT
+			idSolicitud,
+			idTipoSolicitud,		
+			idEstatus,		
+			idEscenario,		
+			idArchivo,		
+			documentos			
+		FROM SOLICITUD
+	</select>
+	<select id="getSolicitud" parameterType="Solicitud" resultType="Solicitud">
+		SELECT
+			idSolicitud,
+			idTipoSolicitud,		
+			idEstatus,		
+			idEscenario,		
+			idArchivo,		
+			documentos			
+		FROM SOLICITUD
+		WHERE idSolicitud = #{idSolicitud}
+	</select>
+	<update id="updateSolicitud" parameterType="Solicitud">
+		UPDATE SOLICITUD
+		SET idTipoSolicitud = #{idTipoSolicitud},		
+			idEstatus = #{idEstatus},		
+			idEscenario = #{idEscenario},		
+			idArchivo = #{idArchivo},		
+			documentos = #{documentos}
+		WHERE idSolicitud = #{idSolicitud}
+	</update>
+	<insert id="insertSolicitud" parameterType="Solicitud" keyProperty="idSolicitud">
+		INSERT INTO SOLICITUD
+			(idTipoSolicitud,		
+			idEstatus,		
+			idEscenario,		
+			idArchivo,		
+			documentos)
+		VALUES 
+			(#{idTipoSolicitud},		
+			#{idEstatus},		
+			#{idEscenario},		
+			#{idArchivo},		
+			#{documentos})
+	</insert>
+</mapper>

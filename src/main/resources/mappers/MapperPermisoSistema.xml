@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.PermisoSistema">
+	<select id="getCatPermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,			
+			activo			
+		FROM PERMISO_SISTEMA	
+	</select>
+	<select id="getListaPermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,			
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE activo = TRUE
+	</select>
+	<select id="getPermisoSistema" parameterType="PermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,			
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoSistema = #{idPermisoSistema}
+	</select>
+	<update id="updatePermisoSistema" parameterType="PermisoSistema">
+		UPDATE PERMISO_SISTEMA
+		SET descripcion = #{descripcion},			
+			activo = #{activo}
+		WHERE idPermisoSistema = #{idPermisoSistema}
+	</update>
+	<insert id="insertPermisoSistema" parameterType="PermisoSistema" keyProperty="idPermisoSistema">
+		INSERT INTO PERMISO_SISTEMA
+			(descripcion,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{activo})
+	</insert>
+	<select id="permisoPerfil" parameterType="PerfilSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,			
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoSistema
+		IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
+	</select>
+</mapper>

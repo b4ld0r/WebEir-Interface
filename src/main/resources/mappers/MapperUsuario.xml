@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Usuario">
+	<select id="getCatUsuario" resultType="Usuario">
+		SELECT 
+			idUsuario,
+			nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,	
+			cambioContrasenia,		
+			activo	
+		FROM USUARIO
+	</select>
+	<select id="getListaUsuario" resultType="Usuario">
+		SELECT 
+			idUsuario,
+			nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,	
+			cambioContrasenia,		
+			activo	
+		FROM USUARIO
+		WHERE activo = TRUE
+	</select>
+	<select id="getUsuario" parameterType="Usuario" resultType="Usuario">
+		SELECT 
+			idUsuario,
+			nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,	
+			cambioContrasenia,		
+			activo	
+		FROM USUARIO
+		WHERE idUsuario = #{idUsuario}
+	</select>
+	<update id="updateUsuario" parameterType="Usuario">
+		UPDATE USUARIO
+		SET nombre = #{nombre},			
+			apellidoPaterno = #{apellidoPaterno},			
+			apellidoMaterno = #{apellidoMaterno},			
+			nombreUsuario = #{nombreUsuario},			
+			contrasenia = #{contrasenia},			
+			correoElectronico = #{correoElectronico},			
+			area = #{area},	
+			cambioContrasenia = #{cambioContrasenia},		
+			activo = #{activo}
+		WHERE idUsuario = #{idUsuario}
+	</update>
+	<insert id="insertUsuario" parameterType="Usuario" keyProperty="idUsuario">
+		INSERT INTO USUARIO 
+			(nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,	
+			cambioContrasenia,		
+			activo)
+		VALUES
+			(#{nombre},			
+			#{apellidoPaterno},			
+			#{apellidoMaterno},			
+			#{nombreUsuario},			
+			#{contrasenia},			
+			#{correoElectronico},			
+			#{area},	
+			FALSE,		
+			#{activo})
+	</insert>
+	<select id="permisoAcceso" parameterType="Usuario" resultType="Usuario">
+		SELECT 
+			idUsuario,
+			nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,
+			cambioContrasenia,			
+			activo	
+		FROM USUARIO		
+		WHERE nombreUsuario = #{nombreUsuario}
+		AND contrasenia = #{contrasenia}
+	</select>
+	<update id="updateContrasenia" parameterType="Usuario">
+		UPDATE USUARIO
+		SET contrasenia = #{contrasenia},
+			cambioContrasenia = TRUE
+		WHERE idUsuario = #{idUsuario}
+	</update>
+</mapper >

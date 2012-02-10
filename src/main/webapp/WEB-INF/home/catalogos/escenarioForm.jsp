@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 <html lang="es-GB">
 <head>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" type="text/css" media="screen" />
+	
 	<script type="text/javascript">
 		var cnt=0;
 		
@@ -20,14 +22,13 @@
 				 
 				if($("#motivo").val() != '' && regExp.test($("#motivo").val())){
 					
-					$("#listaMotivos tr:last").after("<tr>"
-											+ "<td"+ (((cnt+1)%2)==0?" class=\"alt\"":"") +">"+ (cnt+1) + "</td>"
-											+ "<td"+ (((cnt+1)%2)==0?" class=\"alt\"":"") +">"+ $("#motivo").attr("value")
+					$("#listaMotivos tr:last").after("<tr class=\"ui-widget-content jqgrow ui-row-ltr\">"
+											+ "<td>"+ (cnt+1) + "</td>"
+											+ "<td>"+ $("#motivo").attr("value")
 											+ "<input type=\"hidden\"  name=\"motivos["+ cnt +"].descripcion\" value=\""+ $("#motivo").attr("value")  + "\"/>"+"</td>"
 											+ "</tr>");
 					$("#motivo").attr("value","");
 					cnt++;
-					
 				}
 			});
 			
@@ -71,15 +72,28 @@
 					<strong class="break15px"><label>Motivo:</label></strong>
 						<input type="text" id="motivo"/>
 						<input type="button" id="agregarMotivos" class="ui-corner-all"  value="Agregar" />
-					<table class="break15px tableBlue" id="listaMotivos">
-						<tr><td>#</td><td>Motivo</td></tr>
-						<c:forEach items="${escenario.motivos}" var="motivo" varStatus="status">
-						<tr>
-							<td <c:if test="${ (status.count % 2) == 0}"> class="alt"</c:if> align="center" >${status.count}</td>
-							<td <c:if test="${ (status.count % 2) == 0}"> class="alt"</c:if> >${motivo.descripcion}
-								<input type="hidden" name="motivos[${status.index}].descripcion" value="${motivo.descripcion}"/></td>
-						</tr>
-						</c:forEach>
+					<table class="ui-jqgrid-htable">
+						<thead>
+							<tr class="ui-jqgrid-labels">
+								<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:16px;">#</th>
+								<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:174px;">Motivo</th>
+							</tr>
+						</thead>
+					</table>
+					<table class="ui-jqgrid-btable" id="listaMotivos">
+						<tbody>
+							<tr class="jqgfirstrow" style="height:auto">
+								<td style="height:0px;width:16px;"></td>
+								<td style="height:0px;width:174px;"></td>
+							</tr>
+							<c:forEach items="${escenario.motivos}" var="motivo" varStatus="status">
+							<tr class="ui-widget-content jqgrow ui-row-ltr">
+								<td>${status.count}</td>
+								<td>${motivo.descripcion}
+									<input type="hidden" name="motivos[${status.index}].descripcion" value="${motivo.descripcion}"/></td>
+							</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</fieldset>
 				<div class="divOptions">

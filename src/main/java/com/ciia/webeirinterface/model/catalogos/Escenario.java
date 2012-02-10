@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.context.annotation.Scope;
 
 
 public class Escenario {
@@ -19,28 +18,28 @@ public class Escenario {
 	
 	private List<Motivo> motivos;
 
-	public String getNombre() {
-		return nombre;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public String getInicial() {
-		return inicial;
+	public String getNombre() {
+		return nombre;
 	}
 
 	public void setInicial(String inicial) {
 		this.inicial = inicial;
 	}
 
-	public List<Motivo> getMotivos() {
-		return motivos;
+	public String getInicial() {
+		return inicial;
 	}
 
 	public void setMotivos(List<Motivo> motivos) {
 		this.motivos = motivos;
+	}
+
+	public List<Motivo> getMotivos() {
+		return motivos;
 	}
 
 }

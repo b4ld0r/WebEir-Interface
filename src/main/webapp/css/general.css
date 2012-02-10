@@ -1,0 +1,51 @@
+.forms{
+	width:930px;
+	margin-left: auto;
+	margin-right: auto;}
+
+.fieldsetMenu{
+	float:left;
+	padding:15px;}
+
+.break15px{
+	margin:15px;}
+
+.divOptions{
+	clear:left;
+	padding-top: 15px;}
+	
+.error {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 1px solid #ff0000;
+	padding-left:4px;
+	padding-right:4px;}
+	
+.errorBlock{
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding:8px;
+	margin:16px;}
+
+.tableBlue th{
+	color: #4f6b72;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 6px 6px 6px 12px;
+	background:#CAE8EA;}
+
+.tableBlue td {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #4f6b72;}
+
+.tableBlue td.alt{
+	background: #F5FAFA;
+	color: #797268;}

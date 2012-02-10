@@ -26,9 +26,26 @@
   <put-attribute name="body" value="/WEB-INF/home/loginForm.jsp"/>
  </definition>
  
+ <!-- Catalogos -->
  <definition name="escenarioTiles" extends="main-template">
   <put-attribute name="body" value="/WEB-INF/home/catalogos/escenarioForm.jsp"/>
  </definition>
  
-  
+ <!-- Administracion -->
+ <definition name="cambioContraseniaTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/cambioContraseniaForm.jsp"/>
+ </definition>
+ 
+ <definition name="perfilTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/perfilForm.jsp"/>
+ </definition>
+ 
+ <!-- Imeis -->
+ <definition name="consultaIMEITiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/imeis/consultaIMEIForm.jsp"/>
+ </definition> 
+ <definition name="solicitudInternaTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/imeis/solicitudInternaForm.jsp"/>
+ </definition> 
+ 
 </tiles-definitions>

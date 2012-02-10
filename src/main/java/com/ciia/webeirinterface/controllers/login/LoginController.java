@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
 import com.ciia.webeirinterface.model.login.Login;
@@ -57,7 +56,7 @@ public class LoginController {
 			menu.add(new Menu("Solicitudes", submenu));
 			
 			submenu = new ArrayList<Menu>();
-			submenu.add(new Menu("Consulta","#"));
+			submenu.add(new Menu("Consulta",request.getContextPath()+"/consultaIMEI.htm"));
 			submenu.add(new Menu("Alta","#"));
 			menu.add(new Menu("IMEIs", submenu));
 			
@@ -70,10 +69,10 @@ public class LoginController {
 			
 			submenu = new ArrayList<Menu>();
 			submenu.add(new Menu("Usuarios","#"));
-			submenu.add(new Menu("Perfiles","#"));
+			submenu.add(new Menu("Perfiles",request.getContextPath()+"/perfiles.htm"));
 			submenu.add(new Menu("Permisos","#"));
 			submenu.add(new Menu("Reportes","#"));
-			submenu.add(new Menu("Cambiar contrase&ntilde;a","#"));
+			submenu.add(new Menu("Cambiar contrase&ntilde;a",request.getContextPath()+"/cambioClave.htm"));
 			menu.add(new Menu("Administraci&oacute;n", submenu));
 			
 			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_MENU, menu);

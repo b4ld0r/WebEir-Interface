@@ -2,10 +2,14 @@ package com.ciia.webeirinterface.model.db;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
 public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
+	@JsonSerialize(include=Inclusion.NON_NULL)
 	private static final long serialVersionUID = 2593607734093240065L;
 	private Integer idUsuario;
 	private String nombre;

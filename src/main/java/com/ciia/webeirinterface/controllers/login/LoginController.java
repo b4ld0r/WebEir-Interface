@@ -84,7 +84,7 @@ public class LoginController {
 			menu.add(new Menu("Cat&aacute;logos", submenu));
 			
 			submenu = new ArrayList<Menu>();
-			submenu.add(new Menu("Usuarios","#"));
+			submenu.add(new Menu("Usuarios",request.getContextPath()+"/usuario/usuarios.htm"));
 			submenu.add(new Menu("Perfiles",request.getContextPath()+"/perfiles.htm"));
 			submenu.add(new Menu("Permisos","#"));
 			submenu.add(new Menu("Reportes","#"));

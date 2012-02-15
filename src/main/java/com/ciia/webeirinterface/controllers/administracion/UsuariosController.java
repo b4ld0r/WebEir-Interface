@@ -2,17 +2,13 @@ package com.ciia.webeirinterface.controllers.administracion;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
 import com.ciia.webeirinterface.model.db.Usuario;
-import com.ciia.webeirinterface.model.json.ListaGridJson;
 import com.ciia.webeirinterface.model.json.PaginaGrid;
 import com.ciia.webeirinterface.model.json.RespuestaEditJson;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UsuariosController {
 	
 	private final String tilesAsignado = "usuarioTiles";
-	private final String tilesSiguiente = "principalTiles";
 	
     @RequestMapping(value="usuarios.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model) {

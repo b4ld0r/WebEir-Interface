@@ -14,7 +14,7 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
 	 
-	<c:if test="${!empty login.permisos}">
+	<c:if test="${!empty login.perfilSistema}">
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#accordion").accordion();
@@ -30,11 +30,11 @@
         <div id="main_content"><!-- content and sidebar area -->
             <tiles:insertAttribute name="menu" />
             
-            <c:if test="${empty login.permisos}">
+            <c:if test="${empty login.perfilSistema}">
             	<div id="contentBGEmpty">
             		<div id="contentEmpty">
             </c:if>
-            <c:if test="${!empty login.permisos}">
+            <c:if test="${!empty login.perfilSistema}">
             	<div id="contentBG">
             		<div id="content">
             </c:if>

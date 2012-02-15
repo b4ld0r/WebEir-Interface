@@ -13,40 +13,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
-import com.ciia.webeirinterface.model.login.Login;
+import com.ciia.webeirinterface.dao.UsuarioDAO;
+import com.ciia.webeirinterface.model.db.PerfilSistema;
+import com.ciia.webeirinterface.model.db.Usuario;
 import com.ciia.webeirinterface.model.login.Menu;
-import com.ciia.webeirinterface.model.login.Permiso;
 
 @Controller
 @RequestMapping("login.htm")
 //@SessionAttributes(types=Login.class)
 public class LoginController {
 	
+	private final String nombrePagina = "Acceso al sistema";
 	private final String tilesAsignado = "loginTiles";
 	private final String tilesSiguiente = "principalTiles";
 	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
-		Login loginBean = new Login();
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, loginBean);
+		
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, new Usuario());
+		
 		return this.tilesAsignado;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String processForm(@Valid Login form, BindingResult result, ModelMap model, HttpServletRequest request) {
+	public String processForm(@Valid Usuario form ,BindingResult result, ModelMap model, HttpServletRequest request) {
+		Usuario usuarioBd;
+		UsuarioDAO serviciodb;
 		
-		form = (Login) model.get(ConstantesWeb.CONST_ATTRIBUTE_LOGIN);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, form);
 		
 		if (!result.hasErrors()) {
-			//Obtiene Login y valida
-			if (!form.getContrasenia().equals(form.getUsuario())) {
+			/*serviciodb = new UsuarioDAO();
+			//usuarioBd = serviciodb.loginUsuario(form);
+			
+			if (usuarioBd == null) {
 				result.rejectValue("contrasenia","NotMatch.contrasenia");
-				return tilesAsignado;
+				
+				return this.tilesAsignado; 
 			}
-			//Obtiene permisos
-			List<Permiso> permisos = new ArrayList<Permiso>();
-			permisos.add(new Permiso(1,"Test"));
-			form.setPermisos(permisos);
+			*/
+			if (!form.getNombreUsuario().equals(form.getContrasenia())) {
+				result.rejectValue("contrasenia","NotMatch.login.contrasenia");
+				
+				return this.tilesAsignado; 
+			}
+			
+			
+			//Creacion de temporal
+			form.setPerfilSistema(new PerfilSistema(1,"Administrador"));
 			
 			List<Menu> menu = new ArrayList<Menu>();
 			List<Menu> submenu = new ArrayList<Menu>();
@@ -64,7 +81,6 @@ public class LoginController {
 			submenu.add(new Menu("Operadoras","#"));
 			submenu.add(new Menu("Documentos","#"));
 			submenu.add(new Menu("Escenarios",request.getContextPath()+"/escenarios.htm"));
-			
 			menu.add(new Menu("Cat&aacute;logos", submenu));
 			
 			submenu = new ArrayList<Menu>();
@@ -76,7 +92,7 @@ public class LoginController {
 			menu.add(new Menu("Administraci&oacute;n", submenu));
 			
 			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_MENU, menu);
-			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, form);
+			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, form);//usuarioBd
 			
 			return tilesSiguiente;
 		}

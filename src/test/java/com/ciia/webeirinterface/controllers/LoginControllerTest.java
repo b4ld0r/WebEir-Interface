@@ -73,7 +73,7 @@ public class LoginControllerTest extends TestCase{
 			//ibatis.cerrarSession();
 		}
 	}*/
-	
+	/*
 	public final void testIbatis()throws Exception{
 		try{
 		
@@ -88,12 +88,7 @@ public class LoginControllerTest extends TestCase{
 		System.out.println(usuario.getCambioContrasenia().toString());
 		
 		System.out.println("-------- TEST CONTRASENIA -------");
-		usuario.setContrasenia("usuario01*");
-		userLogin.cambioContrasenia(usuario);
-		
-		usuario = userLogin.loginUsuario(usuario);
-		System.out.println(usuario.getNombre() + " - " + usuario.getCambioContrasenia().toString());
-		
+
 		System.out.println("---TEST DIRECTORIO---");
 		if(usuario.getDirectorio()!=null) {
 			System.out.println(usuario.getDirectorio().getNombre());
@@ -139,29 +134,11 @@ public class LoginControllerTest extends TestCase{
 	
 	public final void testUsuario() throws Exception {
 		try {
-			System.out.println("-------- TEST USUARIO INSERT -------");
-			UsuarioDAO usuarioDao = new UsuarioDAO();
-			Usuario usuario = new Usuario();
-			usuario.setNombre("nombreTest");
-			usuario.setApellidoMaterno("AMTest");
-			usuario.setApellidoPaterno("APTest");
-			usuario.setArea("areaTest");
-			usuario.setContrasenia("test");
-			usuario.setCorreoElectronico("correoTest");
-			usuario.setNombreUsuario("test");
-			usuario.setActivo(true);
-			
-			usuario  = usuarioDao.insertarUsuario(usuario);
-			
-			System.out.println(usuario.getNombre() + " - " + usuario.getIdUsuario());
-			System.out.println(usuario.getCambioContrasenia().toString());
-			
-			System.out.println("-------- FIN TEST IMEI -------");
 		} catch (Exception e) {
 			//TODO: handle exception
 			e.printStackTrace(); 
 			System.out.println("**********  E R R O R  **********");
 			System.out.println(e.getMessage() + " - " + e.getStackTrace());
 		}
-	}
+	}*/
 }

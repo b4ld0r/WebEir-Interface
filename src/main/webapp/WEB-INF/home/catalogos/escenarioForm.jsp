@@ -11,11 +11,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" type="text/css" media="screen" />
 	
 	<script type="text/javascript">
-		var cnt=0;
+		var cntMotivos=0;
 		
 		$(document).ready(function() {//start ready-function
 			
-			cnt=$("#listaMotivos tr").size()-1 ;
+			cntMotivos=$("#listaMotivos tr").size()-1 ;
 			
 			$("#agregarMotivos").click(function() {
 				var regExp = /^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/;
@@ -23,9 +23,9 @@
 				if($("#motivo").val() != '' && regExp.test($("#motivo").val())){
 					
 					$("#listaMotivos tr:last").after("<tr class=\"ui-widget-content jqgrow ui-row-ltr\">"
-											+ "<td>"+ (cnt+1) + "</td>"
+											+ "<td>"+ (cntMotivos+1) + "</td>"
 											+ "<td>"+ $("#motivo").attr("value")
-											+ "<input type=\"hidden\"  name=\"motivos["+ cnt +"].descripcion\" value=\""+ $("#motivo").attr("value")  + "\"/>"+"</td>"
+											+ "<input type=\"hidden\"  name=\"motivos["+ cntMotivos +"].descripcion\" value=\""+ $("#motivo").attr("value")  + "\"/>"+"</td>"
 											+ "</tr>");
 					$("#motivo").attr("value","");
 					cnt++;
@@ -45,10 +45,6 @@
 					messages: {
 						"nombre": "Debe ingresar el nombre de escenario",
 						"inicial": "Debe ingresar la inicial"
-					},
-					debug: true,
-					submitHandler: function(form){
-						
 					}
 				});
 			});

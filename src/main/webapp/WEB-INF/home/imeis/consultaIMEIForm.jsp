@@ -1,33 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page import="com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb" %>
+<%@ page errorPage="../error.jsp"%>
+
 <!DOCTYPE html>
 <html lang="es-GB">
-<head></head>
+<head>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" type="text/css" media="screen" />
+	
+	<script type="text/javascript">
+		$(document).ready(function() {//start ready-function
+			
+			$.validator.addMethod("imeiRegExp", function(value, element) {
+				return this.optional(element) || /^[0-9]{14}[a-zA-Z0-9]?$/i.test(value);
+				}, "IMEI incorrecto");
+			
+			$(function(){
+				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_IMEI%>").validate({
+					rules: {
+						"imei": "required imeiRegExp"
+					},
+					messages: {
+						"imei": "El IMEI es incorrecto. Debe tener 15 dígitos"
+					}
+				});
+			});
+			
+		});	//end ready-function
+	</script>
+</head>
 <body>
 	<div class="forms">
 	<h2>${tituloPagina}</h2>
 		
-		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_CONSULTA_IMEI%>">
+		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_IMEI%>">
 			<div>
-				<p><strong><label for="imei">IMEI:</label></strong><form:errors path="imei" cssClass="error"/></p>
-				<p><form:input path="imei"/></p>
 				<p>
-				<input class="ui-corner-all" type="submit" value="Buscar" />
+					<strong><label for="imei">IMEI:</label></strong>
+					<form:input path="imei"/>
+					<form:errors path="imei" cssClass="error"/>
 				</p>
-				<table class="break15px tableBlue">
-					<tr><td>id IMEI</td><td>IMEI</td></tr>
-					<c:forEach items="${consultaIMEI.listaIMEIS}" var="imei" varStatus="status">
-					<tr>
-						<td <c:if test="${ (status.count % 2) == 0}"> class="alt"</c:if> >${imei.idIMEI}</td>
-						<td <c:if test="${ (status.count % 2) == 0}"> class="alt"</c:if> >${imei.ime}</td>
-					</tr>
-					</c:forEach>
-					<c:if test="${empty consultaIMEI.listaIMEIS}">
-						<tr><td colspan="2">No se encontraron coincidencias</td></tr>
-					</c:if>
-				</table>
+				<p>
+					<input class="ui-corner-all" type="submit" value="Buscar" />
+				</p>
+				<c:if test="${listaImei != null}">
+				<div class="ui-jqgrid-view" style="width: 768px; ">
+				
+					<div style="width: 768px; " class="ui-state-default ui-jqgrid-hdiv">
+					<div class="ui-jqgrid-hbox">
+						<table class="ui-jqgrid-htable">
+							<thead>
+								<tr class="ui-jqgrid-labels">
+									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:150px;">IMEI</th>
+									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:150px;">Concepto</th>
+									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:150px;">Fecha Registro</th>
+									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:150px;">Acta</th>
+									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:150px;">Lista</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					</div>
+						
+					<div class="ui-jqgrid-bdiv" style="height: 150px; width: 768px; ">	
+					<div style="position:relative;">	
+						<table class="ui-jqgrid-btable" id="listaMotivos">
+							<tbody>
+								<tr class="jqgfirstrow" style="height:auto">
+									<td style="height:0px;width:150px;"></td>
+									<td style="height:0px;width:150px;"></td>
+									<td style="height:0px;width:150px;"></td>
+									<td style="height:0px;width:150px;"></td>
+									<td style="height:0px;width:150px;"></td>
+								</tr>
+								<c:forEach items="${listaImei}" var="imei" varStatus="status">
+								<tr class="ui-widget-content jqgrow ui-row-ltr">
+									<td>${imei.imei}</td>
+									<td>Concepto(cliente)</td>
+									<td>${imei.fechaRegistro}</td>
+									<td>Acta(Operadora)</td>
+									<td>${imei.tipoLista.descripcion}</td>
+								</tr>
+								</c:forEach>
+								<c:if test="${empty listaImei}">
+									<tr class="ui-widget-content jqgrow ui-row-ltr">
+										<td colspan="5" align="center">No se encontraron coincidencias</td>
+									</tr>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					</div>
+				</div>
+				</c:if>
 			</div>
 		</form:form>
 	</div>

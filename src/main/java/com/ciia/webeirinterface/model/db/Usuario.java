@@ -8,17 +8,17 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 2593607734093240065L;
 	private Integer idUsuario;
-	private String nombre;			
-	private String apellidoPaterno;			
-	private String apellidoMaterno;			
-	private String nombreUsuario;			
-	private String contrasenia;			
-	private String correoElectronico;			
+	private String nombre;
+	private String apellidoPaterno;
+	private String apellidoMaterno;
+	private String nombreUsuario;
+	private String contrasenia;
+	private String correoElectronico;
 	private String area;
 	private PerfilSistema perfilSistema;
 	private Directorio directorio;
 	private Boolean cambioContrasenia;
-	private Boolean activo;			
+	private Boolean activo;
 
 	public Directorio getDirectorio() {
 		return directorio;

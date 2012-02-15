@@ -37,7 +37,11 @@
  </definition>
  
  <definition name="perfilTiles" extends="main-template">
-  <put-attribute name="body" value="/WEB-INF/home/administracion/perfilForm.jsp"/>
+  <put-attribute name="body" value="/WEB-INF/home/administracion/perfilesForm.jsp"/>
+ </definition>
+ 
+  <definition name="usuarioTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/usuariosForm.jsp"/>
  </definition>
  
  <!-- Imeis -->

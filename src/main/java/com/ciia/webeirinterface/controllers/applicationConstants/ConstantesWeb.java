@@ -13,5 +13,6 @@ public final class ConstantesWeb {
 	public static final String CONST_ATTRIBUTE_PERFIL = "perfil";
 	public static final String CONST_ATTRIBUTE_IMEI = "imei";
 	public static final String CONST_ATTRIBUTE_LISTA_IMEI = "listaImei";
-
+	public static final String CONST_JSON_RESPONSE_STATUS_SUCCESS = "success";
+	public static final String CONST_JSON_RESPONSE_STATUS_FAIL = "fail";
 }

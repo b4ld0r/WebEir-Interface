@@ -47,10 +47,6 @@
   <put-attribute name="body" value="/WEB-INF/home/administracion/usuariosForm.jsp"/>
  </definition>
  
- <definition name="usuarioTiles" extends="main-template">
-  <put-attribute name="body" value="/WEB-INF/home/administracion/usuariosForm.jsp"/>
- </definition>
- 
  <!-- Imeis -->
  <definition name="consultaIMEITiles" extends="main-template">
   <put-attribute name="body" value="/WEB-INF/home/imeis/consultaIMEIForm.jsp"/>

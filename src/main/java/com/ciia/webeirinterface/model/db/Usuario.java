@@ -1,10 +1,7 @@
 package com.ciia.webeirinterface.model.db;
 
 import java.io.Serializable;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
-@JsonSerialize(include = Inclusion.NON_NULL)
 public class Usuario implements Serializable {
 	/**
 	 * 

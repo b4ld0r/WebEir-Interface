@@ -53,8 +53,9 @@
 	</script>
 </head>
 <body>
-	<div class="forms">
 	<h2>${tituloPagina}</h2>
+	
+	<div class="forms">
 		
 		<form:form method="POST" modelAttribute="<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>">
 			<div>
@@ -82,7 +83,7 @@
 								<td style="height:0px;width:16px;"></td>
 								<td style="height:0px;width:174px;"></td>
 							</tr>
-							<c:forEach items="${escenario.motivos}" var="motivo" varStatus="status">
+							<c:forEach items="${escenario.motivo}" var="motivo" varStatus="status">
 							<tr class="ui-widget-content jqgrow ui-row-ltr">
 								<td>${status.count}</td>
 								<td>${motivo.descripcion}

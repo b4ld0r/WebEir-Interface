@@ -4,6 +4,9 @@
 	margin-right: auto;
 	width: 750px}
 	
+.hidden{
+	visibility:hidden;}	
+
 .gridCenter{
 	display: table;
 	margin-left: auto;

@@ -22,7 +22,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#accordion").accordion();
-			$("#accordion").removeClass("acordionHidden");
+			$("#accordion").removeClass("hidden");
 		});
 	</script>
 	</c:if>

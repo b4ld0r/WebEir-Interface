@@ -64,6 +64,16 @@ public class PerfilSistema implements Serializable {
 		this.descripcion = descripcion;
 		this.activo = activo;
 	}
+	
+	/**
+	 * @param idPerfilSistema
+	 * @param activo
+	 */
+	public PerfilSistema(Integer id, Boolean activo) {
+		super();
+		this.idPerfilSistema = id;
+		this.activo = activo;
+	}
 
 	/**
 	 * @param idPerfilSistema

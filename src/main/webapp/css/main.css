@@ -75,7 +75,7 @@ img[src*="huawei"]{
 	font-size: 12px;
 	float:left;}
 	
-.acordionHidden{
+.hidden{
 	visibility:hidden;}
 
 #accordion a{

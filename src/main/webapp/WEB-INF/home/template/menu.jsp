@@ -8,7 +8,7 @@
 						<a href="${pageContext.request.contextPath}/inicio/cierreSesion.htm"><strong>Cerrar sesi&oacute;n</strong></a>
 					</div>
 					
-					<div id="accordion" class="acordionHidden"> <!-- #accordion -->
+					<div id="accordion" class="hidden"> <!-- #accordion -->
 						<c:forEach var="modulo" items="${menu}">
 							<h3><a href="${modulo.url}">${modulo.nombre}</a></h3>
 							<div>

@@ -91,8 +91,7 @@
 				  afterSubmit:procesaRespuesta
 				};
 				
-				$("#documentosT")
-				.jqGrid(options);
+				$("#documentosT").jqGrid(options);
 				$("#documentosT").jqGrid(
 					"navGrid",
 					"#documentosP",{
@@ -104,9 +103,7 @@
 									},
 					editOptions,
 					addOptions,
-					delOptions,
-					{},
-					{});
+					delOptions);
 
 			});
 		</script>

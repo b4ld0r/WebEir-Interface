@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -6,9 +7,7 @@
 <html lang="es-GB">
 <head>
 	<meta charset="utf-8"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-1.8.17.custom.css"  type="text/css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css" media="screen" />
 	<title>Login IWEIR</title>
 	
 <style>
@@ -24,54 +23,115 @@
 }
 
 </style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"/>
 
-<script src="${pageContext.request.contextPath}/js/jquery.layout.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js" type="text/javascript"></script>
+
 <script src="${pageContext.request.contextPath}/js/i18n/grid.locale-es.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$.jgrid.no_legacy_api = true;
 	$.jgrid.useJSON = true;
 </script>
 <script src="${pageContext.request.contextPath}/js/jquery.jqGrid.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.layout.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.tablednd.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.contextmenu.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/ui.multiselect.js" type="text/javascript"></script>
-
+<script src="${pageContext.request.contextPath}/js/jqGrid.defaults.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+function asignaIdCorrecto(data){
+	data.idPerfil=data.id;
+}
+	
 jQuery(document).ready(function(){
-	jQuery("#crud").jqGrid({ 
-		url:'${pageContext.request.contextPath}/js/peticion.jsp', 
-		datatype: "json", 
-		colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'], 
-		colModel:[ {name:'id',index:'id', width:55, editable:true, editoptions:{readonly:true}, sorttype:'int'}, 
-			{name:'invdate',index:'invdate', width:90, sorttype:'date', editable:true, editrules:{date:true},formatter:'date', datefmt:'d/m/Y'}, 
-			{name:'name',index:'name asc, invdate', width:100,editable:true}, 
-			{name:'amount',index:'amount', width:80, align:"right",editable:true,editrules:{number:true},sorttype:'number',formatter:'number'}, 
-			{name:'tax',index:'tax', width:80, align:"right",editable:true,editrules:{number:true},sorttype:'number',formatter:'number'}, 
-			{name:'total',index:'total', width:80,align:"right",editable:true,editrules:{number:true},sorttype:'number',formatter:'number'}, 
-			{name:'note',index:'note', width:150, sortable:false,editable:true} ],
-		rowNum:10, 
-		rowTotal: 50, 
-		rowList:[10,20,30], 
-		pager: '#pcrud', 
-		sortname: 'id', 
-		loadonce: true, 
-		viewrecords: true, 
-		sortorder: "desc", 
-		editurl: 'server.php', // this is dummy existing url 
-		caption:"CRUD on Local Data" }); 
-	jQuery("#crud").jqGrid('navGrid','#pcrud',{});
+	var URL = '${pageContext.request.contextPath}/administracion/obtenPerfiles.htm';
+	var URLEdit='${pageContext.request.contextPath}/administracion/editaPerfil.htm';
+	var URLDel='${pageContext.request.contextPath}/administracion/eliminaPerfil.htm';
+	var options = {
+	  url: URL,
+	  editurl: URLEdit,
+	  edit:{closeAfterEdit:true},
+	  colModel:[
+		{
+		  name:'idPerfil', label: 'IdPerfil',
+		  formatter:'integer',
+		  width: 40,
+		  hidden:true,
+		  editable: false,
+		  editoptions: {disabled: true, size:5,NullIfEmpty:true}
+		},{
+		  name:'descripcion',
+		  label: 'Nombre de Perfil',
+		  width: 750,
+		  editable: true,
+		  editrules: {required: true}
+		},{
+		  name:'activo',
+		  label: 'Activo',
+		  formatter: 'checkbox',
+		  width: 40,
+		  hidden:true,
+		  edittype:"checkbox",
+		  editable: false,
+		  editoptions:{value:"true:false",defaultValue:"true"},
+		  editrules: {edithidden:true}
+		}
+	  ],
+	  caption: "Coleccion de Perfiles",
+	  pager : '#perfilesP'
+	  
+	};
+	var procesaRespuesta=function(response, postdata) {
+        	var json = eval('(' + response.responseText + ')');
+        	return [json.status=="success",json.message];
+        }
+
+	var editOptions = {
+		mtype: 'POST',
+		closeAfterEdit:true,
+	    onclickSubmit: function(params, postdata) {
+		params.url = URLEdit;
+	  },afterSubmit:procesaRespuesta,
+	  beforeShowForm: function(form) {
+							   $('#activo', form).show();
+                           }
+	};
+	
+	var procesaRespuesta=function(response, postdata) {
+        	var json = eval('(' + response.responseText + ')');
+        	return [json.status=="success",json.message];
+        }
+	var addOptions = {
+		mtype: "POST",
+		closeAfterAdd:false,
+		clearAfterAdd:true,
+		afterSubmit:procesaRespuesta,
+		beforeShowForm: function(form) {
+							   $('#activo', form).show();
+                           }
+	};
+	var delOptions = {
+		afterSubmit:procesaRespuesta,
+	  onclickSubmit: function(params, postdata) {
+		params.url = URLDel+"?id="+postdata;
+	  }
+	};
+	  
+	$("#perfilesT").jqGrid(options);
+		jQuery("#perfilesT").jqGrid('navGrid','#perfilesP',{view:true,search:false,del:true,add:true,edit:true},addOptions,editOptions,delOptions,{caption: "Usuario",bClose: "Close"});
+
 });
 </script>
 
 </head>
 <body>
 
-	<div id="usuarios">
-		<h2>Perfiles</h2>
+	<div id="perfiles">
+		<h2>${tituloPagina}</h2>
 		
 		
-		<table id="crud"><tr><td>&nbsp;</td></tr></table><div id="pcrud"></div>
+		<table id="perfilesT"></table> <div id="perfilesP"></div>
 	</div>
 	
 </body>

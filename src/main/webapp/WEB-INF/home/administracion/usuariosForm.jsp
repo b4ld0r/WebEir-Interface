@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="es-GB">
 <head>
+	<meta charset="utf-8"/>
+	<title>Login IWEIR</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" />
-	
 	<script src="${pageContext.request.contextPath}/js/i18n/grid.locale-es.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.jqGrid.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.layout.js" type="text/javascript"></script>
@@ -35,13 +37,13 @@
 			},{
 			  name:"nombre",
 			  label: "Nombre",
-			  width: 200,
+			  width: 250,
 			  editable: true,
 			  editrules: {required: true}
 			},{
 			  name:"apellidoPaterno",
 			  label: "Apellido Paterno",
-			  width: 200,
+			  width: 250,
 			  editable: true,
 			  editrules: {required: true}
 			},
@@ -55,9 +57,18 @@
 			},{
 			  name:"nombreUsuario",
 			  label: "Nombre Usuario",
-			  width: 200,
+			  width: 250,
 			  editable: true,
 			  editrules: {required: true}
+			},{
+			  name:"idPerfilSistema",
+			  label: "Perfil",
+			  width: 200,
+			  hidden:true,
+			  editable: true,
+			  edittype:'select',
+			  editoptions: { value: "1:Administrador; 2:Administrador de operación; 3:Auditoría" },
+			  editrules: {edithidden:true,required: true}
 			},{
 			  name:"correoElectronico",
 			  label: "Correo Electronico",
@@ -76,24 +87,33 @@
 			  name:"activo",
 			  label: "Activo",
 			  formatter: "checkbox",
-			  align:'center',
 			  width: 40,
 			  hidden:true,
 			  edittype:"checkbox",
-			  editable: true,
+			  editable: false,
 			  editoptions:{value:"true:false",defaultValue:"true"},
 			  editrules: {edithidden:true}
 			}
 		  ],
-		  caption: "Coleccion de Usuarios",
-		  pager : "#usuariosP",
-		  height: "220"
+		  caption: "",
+		  pager : "#usuariosP"
 		};
 
 		var procesaRespuesta=function(response, postdata) {
 				var json = eval("(" + response.responseText + ")");
 				return [json.status=="success",json.message];
 			}
+			
+		var serializaData=function(data) {
+									if(data.oper=='edit')
+										asignaIdCorrecto(data);
+									data.perfilSistema=new Object();
+									data.perfilSistema.idPerfilSistema=data.idPerfilSistema;
+									delete data.oper;
+									delete data.id;
+									delete data.idPerfilSistema;
+									return JSON.stringify(data);
+								}
 
 		var editOptions = {
 			mtype: "POST",
@@ -104,7 +124,7 @@
 		  beforeShowForm: function(form) {
 								   $("#nombreUsuario",form).attr("readonly","readonly");
 								   $("#activo", form).show();
-							   }
+							   },serializeEditData:serializaData 
 		};
 		var addOptions = {
 			mtype: "POST",
@@ -114,17 +134,17 @@
 			beforeShowForm: function(form) {
 								   $("#nombreUsuario",form).removeAttr("readonly");
 								   $("#activo", form).hide();
-							   }
+							   },serializeEditData:serializaData 
 		};
 		var delOptions = {
+			afterSubmit:procesaRespuesta,
 		  onclickSubmit: function(params, postdata) {
 			params.url = URLDel+"?id="+postdata;
 		  }
 		};
 		  ///////7
 
-		$("#usuariosT")
-			.jqGrid(options);
+		$("#usuariosT").jqGrid(options);
 			jQuery("#usuariosT").jqGrid("navGrid","#usuariosP",{view:true,search:false,del:true,add:true,edit:true},editOptions,addOptions,delOptions,{},{width:350})
 			.jqGrid("navButtonAdd","#usuariosP",{
 			   caption:"", 
@@ -140,10 +160,13 @@
 
 </head>
 <body>
-	<h2>Usuarios</h2>
-	<div id="usuarios">
 
+	<div id="usuarios">
+		<h2>Usuarios</h2>
+		
+		
 		<table id="usuariosT"></table> <div id="usuariosP"></div>
 	</div>
+	
 </body>
 </html>

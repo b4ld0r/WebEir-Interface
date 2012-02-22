@@ -15,7 +15,8 @@ public class Operadora implements Serializable{
 	private String userNameSFTP;			
 	private String contraseniaSFTP;			
 	private String ipSFTP;			
-	private String puertoSFTP;			
+	private String puertoSFTP;	
+	private Date fechaCaducidadSFTP;
 	private String nombreResposable;			
 	private String apellidoPaternoResposable;			
 	private String apellidoMaternoResposable;			
@@ -85,6 +86,14 @@ public class Operadora implements Serializable{
 
 	public void setPuertoSFTP(String puertoSFTP) {
 		this.puertoSFTP = puertoSFTP;
+	}
+
+	public Date getFechaCaducidadSFTP() {
+		return fechaCaducidadSFTP;
+	}
+
+	public void setFechaCaducidadSFTP(Date fechaCaducidadSFTP) {
+		this.fechaCaducidadSFTP = fechaCaducidadSFTP;
 	}
 
 	public String getNombreResposable() {

@@ -1,8 +1,5 @@
 package com.ciia.webeirinterface.controllers.solicitudes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -12,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
-import com.ciia.webeirinterface.model.login.Login;
-import com.ciia.webeirinterface.model.login.Permiso;
+import com.ciia.webeirinterface.model.db.Usuario;
 
 @Controller
 @RequestMapping("4.htm")
@@ -24,26 +20,22 @@ public class N4ombreController {
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
-    	Login loginBean = new Login();
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, loginBean);
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_USUARIO, new Usuario());
 		return this.tilesAsignado;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String processForm(@Valid Login formulario, BindingResult result, ModelMap model) {
-		Login loginBD = null;
-		
-		formulario = (Login) model.get(ConstantesWeb.CONST_ATTRIBUTE_LOGIN);
+	public String processForm(@Valid Usuario form, BindingResult result, ModelMap model) {
 		
 		if (!result.hasErrors()) {
 			//Obtiene Login y valida
-			if (!formulario.getContrasenia().equals(formulario.getUsuario())) {
+			if (!form.getContrasenia().equals(form.getContrasenia())) {
 				result.rejectValue("contrasenia","NotMatch.contrasenia");
 				return tilesAsignado;
 			}
 			
 			
-			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, formulario);
+			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_USUARIO, form);
 			return tilesSiguiente;
 		}
 		

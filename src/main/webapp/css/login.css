@@ -5,18 +5,32 @@
 	margin-left:33%;
 	padding:15px;
 	background-image:url(../img/bgLogin.png);
-	background-repeat:no-repeat;}
+	background-repeat:no-repeat;
+	z-index:0;}
 
 #loginBG h2{
 	color:#FFFFFF;
 	padding-right:100px;
 	text-align:right;}
-	
+
 #loginBG div{
 	color:#CEF6F5;
 	padding-left:95px;}
 	
+#loginBG div.errorBlockLogin{
+	margin-left:15px;
+	margin-right:90px;
+	margin-bottom:5px;
+	padding:4px;
+	font-size:13px;}
+	
 img[src*="lock"]{
-	float:right;
-	margin-right:100px;
-	padding-top:110px;}
+	margin-left:255px;
+	margin-top:82px;
+	position:absolute;}
+	
+input.loginText {
+	display: block;
+	margin-bottom:6px;
+	width:45%;
+	padding: 3px; }

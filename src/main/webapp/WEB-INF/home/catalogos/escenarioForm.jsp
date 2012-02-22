@@ -11,11 +11,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" type="text/css" media="screen" />
 	
 	<script type="text/javascript">
-		var cnt=0;
+		var cntMotivos=0;
 		
 		$(document).ready(function() {//start ready-function
 			
-			cnt=$("#listaMotivos tr").size()-1 ;
+			cntMotivos=$("#listaMotivos tr").size()-1 ;
 			
 			$("#agregarMotivos").click(function() {
 				var regExp = /^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/;
@@ -23,9 +23,9 @@
 				if($("#motivo").val() != '' && regExp.test($("#motivo").val())){
 					
 					$("#listaMotivos tr:last").after("<tr class=\"ui-widget-content jqgrow ui-row-ltr\">"
-											+ "<td>"+ (cnt+1) + "</td>"
+											+ "<td>"+ (cntMotivos+1) + "</td>"
 											+ "<td>"+ $("#motivo").attr("value")
-											+ "<input type=\"hidden\"  name=\"motivos["+ cnt +"].descripcion\" value=\""+ $("#motivo").attr("value")  + "\"/>"+"</td>"
+											+ "<input type=\"hidden\"  name=\"motivos["+ cntMotivos +"].descripcion\" value=\""+ $("#motivo").attr("value")  + "\"/>"+"</td>"
 											+ "</tr>");
 					$("#motivo").attr("value","");
 					cnt++;
@@ -39,16 +39,12 @@
 			$(function(){
 				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>").validate({
 					rules: {
-						"nombre": "required",
+						"descripcion": "required",
 						"inicial": "required"
 					},
 					messages: {
-						"nombre": "Debe ingresar el nombre de escenario",
+						"descripcion": "Debe ingresar el nombre de escenario",
 						"inicial": "Debe ingresar la inicial"
-					},
-					debug: true,
-					submitHandler: function(form){
-						
 					}
 				});
 			});
@@ -63,15 +59,15 @@
 		<form:form method="POST" modelAttribute="<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>">
 			<div>
 				<div id="errores" class="errorblock"></div>
-				<p><strong><label for="nombre">Nombre de escenario:</label></strong><form:errors path="nombre" cssClass="error"/></p>
-				<p><form:input path="nombre"/></p>
+				<p><strong><label for="descripcion">Nombre de escenario:</label></strong><form:errors path="descripcion" cssClass="error"/></p>
+				<p><form:input path="descripcion" class="formText ui-widget-content ui-corner-all"/></p>
 				<p><strong><label for="inicial">Inicial:</label></strong><form:errors path="inicial" cssClass="error"/></p>
-				<p><form:input path="inicial"/></p>
+				<p><form:input path="inicial" class="formText ui-widget-content ui-corner-all"/></p>
 				<fieldset class="fieldsetMenu">
 					<legend>Motivos Asociados</legend>
 					<strong class="break15px"><label>Motivo:</label></strong>
-						<input type="text" id="motivo"/>
-						<input type="button" id="agregarMotivos" class="ui-corner-all"  value="Agregar" />
+						<input type="text" id="motivo" class="formText ui-widget-content ui-corner-all"/>
+						<input type="button" id="agregarMotivos" class="ui-button ui-state-default ui-corner-all ui-state-hover"  value="Agregar" />
 					<table class="ui-jqgrid-htable">
 						<thead>
 							<tr class="ui-jqgrid-labels">
@@ -97,8 +93,8 @@
 					</table>
 				</fieldset>
 				<div class="divOptions">
-				<input class="ui-corner-all" type="submit" value="Registrar" />
-				<input class="ui-corner-all" type="button" value="Cancelar" id="cancelar"/>
+				<input class="ui-button ui-state-default ui-corner-all ui-state-hover" type="submit" value="Registrar" />
+				<input class="ui-button ui-state-default ui-corner-all ui-state-hover" type="button" value="Cancelar" id="cancelar"/>
 				</div>				
 			</div>
 		</form:form>

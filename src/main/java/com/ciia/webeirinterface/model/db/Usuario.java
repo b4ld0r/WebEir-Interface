@@ -140,4 +140,12 @@ public class Usuario implements Serializable {
 		this.correoElectronico = correoElectronico;
 		this.area = area;
 	}
+
+	/**
+	 * @param idUsuario
+	 */
+	public Usuario(Integer idUsuario) {
+		super();
+		this.idUsuario = idUsuario;
+	}
 }

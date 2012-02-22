@@ -2,16 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ciia.webeirinterface.model.db.Bitacora">
-	<select id="getListaBitacora" resultType="Bitacora">
+	<select id="getListaBitacora" resultMap="rBitacoraSelect">
 		SELECT
-			idBitacora,
-			fecha,			
-			hora,			
-			campo,			
-			idAccion,		
-			idModuloSistema,		
-			idUsuario		
-		FROM BITACORA
+			B.idBitacora,
+			B.fecha,			
+			B.hora,			
+			B.campo,			
+			B.idAccion,		
+			B.idModuloSistema,		
+			B.idUsuario,
+			A.descripcion AS Adescripcion,
+			M.descripcion AS Mdescripcion,
+			M.activo AS Mactivo,
+			U.nombre AS Unombre,
+			U.apellidoPaterno AS UapellidoPaterno,
+			U.apellidoMaterno AS UapellidoMaterno,
+			U.nombreUsuario AS UnombreUsuario,
+			U.area AS Uarea,
+			U.activo AS Uactivo
+		FROM BITACORA AS B
+		INNER JOIN ACCION AS A
+		ON A.idAccion = B.idAccion
+		INNER JOIN MODULO_SISTEMA AS M
+		ON M.idModuloSistema = B.idModuloSistema
+		INNER JOIN USUARIO AS U
+		ON U.idUsuario = B.idUsuario
+		ORDER BY idBitacora ASC
 	</select>
 	<select id="getBitacora" parameterType="Bitacora" resultType="Bitacora">
 		SELECT
@@ -35,7 +51,7 @@
 			idUsuario = #{idUsuario}
 		WHERE idBitacora = #{idBitacora}
 	</update>
-	<insert id="insertBitacora" parameterType="Bitacora" keyProperty="idBitacora">
+	<insert id="insertBitacora" parameterMap="pBitacoraInsert" keyProperty="idBitacora">
 		INSERT INTO BITACORA
 			(fecha,			
 			hora,			
@@ -51,4 +67,39 @@
 			#{idModuloSistema},		
 			#{idUsuario})
 	</insert>
+	
+	<parameterMap type="Bitacora" id="pBitacoraInsert">
+		<parameter property="idBitacora" javaType="Integer" jdbcType="BIGINT" mode="OUT"/>
+		<parameter property="fecha" javaType="Date" jdbcType="DATE" mode="IN"/>
+		<parameter property="hora" javaType="Date" jdbcType="TIME" mode="IN"/>
+		<parameter property="campo" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="idAccion" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idModuloSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idUsuario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
+	
+	<resultMap type="Bitacora" id="rBitacoraSelect">
+		<result property="idBitacora" column="idBitacora"/>
+		<result property="fecha" column="fecha"/>
+		<result property="hora" column="hora"/>
+		<result property="campo" column="campo"/>
+		<association property="accion" column="idAccion" javaType="Accion">
+			<id property="idAccion" column="idAccion"/>
+			<result property="descripcion" column="Adescripcion"/>
+		</association>
+		<association property="usuario" column="idUsuario" javaType="Usuario">
+			<id property="idUsuario" column="idUsuario"/>
+			<result property="nombre" column="Unombre"/>
+			<result property="apellidoPaterno" column="UapellidoPaterno"/>
+			<result property="apellidoMaterno" column="UapellidoMaterno"/>
+			<result property="nombreUsuario" column="UnombreUsuario"/>
+			<result property="area" column="Uarea"/>
+			<result property="activo" column="Uactivo"/>
+		</association>
+		<association property="moduloSistema" column="idModuloSistema" javaType="ModuloSistema">
+			<id property="idModuloSistema" column="idModuloSistema"/>
+			<result property="descripcion" column="Mdescripcion"/>
+			<result property="activo" column="Mactivo"/>
+		</association>
+	</resultMap>
 </mapper>

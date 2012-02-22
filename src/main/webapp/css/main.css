@@ -7,8 +7,8 @@ html,body {
 	outline: 0;
 	background: #014F91;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-	color: #666;
 	font-size: 14px;
+	color: #666;
 	line-height: 18px;
 	height:99%;}
 	
@@ -74,6 +74,9 @@ img[src*="huawei"]{
 	width: 225px;
 	font-size: 12px;
 	float:left;}
+	
+.hidden{
+	visibility:hidden;}
 
 #accordion a{
 	text-decoration:none;}

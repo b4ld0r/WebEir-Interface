@@ -8,7 +8,8 @@
 			imei,			
 			idTipoLista,		
 			fechaRegistro,			
-			fechaModificacion			
+			fechaModificacion,
+			concepto			
 		FROM IMEI
 	</select>
 	<select id="getImei" parameterType="Imei" resultType="Imei">
@@ -17,7 +18,8 @@
 			imei,			
 			idTipoLista,		
 			fechaRegistro,			
-			fechaModificacion			
+			fechaModificacion,
+			concepto			
 		FROM IMEI
 		WHERE idImei = #{idImei}
 	</select>
@@ -26,7 +28,8 @@
 		SET imei = #{imei},			
 			idTipoLista = #{idTipoLista},		
 			fechaRegistro = #{fechaRegistro},			
-			fechaModificacion = #{fechaModificacion}
+			fechaModificacion = #{fechaModificacion},
+			concepto = #{concepto}
 		WHERE idImei = #{idImei}
 	</update>
 	<insert id="insertImei" parameterType="Imei" keyProperty="idImei">
@@ -34,12 +37,14 @@
 			(imei,			
 			idTipoLista,		
 			fechaRegistro,			
-			fechaModificacion)
+			fechaModificacion,
+			concepto)
 		VALUES
 			(#{imei},			
 			#{idTipoLista},		
 			#{fechaRegistro},			
-			#{fechaModificacion})
+			#{fechaModificacion},
+			#{concepto})
 	</insert>
 	<select id="consultaIMEI" parameterType="Imei" resultMap="rConsultaImei">
 		SELECT
@@ -48,10 +53,15 @@
 			I.idTipoLista,		
 			I.fechaRegistro,			
 			I.fechaModificacion,
-			T.descripcion AS Tdescripcion		
+			I.concepto,
+			T.descripcion AS Tdescripcion,
+			O.nombre AS Ooperadora		
 		FROM IMEI AS I
 		INNER JOIN TIPO_LISTA AS T
 		ON T.idTipoLista = I.idTipoLista
+		INNER JOIN OPERADORA AS O
+		ON O.idOperadora = (SELECT idOperadora FROM OPERADORA_SOLICITUD 
+			WHERE idSolicitud = (SELECT idSolicitud FROM SOLICITUD_IMEI WHERE idImei = I.idImei)) 
 		WHERE imei = #{imei}
 	</select>
 	
@@ -60,6 +70,8 @@
 		<result property="imei" column="imei"/>
 		<result property="fechaRegistro" column="fechaRegistro"/>
 		<result property="fechaModificacion" column="fechaModificacion"/>
+		<result property="concepto" column="concepto"/>
+		<result property="operadora" column="Ooperadora"/>
 		<association property="tipoLista" column="idTipoLista" javaType="TipoLista">
 			<id property="idTipoLista" column="idTipoLista"/>
 			<result property="descripcion" column="Tdescripcion"/>

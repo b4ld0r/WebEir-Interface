@@ -27,8 +27,7 @@
 	</select>
 	<update id="updatePerfilSistema" parameterType="PerfilSistema">
 		UPDATE PERFIL_SISTEMA
-		SET descripcion = #{descripcion},			
-			activo = #{activo}
+		SET descripcion = #{descripcion}
 		WHERE idPerfilSistema = #{idPerfilSistema}
 	</update>
 	<insert id="insertPerfilSistema" parameterType="PerfilSistema" keyProperty="idPerfilSistema">
@@ -48,4 +47,10 @@
 		WHERE idPerfilSistema 
 		IN (SELECT idPerfilSistema FROM PERFIL_SISTEMA_USUARIO WHERE idUsuario = #{idUsuario})
 	</select>
+	<update id="borradoLogico" parameterType="PerfilSistema">
+		UPDATE PERFIL_SISTEMA
+		SET activo = #{activo}
+		WHERE idPerfilSistema = #{idPerfilSistema}
+	</update>
+	
 </mapper>

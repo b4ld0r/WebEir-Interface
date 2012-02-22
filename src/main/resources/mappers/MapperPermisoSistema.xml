@@ -5,14 +5,16 @@
 	<select id="getCatPermisoSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,			
+			descripcion,
+			idModuloSistema,			
 			activo			
 		FROM PERMISO_SISTEMA	
 	</select>
 	<select id="getListaPermisoSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,			
+			descripcion,	
+			idModuloSistema,		
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE activo = TRUE
@@ -20,32 +22,38 @@
 	<select id="getPermisoSistema" parameterType="PermisoSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,			
+			descripcion,	
+			idModuloSistema,		
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE idPermisoSistema = #{idPermisoSistema}
 	</select>
 	<update id="updatePermisoSistema" parameterType="PermisoSistema">
 		UPDATE PERMISO_SISTEMA
-		SET descripcion = #{descripcion},			
+		SET descripcion = #{descripcion},
+			idModuloSistema = #{idModuloSistema},		
 			activo = #{activo}
 		WHERE idPermisoSistema = #{idPermisoSistema}
 	</update>
 	<insert id="insertPermisoSistema" parameterType="PermisoSistema" keyProperty="idPermisoSistema">
 		INSERT INTO PERMISO_SISTEMA
-			(descripcion,			
+			(descripcion,
+			idModuloSistema,			
 			activo)
 		VALUES
-			(#{descripcion},			
+			(#{descripcion},
+			#{idModuloSistema},			
 			#{activo})
 	</insert>
 	<select id="permisoPerfil" parameterType="PerfilSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,			
+			descripcion,
+			idModuloSistema,			
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE idPermisoSistema
 		IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
+		ORDER BY idPermisoSistema,idModuloSistema ASC
 	</select>
 </mapper>

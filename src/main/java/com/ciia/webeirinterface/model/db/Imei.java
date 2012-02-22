@@ -13,6 +13,8 @@ public class Imei implements Serializable{
 	private TipoLista tipoLista;		
 	private Date fechaRegistro;			
 	private Date fechaModificacion;
+	private String concepto;
+	private String operadora;
 
 	public Integer getIdImei() {
 		return idImei;
@@ -52,6 +54,22 @@ public class Imei implements Serializable{
 
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getConcepto() {
+		return concepto;
+	}
+
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
+	}
+
+	public String getOperadora() {
+		return operadora;
+	}
+
+	public void setOperadora(String operadora) {
+		this.operadora = operadora;
 	}
 
 	public Imei() {

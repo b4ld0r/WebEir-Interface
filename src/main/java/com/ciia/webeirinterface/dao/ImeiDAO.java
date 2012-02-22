@@ -10,7 +10,7 @@ public class ImeiDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Imei consultaPorImei(Imei imei) throws Exception {
+	public Imei consultarPorImei(Imei imei) throws Exception {
 		AccesoIbatis ibatis = new AccesoIbatis();
 		
 		try {
@@ -22,6 +22,7 @@ public class ImeiDAO {
 			return resultadoImei == null ? null : resultadoImei;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			throw new Exception("Error al obtener el IMEI. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();

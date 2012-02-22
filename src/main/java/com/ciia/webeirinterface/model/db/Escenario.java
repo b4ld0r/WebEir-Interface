@@ -58,10 +58,18 @@ public class Escenario implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Escenario(Integer idEscenario, String descripcion, String inicial) {
+	public Escenario(String descripcion, String inicial, Boolean activo) {
 		super();
-		this.idEscenario = idEscenario;
 		this.descripcion = descripcion;
 		this.inicial = inicial;
+		this.activo = activo;
+	}
+
+	/**
+	 * @param idEscenario
+	 */
+	public Escenario(Integer idEscenario) {
+		super();
+		this.idEscenario = idEscenario;
 	}
 }

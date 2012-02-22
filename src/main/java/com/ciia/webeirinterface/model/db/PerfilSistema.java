@@ -10,7 +10,7 @@ public class PerfilSistema implements Serializable {
 	private static final long serialVersionUID = -2908007777397479947L;
 	private Integer idPerfilSistema;
 	private String descripcion;
-	private List<PermisoSistema> permisoSistema;
+	private List<ModuloSistema> moduloSistema;
 	private Boolean activo;			
 
 	public PerfilSistema() {
@@ -33,12 +33,12 @@ public class PerfilSistema implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
-	public List<PermisoSistema> getPermisoSistema() {
-		return permisoSistema;
+	public List<ModuloSistema> getModuloSistema() {
+		return moduloSistema;
 	}
 
-	public void setPermisoSistema(List<PermisoSistema> permisoSistema) {
-		this.permisoSistema = permisoSistema;
+	public void setModuloSistema(List<ModuloSistema> moduloSistema) {
+		this.moduloSistema = moduloSistema;
 	}
 
 	public Boolean getActivo() {
@@ -53,5 +53,33 @@ public class PerfilSistema implements Serializable {
 		super();
 		this.idPerfilSistema = idPerfilSistema;
 		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * @param descripcion
+	 * @param activo
+	 */
+	public PerfilSistema(String descripcion, Boolean activo) {
+		super();
+		this.descripcion = descripcion;
+		this.activo = activo;
+	}
+	
+	/**
+	 * @param idPerfilSistema
+	 * @param activo
+	 */
+	public PerfilSistema(Integer id, Boolean activo) {
+		super();
+		this.idPerfilSistema = id;
+		this.activo = activo;
+	}
+
+	/**
+	 * @param idPerfilSistema
+	 */
+	public PerfilSistema(Integer idPerfilSistema) {
+		super();
+		this.idPerfilSistema = idPerfilSistema;
 	}
 }

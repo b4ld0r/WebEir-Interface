@@ -7,6 +7,7 @@ public class Accion implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5879676693064241309L;
+
 	private Integer idAccion;
 	private String descripcion;				
 
@@ -34,5 +35,13 @@ public class Accion implements Serializable {
 		super();
 		this.idAccion = idAccion;
 		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * @param idAccion
+	 */
+	public Accion(Integer idAccion) {
+		super();
+		this.idAccion = idAccion;
 	}
 }

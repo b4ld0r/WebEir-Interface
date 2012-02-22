@@ -27,6 +27,9 @@
  </definition>
  
  <!-- Catalogos -->
+ <definition name="documentoTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/catalogos/documentosForm.jsp"/>
+ </definition>
  <definition name="escenarioTiles" extends="main-template">
   <put-attribute name="body" value="/WEB-INF/home/catalogos/escenarioForm.jsp"/>
  </definition>

@@ -16,7 +16,7 @@
 			activo	
 		FROM USUARIO
 	</select>
-	<select id="getListaUsuario" resultType="Usuario">
+	<select id="getListaUsuario" resultType="Usuario" parameterMap="pUsuarioFiltro">
 		SELECT 
 			idUsuario,
 			nombre,			
@@ -30,6 +30,14 @@
 			activo	
 		FROM USUARIO
 		WHERE activo = TRUE
+		<if test="columnas neq ''">
+			ORDER BY ${columnas}
+		</if>
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
 	</select>
 	<select id="getUsuario" parameterType="Usuario" resultType="Usuario">
 		SELECT 
@@ -51,8 +59,6 @@
 		SET nombre = #{nombre},			
 			apellidoPaterno = #{apellidoPaterno},			
 			apellidoMaterno = #{apellidoMaterno},			
-			nombreUsuario = #{nombreUsuario},			
-			contrasenia = #{contrasenia},			
 			correoElectronico = #{correoElectronico},			
 			area = #{area},	
 			cambioContrasenia = #{cambioContrasenia},		
@@ -103,4 +109,43 @@
 			cambioContrasenia = TRUE
 		WHERE idUsuario = #{idUsuario}
 	</update>
+	<select id="validaNombre" parameterType="Usuario" resultType="Usuario">
+		SELECT 
+			idUsuario,
+			nombre,			
+			apellidoPaterno,			
+			apellidoMaterno,			
+			nombreUsuario,			
+			contrasenia,			
+			correoElectronico,			
+			area,
+			cambioContrasenia,			
+			activo	
+		FROM USUARIO		
+		WHERE nombreUsuario = #{nombreUsuario}
+	</select>
+	<insert id="insertPerfilUsuario" parameterMap="pUsuarioPerfil">
+		INSERT INTO PERFIL_SISTEMA_USUARIO
+			(idUsuario,
+			idPerfilSistema)
+		VALUES
+			(#{idUsuario},
+			#{idPerfilSistema})
+	</insert>
+	<update id="borradoLogico" parameterType="Usuario">
+		UPDATE USUARIO
+		SET activo = #{activo}
+		WHERE idUsuario = #{idUsuario}
+	</update>
+	
+	<parameterMap type="Usuario" id="pUsuarioFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="columnas" javaType="String" jdbcType="NCHAR" mode="IN"/>
+	</parameterMap>
+	
+	<parameterMap type="Usuario" id="pUsuarioPerfil">
+		<parameter property="idUsuario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idPerfilSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
 </mapper >

@@ -31,8 +31,7 @@
 	<update id="updateEscenario" parameterType="Escenario">
 		UPDATE ESCENARIO
 		SET descripcion = #{descripcion},			
-			inicial = #{inicial},			
-			activo = #{activo}
+			inicial = #{inicial}
 		WHERE idEscenario = #{idEscenario} 
 	</update>
 	<insert id="insertEscenario" parameterType="Escenario" keyProperty="idEscenario">
@@ -45,4 +44,22 @@
 			#{inicial},			
 			#{activo})
 	</insert>
+	<insert id="insertEscenarioMotivo" parameterMap="pEscenarioMotivo">
+		INSERT INTO ESCENARIO_MOTIVO
+			(idEscenario,
+			idMotivo)
+		VALUES
+			(#{idEscenario},
+			#{idMotivo})
+	</insert>
+	<update id="borradoLogico" parameterType="Escenario">
+		UPDATE ESCENARIO
+		SET activo = #{activo}
+		WHERE idEscenario = #{idEscenario} 
+	</update>
+	
+	<parameterMap type="Escenario" id="pEscenarioMotivo">
+		<parameter property="idEscenario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idMotivo" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
 </mapper>

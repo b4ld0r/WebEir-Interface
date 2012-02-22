@@ -20,7 +20,7 @@ public class N4ombreController {
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, new Usuario());
+		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_USUARIO, new Usuario());
 		return this.tilesAsignado;
 	}
 
@@ -35,7 +35,7 @@ public class N4ombreController {
 			}
 			
 			
-			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, form);
+			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_USUARIO, form);
 			return tilesSiguiente;
 		}
 		

@@ -32,18 +32,17 @@
 	</script>
 </head>
 <body>
-	<div class="forms">
 	<h2>${tituloPagina}</h2>
-		
+	<div class="forms">	
 		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_IMEI%>">
 			<div>
 				<p>
 					<strong><label for="imei">IMEI:</label></strong>
-					<form:input path="imei"/>
+					<form:input path="imei" class="formText ui-widget-content ui-corner-all"/>
 					<form:errors path="imei" cssClass="error"/>
 				</p>
 				<p>
-					<input class="ui-corner-all" type="submit" value="Buscar" />
+					<input class="ui-button ui-state-default ui-corner-all ui-state-hover" type="submit" value="Buscar" />
 				</p>
 				<c:if test="${listaImei != null}">
 				<div class="ui-jqgrid-view" style="width: 768px; ">

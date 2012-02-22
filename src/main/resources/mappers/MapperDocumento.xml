@@ -31,8 +31,7 @@
 	<update id="updateDocumento" parameterType="Documento">
 		UPDATE DOCUMENTO
 		SET descripcion = #{descripcion},			
-			obligatorio = #{obligatorio},			
-			activo = #{activo}
+			obligatorio = #{obligatorio}
 		WHERE idDocumento = #{idDocumento}
 	</update>
 	<insert id="insertDocumento" parameterType="Documento" keyProperty="idDocumento">
@@ -45,4 +44,9 @@
 			#{obligatorio},			
 			#{activo})
 	</insert>
+	<update id="borradoLogico" parameterType="Documento">
+		UPDATE DOCUMENTO
+		SET activo = #{activo}
+		WHERE idDocumento = #{idDocumento}
+	</update>
 </mapper>

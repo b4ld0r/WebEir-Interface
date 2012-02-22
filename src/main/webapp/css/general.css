@@ -1,5 +1,11 @@
 .forms{
-	width:930px;
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	width: 750px}
+	
+.gridCenter{
+	display: table;
 	margin-left: auto;
 	margin-right: auto;}
 
@@ -13,14 +19,28 @@
 .divOptions{
 	clear:left;
 	padding-top: 15px;}
-	
-.error {
-	color: #000;
+
+input.formText{
+	width: 200px;
+	display: block;
+	margin-top: 6px;
+	margin-bottom:6px;
+	padding: 3px;
+}
+
+label.error {
+	color: black;
+	font-size:12px;
+	font-style: italic;
+	background-color: #FEE;
+	padding: 2px;
+	border: 1px solid #FE2E2E;}
+
+input.error {
 	background-color: #ffEEEE;
-	border: 1px solid #ff0000;
-	padding-left:4px;
-	padding-right:4px;}
-	
+	border: 1px dotted red;
+	border-image: initial;}
+
 .errorBlock{
 	color: #000;
 	background-color: #ffEEEE;
@@ -49,3 +69,4 @@
 .tableBlue td.alt{
 	background: #F5FAFA;
 	color: #797268;}
+

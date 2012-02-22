@@ -42,7 +42,7 @@ public class ConsultaIMEIController {
 			try{
 				
 				ImeiDAO imeiDao = new ImeiDAO();
-				Imei imeiConsulta = imeiDao.consultaPorImei(form);
+				Imei imeiConsulta = imeiDao.consultarPorImei(form);
 				listaIMEI = new ArrayList<Imei>();
 
 				if(imeiConsulta != null){

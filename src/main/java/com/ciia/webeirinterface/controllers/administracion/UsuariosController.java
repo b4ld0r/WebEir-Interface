@@ -1,12 +1,16 @@
 package com.ciia.webeirinterface.controllers.administracion;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
+import com.ciia.webeirinterface.dao.UsuarioDAO;
 import com.ciia.webeirinterface.model.db.Usuario;
 import com.ciia.webeirinterface.model.json.PaginaGrid;
-import com.ciia.webeirinterface.model.json.RespuestaEditJson;
+import com.ciia.webeirinterface.model.json.RespuestaJson;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +20,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/usuario/")
+@RequestMapping("/administracion/")
 public class UsuariosController {
 	
 	private final String tilesAsignado = "usuarioTiles";
 	
+	private List<Usuario> listaDummy ;
+	
+	{
+		this.listaDummy= dameusuaList();
+	}
+	
+	private UsuarioDAO usuarioDAO=new UsuarioDAO();
+	
     @RequestMapping(value="usuarios.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
+    	
 		return this.tilesAsignado;
 	}
 	
@@ -31,39 +44,94 @@ public class UsuariosController {
 	 public @ResponseBody PaginaGrid<Usuario> listBooks(
       @RequestParam(value = "page", required = false, defaultValue = "1") int page,
       @RequestParam(value = "max", required = false, defaultValue = "20") int max) {
-		List<Usuario> usuarios=new ArrayList<Usuario>();
-		
-		usuarios.add(new Usuario(1, "Débora", "Melo", "Alegria", "lalala", "leelle", "agluno@domain.com", "Otra"));
-		usuarios.add(new Usuario(2, "Nombre", "Jejej", "Alegria", "lalal0", "leelle", "agluno@domain.com", "Otra"));
-		usuarios.add(new Usuario(3, "Otro", "Asl", "Alegria", "lalale", "leelle", "agluno@domain.com", "Otra"));
-		usuarios.add(new Usuario(4, "Lelo", "Lero", "Alegria", "lalali", "leelle", "agluno@domain.com", "Otra"));
-		usuarios.add(new Usuario(5, "Lalo", "aalala", "Alegria", "lalalu", "leelle", "agluno@domain.com", "Otra"));
-		
-		return new PaginaGrid(usuarios, page, usuarios.size(), max);
+		try {
+			//List<Usuario> usuarios=usuarioDAO.consultarUsuarios(cursor, registros, columnas)();
+			List<Usuario> usuarios= this.listaDummy;
+			return new PaginaGrid<Usuario>(usuarios.subList(max*(page-1), (max*page)>usuarios.size()?usuarios.size():(max*page)), page, usuarios.size(), max);
+		} catch (Exception ex) {
+			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return new PaginaGrid<Usuario>();
 	}
 	
 	@RequestMapping(value="editaUsuario.htm",method = {RequestMethod.PUT, RequestMethod.POST})
-	public @ResponseBody RespuestaEditJson editaUsuario(@RequestBody Usuario usuario) {
+	public @ResponseBody RespuestaJson editaUsuario(@RequestBody Usuario usuario) {
 		
-		RespuestaEditJson respuesta=new RespuestaEditJson();
-		System.out.println("******************************************");
-		System.out.println((usuario!=null?usuario+" "+usuario.getNombreCompleto():"No llegó D:"));
+		RespuestaJson respuesta=new RespuestaJson();
 		
-		respuesta.setMessage("Operación realizada");
-		respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+		try {
+			if(usuario.getIdUsuario()==null){
+				usuario.setContrasenia(usuario.getNombreUsuario());
+				if(usuarioDAO.insertarUsuario(usuario)!=null){
+					respuesta.setMessage("El usuario ha sido creado correctamente.");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+				}else{
+					respuesta.setMessage("Ocurrió un error al insertar el usuario");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+				}
+			}else{
+				if(usuarioDAO.actualizarUsuario(usuario)){
+					respuesta.setMessage("La información ha sido guardada correctamente.");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+				}else{
+					respuesta.setMessage("Ocurrió un error al editar al usuario");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+				}
+			}
+		} catch (com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException ex) {
+			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+			respuesta.setMessage("El nombre de usuario asignado ya existe");
+			respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+		}catch (Exception ex) {
+			Logger.getLogger(ex.getClass().getName());
+			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+			respuesta.setMessage("Ocurrió un error al insertar el usuario:"+ex.getMessage());
+			respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+		}
 		return respuesta;
 	}
 	
 	@RequestMapping(value="eliminaUsuario.htm",method = RequestMethod.POST)
-	public @ResponseBody RespuestaEditJson eliminaUsuario(@RequestParam(value = "id", required = true) int id) {
+	public @ResponseBody RespuestaJson eliminaUsuario(@RequestParam(value = "id", required = true) int id) {
+		RespuestaJson respuesta=new RespuestaJson();
+		Usuario usuario=null;
+		try {
+			//usuario = usuarioDAO.usuarioPorId(new Usuario(id, null, null, null, null, null, null, null));
+			usuario = this.listaDummy.get(0);
+			if(usuario!=null){
+				if(usuario.getActivo()){
+					usuario.setActivo(Boolean.FALSE);
+					usuarioDAO.actualizarUsuario(usuario);
+				}
+				respuesta.setMessage("La información ha sido guardada correctamente.");
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+			}else{
+				respuesta.setMessage("No exite el usuario.");
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+			}
+		} catch (Exception ex) {
+			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+			respuesta.setMessage("Ocurrió una excepcion: "+ex.getMessage());
+			respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+		}
 		
-		RespuestaEditJson respuesta=new RespuestaEditJson();
-		System.out.println("******************************************");
-		System.out.println(id+"    lalala");
 		
-		respuesta.setMessage("Operación realizada");
-		respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+		
 		return respuesta;
 	}
+	
+	private List<Usuario> dameusuaList(){
+		  List<Usuario> usuarios= new ArrayList<Usuario>();//usuarioDAO.listaUsuarios();
+		   usuarios.add(new Usuario(1, "Nombre", "Apellido", "Apellido", "nombreUs", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(2, "Nombre1", "Apellido1", "Apellido1", "nombreUs1", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(3, "Nombre2", "Apellido2", "Apellido2", "nombreUs2", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(4, "Nombre3", "Apellido3", "Apellido3", "nombreUs3", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(5, "Nombre4", "Apellido4", "Apellido4", "nombreUs4", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(6, "Nombre5", "Apellido5", "Apellido5", "nombreUs5", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(7, "Nombre6", "Apellido6", "Apellido6", "nombreUs6", "", "adasd@dfalsd.com", "alguna"));
+		   usuarios.add(new Usuario(8, "Nombre7", "Apellido7", "Apellido7", "nombreUs7", "", "adasd@dfalsd.com", "alguna"));
+		  for(Usuario us:usuarios) us.setActivo(Boolean.TRUE);
+		  return usuarios;
+		 }
 	
 }

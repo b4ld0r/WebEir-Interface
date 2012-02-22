@@ -1,12 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <%@ page import="com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb" %> 
+<%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
 <html lang="es-GB">
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css" media="screen" />
-	<style type="text/css">
+	
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			$(function(){
+				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_USUARIO%>").validate({
+					rules: {
+						"nombreUsuario": "required",
+						"contrasenia": "required"
+					},
+					messages: {
+						"nombreUsuario": "El campo usuario es obligatorio",
+						"contrasenia": "El campo contraseña es obligatorio"
+					}
+				});
+			});
+			
+		});
+	</script>
+	
+
+	
+</head>
+<body>
+
+	<div id="loginBG">
+		<h2>${tituloPagina}</h2>
+		
+		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_USUARIO%>">
+			<form:errors path="*" cssClass="errorBlockLogin ui-state-error ui-corner-all" element="div"/>
+			<div>
+				<img src="${pageContext.request.contextPath}/img/lock.png">
+				<strong>Usuario:</strong>
+				<br/><form:input path="nombreUsuario" class="loginText ui-widget-content ui-corner-all"/>
+				<p><strong>Contrase&ntilde;a:</strong>
+				<br/><form:password path="contrasenia" class="loginText ui-widget-content ui-corner-all"/></p>
+				<p><input class="ui-button ui-state-default ui-corner-all ui-state-hover" type="submit" value="Entrar" /></p>
+			</div>
+			
+		</form:form>
+		
+	</div>
+<!--
+<div class="demo">
+
+<div id="dialog-form" title="Create new user">
+	<p class="validateTips">All form fields are required.</p>
+
+	<form>
+	<fieldset>
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+		<label for="email">Email</label>
+		<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+<style type="text/css">
 		label, input { display:block; }
 		input.text { margin-bottom:12px; width:95%; padding: .4em; }
 		fieldset { padding:0; border:0; margin-top:25px; }
@@ -19,28 +82,7 @@
 
 		
 	</style>
-	
-	
-	<script type="text/javascript">
-		
-		$(document).ready(function() {//start ready-function
-			
-			$(function(){
-				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_LOGIN%>").validate({
-					rules: {
-						"nombreUsuario": "required",
-						"contrasenia": "required"
-					},
-					messages: {
-						"nombreUsuario": "El campo usuario es obligatorio",
-						"contrasenia": "El campo contraseña es obligatorio"
-					}
-				});
-			});
-			
-		});	//end ready-function
-	</script>
-	<script>
+<script>
 	$(function() {
 		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
@@ -126,44 +168,6 @@
 	});
 	</script>
 
-	
-</head>
-<body>
-
-	<div id="loginBG">
-		<h2>${tituloPagina}</h2>
-		
-		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_LOGIN%>">
-			<div>
-				<img src="${pageContext.request.contextPath}/img/lock.png">
-				<p><strong>Usuario:</strong><form:errors path="nombreUsuario" cssClass="ui-state"/></p>
-				<p><form:input path="nombreUsuario"/></p>
-				<p><strong>Contrase&ntilde;a:</strong><form:errors path="contrasenia" cssClass="error"/></p>
-				<p><form:password path="contrasenia"/></p>
-				<p><input class="ui-corner-all" type="submit" value="Entrar" /></p>
-			</div>
-		</form:form>
-		
-	</div>
-
-<div class="demo">
-
-<div id="dialog-form" title="Create new user">
-	<p class="validateTips">All form fields are required.</p>
-
-	<form>
-	<fieldset>
-		<label for="name">Name</label>
-		<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-		<label for="email">Email</label>
-		<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
-		<label for="password">Password</label>
-		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-	</fieldset>
-	</form>
-</div>
-
-
 <div id="users-contain" class="ui-widget">
 	<h1>Existing Users:</h1>
 	<table id="users" class="ui-widget ui-widget-content">
@@ -185,13 +189,8 @@
 </div>
 <button id="create-user">Create new user</button>
 
-</div><!-- End demo -->
-
-
-
-<div class="demo-description">
-<p>Use a modal dialog to require that the user enter data during a multi-step process.  Embed form markup in the content area, set the <code>modal</code> option to true, and specify primary and secondary user actions with the <code>buttons</code> option.</p>
-</div><!-- End demo-description -->	
+</div>
+-->
 	
 </body>
 </html>

@@ -19,17 +19,17 @@
 			$(function(){
 				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA%>").validate({
 					rules: {
-						"actual": "required",
-						"nueva": "required",
-						"confirmacionNueva":{
+						"contraseniaActual": "required",
+						"contraseniaNueva": "required",
+						"confirmaContraseniaNueva":{
 											required:true,
 											equalTo:"#nueva"
 						},
 					},
 					messages: {
-						"actual": "El campo contraseña es obligatorio",
-						"nueva": "El campo de nueva contraseña es obligatorio",
-						"confirmacionNueva":{
+						"contraseniaActual": "El campo contraseña es obligatorio",
+						"contraseniaNueva": "El campo de nueva contraseña es obligatorio",
+						"confirmaContraseniaNueva":{
 											required:"El campo de confirmación de contraseña es obligatorio",
 											equalTo:"Las contraseñas no coinciden, verifique y vuelva a intentarlo"
 						}
@@ -41,20 +41,19 @@
 	</script>
 </head>
 <body>
-	<div class="forms">
 	<h2>${tituloPagina}</h2>
-		
+	<div class="forms">	
 		<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA%>">
 			<div>
-				<p><strong><label for="actual">Contrase&ntilde;a anterior:</label></strong></p>
-				<p><form:input path="actual"/><form:errors path="actual" cssClass="error"/></p>
-				<p><strong><label for="nueva">Nueva Contrase&ntilde;a:</label></strong></p>
-				<p><form:input path="nueva"/><form:errors path="nueva" cssClass="error"/></p>
-				<p><strong><label for="confirmacionNueva">Confirmar nueva Contrase&ntilde;a:</label></strong></p>
-				<p><form:input path="confirmacionNueva"/><form:errors path="confirmacionNueva" cssClass="error"/></p>
+				<p><strong><label for="contraseniaActual">Contrase&ntilde;a anterior:</label></strong></p>
+				<p><form:input path="contraseniaActual" class="formText ui-widget-content ui-corner-all"/><form:errors path="contraseniaActual" cssClass="error"/></p>
+				<p><strong><label for="contraseniaNueva">Nueva Contrase&ntilde;a:</label></strong></p>
+				<p><form:input path="contraseniaNueva" class="formText ui-widget-content ui-corner-all"/><form:errors path="contraseniaNueva" cssClass="error"/></p>
+				<p><strong><label for="confirmaContraseniaNueva">Confirmar nueva Contrase&ntilde;a:</label></strong></p>
+				<p><form:input path="confirmaContraseniaNueva" class="formText ui-widget-content ui-corner-all"/><form:errors path="confirmaContraseniaNueva" cssClass="error"/></p>
 				<p>
-				<input class="ui-corner-all" type="submit" value="Cambiar" />
-				<input class="ui-corner-all" id = "cancelar" type="button" value="Cancelar" />
+				<input class="ui-button ui-state-default ui-corner-all ui-state-hover" type="submit" value="Cambiar" />
+				<input class="ui-button ui-state-default ui-corner-all ui-state-hover" id = "cancelar" type="button" value="Cancelar" />
 				</p>
 			</div>
 		</form:form>

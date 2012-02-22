@@ -3,20 +3,18 @@ package com.ciia.webeirinterface.model.db;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.validation.constraints.Pattern;
-
 public class Imei implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4188920539150173779L;
 	private Integer idImei;
-	
-	@Pattern(regexp="[0-9]{14}[0-9a-zA-Z]?")
-	private String imei;
-	private TipoLista tipoLista;
-	private Date fechaRegistro;
+	private String imei;			
+	private TipoLista tipoLista;		
+	private Date fechaRegistro;			
 	private Date fechaModificacion;
+	private String concepto;
+	private String operadora;
 
 	public Integer getIdImei() {
 		return idImei;
@@ -56,6 +54,22 @@ public class Imei implements Serializable{
 
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getConcepto() {
+		return concepto;
+	}
+
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
+	}
+
+	public String getOperadora() {
+		return operadora;
+	}
+
+	public void setOperadora(String operadora) {
+		this.operadora = operadora;
 	}
 
 	public Imei() {

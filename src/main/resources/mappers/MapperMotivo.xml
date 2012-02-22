@@ -27,8 +27,7 @@
 	</select>
 	<update id="updateMotivo" parameterType="Motivo">
 		UPDATE MOTIVO
-		SET descripcion = #{descripcion},			
-			activo = #{activo}
+		SET descripcion = #{descripcion}
 		WHERE idMotivo = #{idMotivo}
 	</update>
 	<insert id="insertMotivo" parameterType="Motivo" keyProperty="idMotivo">
@@ -39,4 +38,18 @@
 			(#{descripcion},			
 			#{activo})
 	</insert>
+	<select id="getMotivosEscenario" parameterType="Escenario" resultType="Motivo">
+		SELECT
+			idMotivo,
+			descripcion,			
+			activo			
+		FROM MOTIVO
+		WHERE activo = TRUE
+		AND idMotivo IN (SELECT idMotivo FROM ESCENARIO_MOTIVO WHERE idEscenario = #{idEscenario}) 
+	</select>
+	<update id="borradoLogico" parameterType="Motivo">
+		UPDATE MOTIVO
+		SET activo = #{activo}
+		WHERE idMotivo = #{idMotivo}
+	</update>
 </mapper>

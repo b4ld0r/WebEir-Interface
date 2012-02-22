@@ -2,27 +2,23 @@ package com.ciia.webeirinterface.model.db;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
 public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
-	@JsonSerialize(include=Inclusion.NON_NULL)
 	private static final long serialVersionUID = 2593607734093240065L;
 	private Integer idUsuario;
-	private String nombre;
-	private String apellidoPaterno;
-	private String apellidoMaterno;
-	private String nombreUsuario;
-	private String contrasenia;
-	private String correoElectronico;
+	private String nombre;			
+	private String apellidoPaterno;			
+	private String apellidoMaterno;			
+	private String nombreUsuario;			
+	private String contrasenia;			
+	private String correoElectronico;			
 	private String area;
 	private PerfilSistema perfilSistema;
 	private Directorio directorio;
 	private Boolean cambioContrasenia;
-	private Boolean activo;
+	private Boolean activo;			
 
 	public Directorio getDirectorio() {
 		return directorio;
@@ -140,5 +136,13 @@ public class Usuario implements Serializable {
 		this.contrasenia = contrasenia;
 		this.correoElectronico = correoElectronico;
 		this.area = area;
+	}
+
+	/**
+	 * @param idUsuario
+	 */
+	public Usuario(Integer idUsuario) {
+		super();
+		this.idUsuario = idUsuario;
 	}
 }

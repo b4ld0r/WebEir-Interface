@@ -1,4 +1,4 @@
-package com.ciia.webeirinterface.model.login;
+package com.ciia.webeirinterface.model;
 
 import java.util.List;
 

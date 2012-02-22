@@ -8,16 +8,21 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-1.8.17.custom.css"  type="text/css" media="screen" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/general.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="http://bw.imagenes.info/favicon.gif" type="image/x-icon"/>
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/huaweiIco.ico" type="image/x-icon"/>
 	
 	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
-	 
-	<c:if test="${!empty login.perfilSistema}">
+	<script type="text/javascript">
+		$(function() {
+			$( "input:submit, input:button").button();
+		});
+	</script>
+	<c:if test="${(!empty login.perfilSistema) && (empty usuario)}">
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#accordion").accordion();
+			$("#accordion").removeClass("acordionHidden");
 		});
 	</script>
 	</c:if>
@@ -30,15 +35,15 @@
         <div id="main_content"><!-- content and sidebar area -->
             <tiles:insertAttribute name="menu" />
             
-            <c:if test="${empty login.perfilSistema}">
+            <c:if test="${ (empty login.perfilSistema) || (!empty usuario) }">
             	<div id="contentBGEmpty">
             		<div id="contentEmpty">
             </c:if>
-            <c:if test="${!empty login.perfilSistema}">
+            <c:if test="${ (!empty login.perfilSistema) && (empty usuario)}">
             	<div id="contentBG">
             		<div id="content">
             </c:if>
-            	
+            		
                     <tiles:insertAttribute name="body" />
                 </div>
             </div>

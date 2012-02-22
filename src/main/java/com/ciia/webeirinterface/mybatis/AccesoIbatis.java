@@ -37,7 +37,8 @@ public class AccesoIbatis {
 	
 	public void cerrarSession() throws Exception {
 		try {
-			this.sqlSession.close();
+			if (this.sqlSession != null)
+				this.sqlSession.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw new Exception("Error al cerrar la session. - " + e.getMessage());

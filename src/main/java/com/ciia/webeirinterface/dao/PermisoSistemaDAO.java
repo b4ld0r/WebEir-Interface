@@ -13,6 +13,7 @@ public class PermisoSistemaDAO {
 		// TODO Auto-generated constructor stub
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<PermisoSistema> permisosUsuario(PerfilSistema perfilSistema) throws Exception {
 		AccesoIbatis ibatis = new AccesoIbatis();
 		

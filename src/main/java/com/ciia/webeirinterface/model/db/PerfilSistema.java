@@ -16,6 +16,35 @@ public class PerfilSistema implements Serializable {
 	public PerfilSistema() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @param descripcion
+	 * @param activo
+	 */
+	public PerfilSistema(String descripcion, Boolean activo) {
+		super();
+		this.descripcion = descripcion;
+		this.activo = activo;
+	}
+	
+	
+	/**
+	 * @param idPermiso
+	 * @param activo
+	 */
+	public PerfilSistema(Integer idPerfilSistema, Boolean activo) {
+		super();
+		this.idPerfilSistema = idPerfilSistema;
+		this.activo = activo;
+	}
+
+	/**
+	 * @param idPerfilSistema
+	 */
+	public PerfilSistema(Integer idPerfilSistema) {
+		super();
+		this.idPerfilSistema = idPerfilSistema;
+	}
 
 	public Integer getIdPerfilSistema() {
 		return idPerfilSistema;
@@ -55,31 +84,4 @@ public class PerfilSistema implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
-	/**
-	 * @param descripcion
-	 * @param activo
-	 */
-	public PerfilSistema(String descripcion, Boolean activo) {
-		super();
-		this.descripcion = descripcion;
-		this.activo = activo;
-	}
-	
-	/**
-	 * @param idPerfilSistema
-	 * @param activo
-	 */
-	public PerfilSistema(Integer id, Boolean activo) {
-		super();
-		this.idPerfilSistema = id;
-		this.activo = activo;
-	}
-
-	/**
-	 * @param idPerfilSistema
-	 */
-	public PerfilSistema(Integer idPerfilSistema) {
-		super();
-		this.idPerfilSistema = idPerfilSistema;
-	}
 }

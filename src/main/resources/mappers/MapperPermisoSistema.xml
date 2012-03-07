@@ -6,23 +6,46 @@
 		SELECT
 			idPermisoSistema,
 			descripcion,
+			orden,
+			url,
+			tituloPagina,
 			idModuloSistema,			
 			activo			
-		FROM PERMISO_SISTEMA	
+		FROM PERMISO_SISTEMA
+		ORDER BY descripcion ASC
 	</select>
 	<select id="getListaPermisoSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,	
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
 			idModuloSistema,		
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE activo = TRUE
 	</select>
+	<select id="getListaPermisoSistemaSF" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
+			idModuloSistema,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE activo = TRUE
+		ORDER BY descripcion ASC
+	</select>
 	<select id="getPermisoSistema" parameterType="PermisoSistema" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
-			descripcion,	
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
 			idModuloSistema,		
 			activo			
 		FROM PERMISO_SISTEMA
@@ -31,6 +54,9 @@
 	<update id="updatePermisoSistema" parameterType="PermisoSistema">
 		UPDATE PERMISO_SISTEMA
 		SET descripcion = #{descripcion},
+			orden = #{orden},
+			url = #{url},
+			tituloPagina = #{tituloPagina},
 			idModuloSistema = #{idModuloSistema},		
 			activo = #{activo}
 		WHERE idPermisoSistema = #{idPermisoSistema}
@@ -38,10 +64,16 @@
 	<insert id="insertPermisoSistema" parameterType="PermisoSistema" keyProperty="idPermisoSistema">
 		INSERT INTO PERMISO_SISTEMA
 			(descripcion,
+			orden,
+			url,
+			tituloPagina,
 			idModuloSistema,			
 			activo)
 		VALUES
 			(#{descripcion},
+			#{orden},
+			#{url},
+			#{tituloPagina},
 			#{idModuloSistema},			
 			#{activo})
 	</insert>
@@ -49,11 +81,31 @@
 		SELECT
 			idPermisoSistema,
 			descripcion,
-			idModuloSistema,			
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,	
+            idPermisoPadre,		
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE idPermisoSistema
 		IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
-		ORDER BY idPermisoSistema,idModuloSistema ASC
+		AND idPermisoPadre IS NULL
+		ORDER BY idModuloSistema, orden ASC
 	</select>
+	<select id="permisoPerfilHijo" parameterType="PermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,	
+            idPermisoPadre,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoPadre = #{idPermisoSistema}
+		ORDER BY orden ASC
+	</select>
+	
 </mapper>

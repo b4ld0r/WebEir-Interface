@@ -24,7 +24,7 @@
 				var options = {
 				  url: URL,
 				  editurl: URLEdit,
-				  edit:{closeAfterEdit:true},
+				  edit:{closeAfterEdit:"true"},
 				  colModel:[
 					{
 					  name:"idDocumento", 
@@ -41,14 +41,16 @@
 					},{
 					  name:"descripcion",
 					  label: "Nombre de documento",
+					  index:"descripcion",
 					  width: 600,
 					  editable: true,
 					  editrules: {required: true}
 					}
 					,{
-					  name:'obligatorio',
-					  label: 'Obligatorio',
-					  formatter: 'checkbox',
+					  name:"obligatorio",
+					  label: "Obligatorio",
+					  index:"descripcion",
+					  formatter: "checkbox",
 					  width: 150,
 					  edittype:"checkbox",
 					  align:"center",
@@ -60,35 +62,20 @@
 					}
 				  ],
 				  caption: "",
-				  pager : "#documentosP"
+				  pager : "#documentosP",
+				  modal : "true"
 				};
-			
-				var procesaRespuesta=function(response, postdata) {
-			        	var success = true;
-			        	var message = ""
-			        	var json = eval("(" + response.responseText + ")");
-						alert(response.responseText+"\n"+json.status+" "+json.message);
-			        	return [json.status=="success",json.message];
-			        }
-			
+
 				var editOptions = {
-					mtype: "POST",
-					closeAfterEdit:true,
 				    onclickSubmit: function(params, postdata) {
-					params.url = URLEdit;
-				  },afterSubmit:procesaRespuesta
+						params.url = URLEdit;
+					}
 				};
-				var addOptions = {
-					mtype: "POST",
-					closeAfterAdd:true,
-					clearAfterAdd:true,
-					afterSubmit:procesaRespuesta
-				};
+				
 				var delOptions = {
-				  onclickSubmit: function(params, postdata) {
-					params.url = URLDel+"?id="+postdata;
-				  },
-				  afterSubmit:procesaRespuesta
+					onclickSubmit: function(params, postdata) {
+						params.url = URLDel+"?id="+postdata;
+					}
 				};
 				
 				$("#documentosT").jqGrid(options);
@@ -99,23 +86,22 @@
 									search:false,
 									del:true,
 									add:true,
-									edit:true
-									},
+									edit:true},
 					editOptions,
-					addOptions,
+					{},
 					delOptions);
-
 			});
 		</script>
 	
 	</head>
 	<body>
 		<h2>${tituloPagina}</h2>
-		
 		<div class="gridCenter">
+			<div class="messages">
+				<div id="successMsg" class="noDisplay success ui-corner-all"></div>
+			</div>
 			<table id="documentosT"></table>
 			<div id="documentosP"></div>
 		</div>
-		
 	</body>
 </html>

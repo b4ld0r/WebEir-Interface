@@ -16,20 +16,43 @@
 			activo	
 		FROM USUARIO
 	</select>
-	<select id="getListaUsuario" resultType="Usuario" parameterMap="pUsuarioFiltro">
+	<select id="getListaUsuarioSF" resultMap="rUsuarioPerfil">
 		SELECT 
-			idUsuario,
-			nombre,			
-			apellidoPaterno,			
-			apellidoMaterno,			
-			nombreUsuario,			
-			contrasenia,			
-			correoElectronico,			
-			area,	
-			cambioContrasenia,		
-			activo	
-		FROM USUARIO
-		WHERE activo = TRUE
+			U.idUsuario,
+			U.nombre,			
+			U.apellidoPaterno,			
+			U.apellidoMaterno,			
+			U.nombreUsuario,			
+			U.contrasenia,			
+			U.correoElectronico,			
+			U.area,	
+			U.cambioContrasenia,		
+			U.activo, 
+			PS.idPerfilSistema,
+			PS.descripcion AS PSdescripcion	
+		FROM USUARIO AS U
+		INNER JOIN PERFIL_SISTEMA PS
+		ON PS.idPerfilSistema = (SELECT idPerfilSistema FROM PERFIL_SISTEMA_USUARIO WHERE idUsuario = U.idUsuario)
+		WHERE U.activo = TRUE
+	</select>
+	<select id="getListaUsuario" resultMap="rUsuarioPerfil" parameterMap="pUsuarioFiltro">
+		SELECT 
+			U.idUsuario,
+			U.nombre,			
+			U.apellidoPaterno,			
+			U.apellidoMaterno,			
+			U.nombreUsuario,			
+			U.contrasenia,			
+			U.correoElectronico,			
+			U.area,	
+			U.cambioContrasenia,		
+			U.activo, 
+			PS.idPerfilSistema AS PSidPerfilSistema,
+			PS.descripcion AS PSdescripcion	
+		FROM USUARIO AS U
+		INNER JOIN PERFIL_SISTEMA PS
+		ON PS.idPerfilSistema = (SELECT idPerfilSistema FROM PERFIL_SISTEMA_USUARIO WHERE idUsuario = U.idUsuario)
+		WHERE U.activo = TRUE
 		<if test="columnas neq ''">
 			ORDER BY ${columnas}
 		</if>
@@ -61,7 +84,6 @@
 			apellidoMaterno = #{apellidoMaterno},			
 			correoElectronico = #{correoElectronico},			
 			area = #{area},	
-			cambioContrasenia = #{cambioContrasenia},		
 			activo = #{activo}
 		WHERE idUsuario = #{idUsuario}
 	</update>
@@ -132,20 +154,50 @@
 			(#{idUsuario},
 			#{idPerfilSistema})
 	</insert>
-	<update id="borradoLogico" parameterType="Usuario">
+	<update id="updatePerfilUsuario" parameterMap="pUsuarioPerfil">
+		UPDATE PERFIL_SISTEMA_USUARIO
+		SET idPerfilSistema = #{idPerfilSistema}
+		WHERE idUsuario = #{idUsuario}
+	</update>
+	<update id="borradoLogicoUsuario" parameterType="Usuario">
 		UPDATE USUARIO
 		SET activo = #{activo}
 		WHERE idUsuario = #{idUsuario}
 	</update>
+	<select id="contadorUsuario" parameterType="Boolean" resultType="Integer">
+		SELECT COUNT(*) AS total
+		FROM USUARIO
+		<choose>
+			<when test="value eq true">
+				WHERE activo = #{value}
+			</when>
+		</choose>
+	</select>
 	
 	<parameterMap type="Usuario" id="pUsuarioFiltro">
 		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 		<parameter property="columnas" javaType="String" jdbcType="NCHAR" mode="IN"/>
 	</parameterMap>
-	
 	<parameterMap type="Usuario" id="pUsuarioPerfil">
 		<parameter property="idUsuario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 		<parameter property="idPerfilSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 	</parameterMap>
+	
+	<resultMap type="Usuario" id="rUsuarioPerfil">
+		<id property="idUsuario" column="idUsuario"/>
+		<result property="nombre" column="nombre"/>			
+		<result property="apellidoPaterno" column="apellidoPaterno"/>			
+		<result property="apellidoMaterno" column="apellidoMaterno"/>			
+		<result property="nombreUsuario" column="nombreUsuario"/>			
+		<result property="contrasenia" column="contrasenia"/>			
+		<result property="correoElectronico" column="correoElectronico"/>			
+		<result property="area" column="area"/>
+		<result property="cambioContrasenia" column="cambioContrasenia"/>		
+		<result property="activo" column="activo"/>	
+		<association property="perfilSistema" column="PSidPerfilSistema" javaType="PerfilSistema">
+			<id property="idPerfilSistema" column="PSidPerfilSistema"/>
+			<result property="descripcion" column="PSdescripcion"/>
+		</association>
+	</resultMap>
 </mapper >

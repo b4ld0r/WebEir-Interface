@@ -13,13 +13,13 @@ $.jgrid = {
 		recordtext: "Mostrando {0} - {1} de {2}",
 	    emptyrecords: "Sin registros que mostrar",
 		loadtext: "Cargando...",
-		pgtext : "Página {0} de {1}"
+		pgtext : "P\u00E1gina {0} de {1}"
 	},
 	search : {
-	    caption: "Búsqueda...",
+	    caption: "B\u00FAsqueda...",
 	    Find: "Buscar",
 	    Reset: "Limpiar",
-	    odata : ['igual ', 'no igual a', 'menor que', 'menor o igual que','mayor que','mayor o igual a', 'empiece por','no empiece por','está en','no está en','termina por','no termina por','contiene','no contiene'],
+	    odata : ['igual ', 'no igual a', 'menor que', 'menor o igual que','mayor que','mayor o igual a', 'empiece por','no empiece por','est\u00E1 en','no est\u00E1 en','termina por','no termina por','contiene','no contiene'],
 	    groupOps: [	{ op: "AND", text: "todo" },	{ op: "OR",  text: "cualquier" }	],
 		matchText: " match",
 		rulesText: " reglas"
@@ -36,17 +36,17 @@ $.jgrid = {
 		bExit : "Cancelar",
 	    msg: {
 	        required:"Campo obligatorio",
-	        number:"Introduzca un número",
+	        number:"Introduzca un n\u00FAmero",
 	        minValue:"El valor debe ser mayor o igual a ",
 	        maxValue:"El valor debe ser menor o igual a ",
-	        email: "no es una dirección de correo válida",
+	        email: "no es una direcci\u00F3n de correo v\u00E1lida",
 	        integer: "Introduzca un valor entero",
 			date: "Introduza una fecha correcta ",
-			url: "no es una URL válida. Prefijo requerido ('http://' or 'https://')",
-			nodefined : " no está definido.",
+			url: "no es una URL v\u00E1lida. Prefijo requerido ('http://' or 'https://')",
+			nodefined : " no est\u00E1 definido.",
 			novalue : " valor de retorno es requerido.",
-			customarray : "La función personalizada debe devolver un array.",
-			customfcheck : "La función personalizada debe estar presente en el caso de validación personalizada."
+			customarray : "La funci\u00F3n personalizada debe devolver un array.",
+			customfcheck : "La funci\u00F3n personalizada debe estar presente en el caso de validaci\u00F3n personalizada."
 		}
 	},
 	view : {
@@ -67,7 +67,7 @@ $.jgrid = {
 	    deltext: " ",
 	    deltitle: "Eliminar fila seleccionada",
 	    searchtext: " ",
-	    searchtitle: "Buscar información",
+	    searchtitle: "Buscar informaci\u00F3n",
 	    refreshtext: "",
 	    refreshtitle: "Recargar datos",
 	    alertcap: "Aviso",

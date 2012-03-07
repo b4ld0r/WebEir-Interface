@@ -19,14 +19,12 @@ import com.ciia.webeirinterface.model.db.Usuario;
 public class ContraseniaController {
 	
 	private final String tilesAsignado = "cambioContraseniaTiles";
-	private final String nombrePagina = "Cambiar contrase&ntilde;a";
 	
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
     	
-    	model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, new Contrasenia());
 		
 		return this.tilesAsignado;
@@ -35,15 +33,15 @@ public class ContraseniaController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(@Valid Contrasenia form, BindingResult result, ModelMap model, HttpServletRequest request) throws Exception{
 		
-		Usuario usuarioSesion =null;
+		Usuario usuarioSesion = null;
 		
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, form);
 		
 		if (!result.hasErrors()) {
 			usuarioSesion =(Usuario) request.getSession().getAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN);
 			
 			if(!usuarioSesion.getContrasenia().equals(form.getContraseniaActual())) {
+				
 				result.rejectValue("contraseniaActual","NotMatch.contraseniaActual");
 				
 				return this.tilesAsignado;
@@ -55,11 +53,12 @@ public class ContraseniaController {
 			
 			request.getSession().setAttribute(ConstantesWeb.CONST_ATTRIBUTE_LOGIN, usuarioSesion);
 			
-			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_USUARIO, new Usuario());
-			return tilesAsignado;
+			model.addAttribute(ConstantesWeb.CONST_MESSAGE_RESPUESTA, "El cambio de contrase&ntilde;a se realiz&oacute; con &eacute;xito");
+			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA, new Contrasenia());
+			return this.tilesAsignado;
 		}
 		
-		return tilesAsignado;
+		return this.tilesAsignado;
 	}
 
 

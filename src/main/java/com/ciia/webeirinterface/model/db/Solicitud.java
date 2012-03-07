@@ -107,4 +107,9 @@ public class Solicitud implements Serializable{
 		this.operadora = operadora;
 		this.documentos = documentos;
 	}
+	
+	public Solicitud(Integer idSolicitud) {
+		super();
+		this.idSolicitud = idSolicitud;
+	}
 }

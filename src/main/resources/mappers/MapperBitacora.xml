@@ -60,8 +60,8 @@
 			idModuloSistema,		
 			idUsuario)
 		VALUES
-			(#{fecha},			
-			#{hora},			
+			(CURRENT_DATE,			
+			CURRENT_TIME,			
 			#{campo},			
 			#{idAccion},		
 			#{idModuloSistema},		
@@ -70,8 +70,6 @@
 	
 	<parameterMap type="Bitacora" id="pBitacoraInsert">
 		<parameter property="idBitacora" javaType="Integer" jdbcType="BIGINT" mode="OUT"/>
-		<parameter property="fecha" javaType="Date" jdbcType="DATE" mode="IN"/>
-		<parameter property="hora" javaType="Date" jdbcType="TIME" mode="IN"/>
 		<parameter property="campo" javaType="String" jdbcType="VARCHAR" mode="IN"/>
 		<parameter property="idAccion" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 		<parameter property="idModuloSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>

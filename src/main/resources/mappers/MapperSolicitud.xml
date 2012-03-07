@@ -2,15 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ciia.webeirinterface.model.db.Solicitud">
-	<select id="getListaSolicitud" resultType="Solicitud">
-		SELECT
-			idSolicitud,
-			idTipoSolicitud,		
-			idEstatus,		
-			idEscenario,		
-			idArchivo,		
-			documentos			
-		FROM SOLICITUD
+	<select id="getListaSolicitudSF" resultMap="rSolicitudLista">
+		SELECT 
+			S.idSolicitud,
+        	S.documentos,       
+        	TS.idTipoSolicitud AS TSidTipoSolicitud,
+ 	        TS.descripcion AS TSdescripcion,       
+    	    E.idEstatus AS EidEstatus,       
+       		E.descripcion AS Edescripcion,
+       	 	ES.idEscenario AS ESidEscenario,       
+       		ES.descripcion AS ESdescripcion,       
+		    EM.idEmpleadoFE AS EMidEmpleadoFE,       
+       		EM.empleadoFE AS EMempleadoFE,       
+       		EM.noSolicitud AS EMnoSolicitud,       
+       		EM.noSolicitudFE AS EMnoSolicitudFE,       
+       		EM.nombreEmpleado AS EMnombreEmpleado,       
+       		EM.apellidoPaternoEmpleado AS EMapellidoPaternoEmpleado,       
+       		EM.apellidoMaternoEmpleado AS EMapellidoMaternoEmpleado,       
+       		EM.emailEmpleado AS EMemailEmpleado,       
+            O.idOperadora AS OidOperadora,            
+            O.nombre AS Onombre
+		FROM SOLICITUD AS S
+		INNER JOIN TIPO_SOLICITUD AS TS
+		ON TS.idTipoSolicitud = S.idTipoSolicitud
+		INNER JOIN ESTATUS AS E
+		ON E.idEstatus = S.idEstatus
+		INNER JOIN ESCENARIO AS ES
+		ON ES.idEscenario = S.idEscenario
+		LEFT JOIN EMPLEADO AS EM
+		ON EM.idEmpleadoFE = (SELECT idEmpleadoFE FROM EMPLEADO_SOLICITUD WHERE idSolicitud = S.idSolicitud)
+        LEFT JOIN OPERADORA AS O        
+        ON O.idOperadora = (SELECT idOperadora FROM OPERADORA_SOLICITUD WHERE idSolicitud = S.idSolicitud)   
+	</select>
+	<select id="getListaSolicitud" resultMap="rSolicitudLista" parameterMap="pSolicitudFiltro">
+		SELECT 
+			S.idSolicitud,
+        	S.documentos,       
+        	TS.idTipoSolicitud AS TSidTipoSolicitud,
+ 	        TS.descripcion AS TSdescripcion,       
+    	    E.idEstatus AS EidEstatus,       
+       		E.descripcion AS Edescripcion,
+       	 	ES.idEscenario AS ESidEscenario,       
+       		ES.descripcion AS ESdescripcion,       
+		    EM.idEmpleadoFE AS EMidEmpleadoFE,       
+       		EM.empleadoFE AS EMempleadoFE,       
+       		EM.noSolicitud AS EMnoSolicitud,       
+       		EM.noSolicitudFE AS EMnoSolicitudFE,       
+       		EM.nombreEmpleado AS EMnombreEmpleado,       
+       		EM.apellidoPaternoEmpleado AS EMapellidoPaternoEmpleado,       
+       		EM.apellidoMaternoEmpleado AS EMapellidoMaternoEmpleado,       
+       		EM.emailEmpleado AS EMemailEmpleado,       
+            O.idOperadora AS OidOperadora,            
+            O.nombre AS Onombre
+		FROM SOLICITUD AS S 
+		INNER JOIN TIPO_SOLICITUD AS TS
+		ON TS.idTipoSolicitud = S.idTipoSolicitud
+		INNER JOIN ESTATUS AS E
+		ON E.idEstatus = S.idEstatus
+		INNER JOIN ESCENARIO AS ES
+		ON ES.idEscenario = S.idEscenario
+		LEFT JOIN EMPLEADO AS EM
+		ON EM.idEmpleadoFE = (SELECT idEmpleadoFE FROM EMPLEADO_SOLICITUD WHERE idSolicitud = S.idSolicitud)
+        LEFT JOIN OPERADORA AS O        
+        ON O.idOperadora = (SELECT idOperadora FROM OPERADORA_SOLICITUD WHERE idSolicitud = S.idSolicitud)
+		<if test="columnas neq ''">
+			ORDER BY ${columnas}
+		</if>
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
 	</select>
 	<select id="getSolicitud" parameterType="Solicitud" resultType="Solicitud">
 		SELECT
@@ -46,4 +108,41 @@
 			#{idArchivo},		
 			#{documentos})
 	</insert>
+	
+	<parameterMap type="Solicitud" id="pSolicitudFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="columnas" javaType="String" jdbcType="NCHAR" mode="IN"/>
+	</parameterMap>
+	
+	<resultMap type="Solicitud" id="rSolicitudLista">
+		<id property="idSolicitud" column="idSolicitud"/>
+		<result property="documentos" column="documentos"/>
+		<association property="empleado" column="EMidEmpleadoFE" javaType="Empleado">
+			<id property="idEmpleadoFE" column="EMidEmpleadoFE"/>
+			<result property="empleadoFE" column="EMempleadoFE"/>
+			<result property="noSolicitud" column="EMnoSolicitud"/>
+			<result property="noSolicitudFE" column="EMnoSolicitudFE"/>
+			<result property="nombreEmpleado" column="EMnombreEmpleado"/>
+			<result property="apellidoPaternoEmpleado" column="EMapellidoPaternoEmpleado"/>
+			<result property="apellidoMaternoEmpleado" column="EMapellidoMaternoEmpleado"/>
+			<result property="emailEmpleado" column="EMemailEmpleado"/>
+		</association>
+		<association property="escenario" column="ESidEscenario" javaType="Escenario">
+			<id property="idEscenario" column="ESidEscenario"/>
+			<result property="descripcion" column="ESdescripcion"/>
+		</association>
+		<association property="estatus" column="EidEstatus" javaType="Estatus">
+			<id property="idEstatus" column="EidEstatus"/>
+			<result property="descripcion" column="Edescripcion"/>
+		</association>
+		<association property="operadora" column="OidOperadora" javaType="Operadora">
+			<id property="idOperadora" column="OidOperadora"/>
+			<result property="nombre" column="Onombre"/>			
+		</association>
+		<association property="tipoSolicitud" column="TSidTipoSolicitud" javaType="TipoSolicitud">
+			<id property="idTipoSolicitud" column="TSidTipoSolicitud"/>
+			<result property="descripcion" column="TSdescripcion"/>
+		</association>
+	</resultMap>
 </mapper>

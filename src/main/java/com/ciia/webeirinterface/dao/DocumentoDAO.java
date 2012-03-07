@@ -1,15 +1,19 @@
 package com.ciia.webeirinterface.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ciia.webeirinterface.model.db.Documento;
 import com.ciia.webeirinterface.mybatis.AccesoIbatis;
 
 public class DocumentoDAO {
+	private static final String LISTA_DOCUMENTO_SF = "Documento.getListaDocumentoSF";
 	private static final String LISTA_DOCUMENTO = "Documento.getListaDocumento";
 	private static final String INSERTAR_DOCUMENTO = "Documento.insertDocumento";
 	private static final String ACTUALIZAR_DOCUMENTO = "Documento.updateDocumento";
-	private static final String BORRADO_LOGICO = "Documento.borradoLogico";
+	private static final String BORRADO_LOGICO = "Documento.borradoLogicoDocumento";
+	private static final String CONTADOR_DOCUMENTO = "Documento.contadorDocumento";
 	
 	public DocumentoDAO() {
 		// TODO Auto-generated constructor stub
@@ -22,11 +26,49 @@ public class DocumentoDAO {
 		try {
 			ibatis.generarSession();
 			
-			return (List<Documento>)ibatis.getSqlSession().selectList(LISTA_DOCUMENTO);
+			return (List<Documento>)ibatis.getSqlSession().selectList(LISTA_DOCUMENTO_SF);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new Exception("Error al obtener lista de documentos. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Documento> consultarDocumento(Integer cursor, Integer registros, Boolean descendente) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Map<String, Object> pMap = new HashMap<String, Object>();
+			pMap.put("cursor", cursor);
+			pMap.put("registros", registros);
+			pMap.put("orden", descendente == true ? "DESC" : "ASC");
+			
+			return (List<Documento>)ibatis.getSqlSession().selectList(LISTA_DOCUMENTO, pMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener lista de documentos. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Integer consultarTotalDocumento(Boolean activos) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			return (Integer)ibatis.getSqlSession().selectOne(CONTADOR_DOCUMENTO, activos);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener el total de documentos. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}

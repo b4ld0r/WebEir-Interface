@@ -75,4 +75,14 @@ public class Directorio implements Serializable {
 		this.ruta = ruta;
 		this.nomenclatura = nomenclatura;
 	}
+
+	/**
+	 * @param idDirectorio
+	 * @param activo
+	 */
+	public Directorio(Integer idDirectorio, Boolean activo) {
+		super();
+		this.idDirectorio = idDirectorio;
+		this.activo = activo;
+	}
 }

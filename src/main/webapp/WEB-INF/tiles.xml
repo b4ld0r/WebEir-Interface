@@ -43,6 +43,10 @@
   <put-attribute name="body" value="/WEB-INF/home/administracion/perfilesForm.jsp"/>
  </definition>
  
+ <definition name="permisoTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/asignaPermisosForm.jsp"/>
+ </definition>
+ 
   <definition name="usuarioTiles" extends="main-template">
   <put-attribute name="body" value="/WEB-INF/home/administracion/usuariosForm.jsp"/>
  </definition>
@@ -54,5 +58,10 @@
  <definition name="solicitudInternaTiles" extends="main-template">
   <put-attribute name="body" value="/WEB-INF/home/imeis/solicitudInternaForm.jsp"/>
  </definition> 
+ 
+ <!-- Solicitudes -->
+ <definition name="solicitudesTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/solicitudes/solicitudesForm.jsp"/>
+ </definition>
  
 </tiles-definitions>

@@ -16,12 +16,10 @@ import com.ciia.webeirinterface.model.db.Escenario;
 public class EscenarioController {
 	
 	private final String tilesAsignado = "escenarioTiles";
-	private final String nombrePagina = "Registrar Escenario";
 	
     @RequestMapping(method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
     	
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO, new Escenario());
 		return this.tilesAsignado;
 	}
@@ -29,7 +27,6 @@ public class EscenarioController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(@Valid Escenario form, BindingResult result, ModelMap model) throws Exception{
 		
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO, form);
 		if (!result.hasErrors()) {
 			//model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO, form);

@@ -16,6 +16,7 @@
 			activo			
 		FROM MOTIVO
 		WHERE activo = TRUE
+		ORDER BY descripcion ASC
 	</select>
 	<select id="getMotivo" parameterType="Motivo" resultType="Motivo">
 		SELECT
@@ -47,7 +48,7 @@
 		WHERE activo = TRUE
 		AND idMotivo IN (SELECT idMotivo FROM ESCENARIO_MOTIVO WHERE idEscenario = #{idEscenario}) 
 	</select>
-	<update id="borradoLogico" parameterType="Motivo">
+	<update id="borradoLogicoMotivo" parameterType="Motivo">
 		UPDATE MOTIVO
 		SET activo = #{activo}
 		WHERE idMotivo = #{idMotivo}

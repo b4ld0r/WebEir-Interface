@@ -1,7 +1,21 @@
+function evaluateMessage(jsonObject){
+	if(jsonObject.status=="success"){
+		$("#successMsg").text(jsonObject.message);
+		$("#successMsg").show("clip");
+	}
+}
+
+var procesaRespuesta=function(response, postdata) {
+	var json = eval("(" + response.responseText + ")");
+	evaluateMessage(json);
+	return [json.status=="success",json.message];
+}
+
 $.extend($.jgrid.defaults, {
 	datatype: "json",
 	jsonReader : {
 	repeatitems:false,
+	id:0,
 	total: function(result) {
 	  //Total number of pages
 	  return Math.ceil(result.total / result.max);
@@ -23,12 +37,16 @@ $.extend($.jgrid.defaults, {
 	}
 });
 
-
-//////////////
 $.extend($.jgrid.edit, {
   ajaxEditOptions: { contentType: "application/json" },
   mtype: "POST",
-  width: 400,
+  modal:true,
+  resize:false,
+  drag:false,
+  width: 670,
+  jqModal:true,
+  closeAfterEdit:true,
+  afterSubmit:procesaRespuesta,
   serializeEditData: function(data) {
 	if(data.oper=="edit")
 		asignaIdCorrecto(data);
@@ -37,10 +55,35 @@ $.extend($.jgrid.edit, {
 	return JSON.stringify(data);
   }
 });
+
 $.extend($.jgrid.del, {
   mtype: "POST",
-  width: 400,
+  resize:false,
+  drag:false,
+  width: 500,
+  afterSubmit:procesaRespuesta,
   serializeDelData: function() {
 	return "";
   }
+});
+
+$.extend($.jgrid.add, {
+	mtype: "POST",
+	closeAfterAdd:true,
+	clearAfterAdd:true,
+	afterSubmit:procesaRespuesta
+});
+
+$.extend($.jgrid.view, {
+	resize:false,
+	drag:false,
+	width: 670,
+});
+
+$(document).ready(function(){
+	
+	$("#successMsg").click(function(){
+		$(this).hide("fold");
+	});
+	
 });

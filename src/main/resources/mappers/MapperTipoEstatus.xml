@@ -6,7 +6,8 @@
 		SELECT
 			idTipoEstatus,
 			descripcion			
-		FROM TIPO_ESTATUS	
+		FROM TIPO_ESTATUS
+		ORDER BY descripcion ASC	
 	</select>
 	<select id="getTipoEstatus" parameterType="TipoEstatus" resultType="TipoEstatus">
 		SELECT

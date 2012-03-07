@@ -7,6 +7,7 @@
 			idTipoSolicitud,
 			descripcion			
 		FROM TIPO_SOLICITUD
+		ORDER BY descripcion ASC
 	</select>
 	<select id="getTipoSolicitud" parameterType="TipoSolicitud" resultType="TipoSolicitud">
 		SELECT

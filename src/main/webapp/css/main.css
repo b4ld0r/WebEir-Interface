@@ -6,7 +6,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
 html,body {
 	outline: 0;
 	background: #014F91;
-	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	/*font-family:Lucida Grande, Lucida Sans, Arial, sans-serif;*/
 	font-size: 14px;
 	color: #666;
 	line-height: 18px;
@@ -74,9 +75,6 @@ img[src*="huawei"]{
 	width: 225px;
 	font-size: 12px;
 	float:left;}
-	
-.hidden{
-	visibility:hidden;}
 
 #accordion a{
 	text-decoration:none;}
@@ -89,7 +87,7 @@ img[src*="huawei"]{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;}
 
-#accordion div div:hover{
+#accordion div div:hover,#accordion .optionSelected{
 	background-color:#A9D0F5;
 	color:#FFFFFF;}
 
@@ -150,9 +148,9 @@ img[src*="huawei"]{
 	margin-right:auto;
 	z-index: 0;}
 
-
-
-#break {clear: both;padding-top: 77px;}
+#break {
+	clear: both;
+	padding-top: 77px;}
 
 #footer{
 	height:40px;

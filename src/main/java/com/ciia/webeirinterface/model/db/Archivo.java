@@ -55,4 +55,14 @@ public class Archivo implements Serializable{
 		this.nombre = nombre;
 		this.activo = activo;
 	}
+
+	/**
+	 * @param idArchivo
+	 * @param activo
+	 */
+	public Archivo(Integer idArchivo, Boolean activo) {
+		super();
+		this.idArchivo = idArchivo;
+		this.activo = activo;
+	}
 }

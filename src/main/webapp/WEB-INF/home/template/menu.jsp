@@ -10,10 +10,10 @@
 					
 					<div id="accordion" class="hidden"> <!-- #accordion -->
 						<c:forEach var="modulo" items="${menu}">
-							<h3><a href="${modulo.url}">${modulo.nombre}</a></h3>
+							<h3><a href="#">${modulo.nombre}</a></h3>
 							<div>
 								<c:forEach var="opcion" items="${modulo.submenu}">								
-									<a href="${opcion.url}"><div><Strong>${opcion.nombre}</Strong></div></a>
+									<a href="${opcion.url}"><div id="option${opcion.idTag}"><Strong>${opcion.nombre}</Strong></div></a>
 								</c:forEach>
 							</div>
 							

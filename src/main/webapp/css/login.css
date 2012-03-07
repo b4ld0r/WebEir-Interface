@@ -15,14 +15,20 @@
 
 #loginBG div{
 	color:#CEF6F5;
-	padding-left:95px;}
+	padding-left:95px;
+	width:255px;}
 	
 #loginBG div.errorBlockLogin{
 	margin-left:15px;
 	margin-right:90px;
 	margin-bottom:5px;
+	margin-top: -10px;
 	padding:4px;
-	font-size:13px;}
+	font-size:13px;
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	width: 77%;}
 	
 img[src*="lock"]{
 	margin-left:255px;
@@ -32,5 +38,5 @@ img[src*="lock"]{
 input.loginText {
 	display: block;
 	margin-bottom:6px;
-	width:45%;
+	width:73%;
 	padding: 3px; }

@@ -10,7 +10,7 @@
 			activo
 		FROM ESCENARIO
 	</select>
-	<select id="getListaEscenario" resultType="Escenario">
+	<select id="getListaEscenarioSF" resultType="Escenario">
 		SELECT 
 			idEscenario,
 			descripcion,			
@@ -18,6 +18,21 @@
 			activo
 		FROM ESCENARIO
 		WHERE activo = TRUE
+	</select>
+	<select id="getListaEscenario" resultType="Escenario" parameterMap="pEscenarioFiltro">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE activo = TRUE
+		ORDER BY descripcion ${orden}
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
 	</select>
 	<select id="getEscenario" parameterType="Escenario" resultType="Escenario">
 		SELECT 
@@ -52,7 +67,7 @@
 			(#{idEscenario},
 			#{idMotivo})
 	</insert>
-	<update id="borradoLogico" parameterType="Escenario">
+	<update id="borradoLogicoEscenario" parameterType="Escenario">
 		UPDATE ESCENARIO
 		SET activo = #{activo}
 		WHERE idEscenario = #{idEscenario} 
@@ -61,5 +76,10 @@
 	<parameterMap type="Escenario" id="pEscenarioMotivo">
 		<parameter property="idEscenario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
 		<parameter property="idMotivo" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
+	<parameterMap type="Escenario" id="pEscenarioFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="orden" javaType="Boolean" jdbcType="TINYINT" mode="IN"/>
 	</parameterMap>
 </mapper>

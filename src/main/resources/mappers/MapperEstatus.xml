@@ -7,6 +7,7 @@
 			idEstatus,
 			descripcion			
 		FROM ESTATUS	
+		ORDER BY descripcion ASC
 	</select>
 	<select id="getEstatus" parameterType="Estatus" resultType="Estatus">
 		SELECT

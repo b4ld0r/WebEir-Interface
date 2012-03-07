@@ -21,7 +21,8 @@
 	<c:if test="${(!empty login.perfilSistema) && (empty usuario)}">
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#accordion").accordion();
+			$("#accordion").accordion({ active: <c:out value="${indexModuloSeleccionado}"/> });
+			$("#option<c:out value="${idPermisoSeleccionado}"/>").addClass("optionSelected");
 			$("#accordion").removeClass("hidden");
 		});
 	</script>

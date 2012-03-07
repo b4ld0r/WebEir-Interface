@@ -1,138 +1,124 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="es-GB">
-<head>
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" />
-	<title>Login IWEIR</title>
+	<head>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" />
+
+		<script src="${pageContext.request.contextPath}/js/i18n/grid.locale-es.js" type="text/javascript"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.jqGrid.js" type="text/javascript"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.layout.js" type="text/javascript"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.tablednd.js" type="text/javascript"></script>
+		<script src="${pageContext.request.contextPath}/js/jqGrid.defaults.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			function asignaIdCorrecto(data){
+				data.idPerfilSistema=data.id;
+			}
 	
-<style>
-.error {
-	color: #ff0000;
-}
-.errorblock{
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding:8px;
-	margin:16px;
-}
-
-</style>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"/>
-
-<script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js" type="text/javascript"></script>
-
-<script src="${pageContext.request.contextPath}/js/i18n/grid.locale-es.js" type="text/javascript"></script>
-<script type="text/javascript">
-	$.jgrid.no_legacy_api = true;
-	$.jgrid.useJSON = true;
-</script>
-<script src="${pageContext.request.contextPath}/js/jquery.jqGrid.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.layout.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.tablednd.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.contextmenu.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/jqGrid.defaults.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-function asignaIdCorrecto(data){
-	data.idPerfil=data.id;
-}
+			jQuery(document).ready(function(){
+				var URL = '${pageContext.request.contextPath}/administracion/obtenPerfiles.htm';
+				var URLEdit='${pageContext.request.contextPath}/administracion/editaPerfil.htm';
+				var URLDel='${pageContext.request.contextPath}/administracion/eliminaPerfil.htm';
+				var URLPermisos='${pageContext.request.contextPath}/administracion/obtenPermisosPerfil.htm';
 	
-jQuery(document).ready(function(){
-	var URL = '${pageContext.request.contextPath}/administracion/obtenPerfiles.htm';
-	var URLEdit='${pageContext.request.contextPath}/administracion/editaPerfil.htm';
-	var URLDel='${pageContext.request.contextPath}/administracion/eliminaPerfil.htm';
-	var options = {
-	  url: URL,
-	  editurl: URLEdit,
-	  edit:{closeAfterEdit:true},
-	  colModel:[
-		{
-		  name:'idPerfil', label: 'IdPerfil',
-		  formatter:'integer',
-		  width: 40,
-		  hidden:true,
-		  editable: false,
-		  editoptions: {disabled: true, size:5,NullIfEmpty:true}
-		},{
-		  name:'descripcion',
-		  label: 'Nombre de Perfil',
-		  width: 750,
-		  editable: true,
-		  editrules: {required: true}
-		},{
-		  name:'activo',
-		  label: 'Activo',
-		  formatter: 'checkbox',
-		  width: 40,
-		  hidden:true,
-		  edittype:"checkbox",
-		  editable: false,
-		  editoptions:{value:"true:false",defaultValue:"true"},
-		  editrules: {edithidden:true}
-		}
-	  ],
-	  caption: "Coleccion de Perfiles",
-	  pager : '#perfilesP'
+				$( "#edita-permisos" ).dialog({
+					autoOpen: false,
+					resizable: false,
+					height:300,
+					width:500,
+					modal: true,
+					buttons: {
+						"Asigna perfil": function() {
+							jQuery("#permisos").multiselect("destroy");
+						},
+						Cancel: function() {
+							jQuery("#permisos").multiselect("destroy");
+						}
+					}
+				});
+				$("#edita-permisos").removeClass("hidden");
+				var options = {
+					url: URL,
+					editurl: URLEdit,
+					edit:{closeAfterEdit:true},
+					colModel:[
+						{
+							name:'idPerfilSistema', label: 'IdPerfil',
+							formatter:'integer',
+							width: 40,
+							hidden:true,
+							editable: false,
+							editoptions: {disabled: true, size:5,NullIfEmpty:true}
+						},{
+							name:'descripcion',
+							label: 'Nombre de Perfil',
+							width: 750,
+							editable: true,
+							editrules: {required: true}
+						},{
+							name:'activo',
+							label: 'Activo',
+							formatter: 'checkbox',
+							width: 40,
+							hidden:true,
+							edittype:"checkbox",
+							editable: false,
+							editoptions:{value:"true:false",defaultValue:"true"},
+							editrules: {edithidden:true}
+						}
+					],
+					caption: "",
+					pager : '#perfilesP'
 	  
-	};
-	var procesaRespuesta=function(response, postdata) {
-        	var json = eval('(' + response.responseText + ')');
-        	return [json.status=="success",json.message];
-        }
+				};
 
-	var editOptions = {
-		mtype: 'POST',
-		closeAfterEdit:true,
-	    onclickSubmit: function(params, postdata) {
-		params.url = URLEdit;
-	  },afterSubmit:procesaRespuesta,
-	  beforeShowForm: function(form) {
-							   $('#activo', form).show();
-                           }
-	};
-	
-	var procesaRespuesta=function(response, postdata) {
-        	var json = eval('(' + response.responseText + ')');
-        	return [json.status=="success",json.message];
-        }
-	var addOptions = {
-		mtype: "POST",
-		closeAfterAdd:false,
-		clearAfterAdd:true,
-		afterSubmit:procesaRespuesta,
-		beforeShowForm: function(form) {
-							   $('#activo', form).show();
-                           }
-	};
-	var delOptions = {
-		afterSubmit:procesaRespuesta,
-	  onclickSubmit: function(params, postdata) {
-		params.url = URLDel+"?id="+postdata;
-	  }
-	};
+				var editOptions = {
+					onclickSubmit: function(params, postdata) {
+						params.url = URLEdit;
+					}
+				};
+				
+				var delOptions = {
+					onclickSubmit: function(params, postdata) {
+						params.url = URLDel+"?id="+postdata;
+					}
+				};
 	  
-	$("#perfilesT").jqGrid(options);
-		jQuery("#perfilesT").jqGrid('navGrid','#perfilesP',{view:true,search:false,del:true,add:true,edit:true},addOptions,editOptions,delOptions,{caption: "Usuario",bClose: "Close"});
+				$("#perfilesT").jqGrid(options);
+				jQuery("#perfilesT").jqGrid('navGrid','#perfilesP',{view:true,search:false,del:true,add:true,edit:true},{},editOptions,delOptions,{caption: "Usuario",bClose: "Close"})
+				.jqGrid("navButtonAdd","#perfilesP",{
+					caption:"", 
+					buttonicon:"ui-icon-key", 
+					onClickButton: function(){
+						var id = jQuery("#perfilesT").jqGrid('getGridParam','selrow');
+						if(id){
+							var ret = jQuery("#perfilesT").jqGrid('getRowData',id);
+							location.href="${pageContext.request.contextPath}/administracion/asignaPerfil.htm?id="+ret.idPerfilSistema;
+						}else{
+							$( "#alertmod" ).dialog( "open" );
+							alert("Seleccione algo ò_ó");
+						}
+					
+					
+					}, 
+					position:"last"
+				});
 
-});
-</script>
+			});
+		</script>
 
-</head>
-<body>
-
-	<div id="perfiles">
+	</head>
+	<body>
 		<h2>${tituloPagina}</h2>
-		
-		
-		<table id="perfilesT"></table> <div id="perfilesP"></div>
-	</div>
-	
-</body>
+		<div class="gridCenter">
+			<div class="messages">
+				<div id="successMsg" class="noDisplay success ui-corner-all"></div>
+			</div>
+			<table id="perfilesT"></table> <div id="perfilesP"></div>
+		</div>
+
+	</body>
 </html>

@@ -1,6 +1,8 @@
 package com.ciia.webeirinterface.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ciia.webeirinterface.model.db.PerfilSistema;
 import com.ciia.webeirinterface.model.db.PermisoSistema;
@@ -11,8 +13,12 @@ public class PerfilSistemaDAO {
 	private static final String PERFIL_USUARIO = "PerfilSistema.perfilUsuario";
 	private static final String INSERTAR_PERFIL = "PerfilSistema.insertPerfilSistema";
 	private static final String ACTUALIZAR_PERFIL = "PerfilSistema.updatePerfilSistema";
+	private static final String LISTA_PERFIL_SF = "PerfilSistema.getListaPerfilSistemaSF";
 	private static final String LISTA_PERFIL = "PerfilSistema.getListaPerfilSistema";
-	private static final String BORRADO_LOGICO = "PerfilSistema.borradoLogico"; 
+	private static final String BORRADO_LOGICO = "PerfilSistema.borradoLogicoPerfilSistema"; 
+	private static final String CONTADOR_PERFIL = "PerfilSistema.contadorPerfilSistema";
+	private static final String ASIGNAR_PERMISOS = "PerfilSistema.insertPermisoPerfil";
+	private static final String BORRAR_PERMISOS = "PerfilSistema.deletePermisoPerfil";
 	
 	public PerfilSistemaDAO() {
 		// TODO Auto-generated constructor stub
@@ -49,11 +55,49 @@ public class PerfilSistemaDAO {
 		try {
 			ibatis.generarSession();
 			
-			return (List<PerfilSistema>)ibatis.getSqlSession().selectList(LISTA_PERFIL);
+			return (List<PerfilSistema>)ibatis.getSqlSession().selectList(LISTA_PERFIL_SF);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new Exception("Error al obtener los perfiles del sistema. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PerfilSistema> consultarPerfilSistema (Integer cursor, Integer registros, Boolean descendente) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Map<String, Object> pMap = new HashMap<String, Object>();
+			pMap.put("cursor", cursor);
+			pMap.put("registros", registros);
+			pMap.put("orden", descendente == true ? "DESC" : "ASC");
+			
+			return (List<PerfilSistema>)ibatis.getSqlSession().selectList(LISTA_PERFIL, pMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener los perfiles del sistema. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Integer consultarTotalPerfilSistema(Boolean activos) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			return (Integer)ibatis.getSqlSession().selectOne(CONTADOR_PERFIL, activos);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener el total de perfiles. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}
@@ -132,4 +176,70 @@ public class PerfilSistemaDAO {
 			ibatis.cerrarSession();
 		}
 	}
+	
+	public Boolean asignarPermiso(PerfilSistema perfilSistema, List<PermisoSistema> listPermisoSistema) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Integer insertar = null;
+			Map<String,Object> pMap = new HashMap<String, Object>();
+			pMap.put("idPerfilSistema", perfilSistema.getIdPerfilSistema());
+			
+			if(listPermisoSistema != null && !listPermisoSistema.isEmpty()) {
+				for (PermisoSistema permisoSistema : listPermisoSistema) {
+					if(pMap.containsKey("idPermisoSistema"))
+						pMap.remove("idPermisoSistema");
+					
+					pMap.put("idPermisoSistema", permisoSistema.getIdPermisoSistema());
+					
+					insertar = ibatis.getSqlSession().update(ASIGNAR_PERMISOS, pMap);
+				}
+			}
+			else 
+				return false;
+			
+			if (insertar != null && insertar > 0)
+			{
+				ibatis.getSqlSession().commit();
+				return true;
+			}
+			
+			return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			ibatis.getSqlSession().rollback();
+			e.printStackTrace();
+			throw new Exception("Error al asignar el permiso al perfil. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Boolean reasignarPermiso(PerfilSistema perfilSistema, List<PermisoSistema> listPermisoSistema) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Integer borrado = ibatis.getSqlSession().delete(BORRAR_PERMISOS, perfilSistema);
+			
+			if (borrado != null && borrado > 0)
+			{
+				ibatis.getSqlSession().commit();
+				
+				return asignarPermiso(perfilSistema, listPermisoSistema) == true ? true : false;
+			}
+			
+			return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			ibatis.getSqlSession().rollback();
+			e.printStackTrace();
+			throw new Exception("Error al reasignar el permiso al perfil. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	} 
 }

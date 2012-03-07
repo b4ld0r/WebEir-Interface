@@ -9,11 +9,12 @@ import com.ciia.webeirinterface.model.db.Motivo;
 import com.ciia.webeirinterface.mybatis.AccesoIbatis;
 
 public class EscenarioDAO {
+	private static final String LISTA_ESCENARIO_SF = "Escenario.getListaEscenarioSF";
 	private static final String LISTA_ESCENARIO = "Escenario.getListaEscenario";
 	private static final String INSERTAR_ESCENARIO = "Escenario.insertEscenario";
 	private static final String ACTUALIZAR_ESCENARIO = "Escenario.updateEscenario";
 	private static final String ASIGNAR_MOTIVO = "Escenario.insertEscenarioMotivo";
-	private static final String BORRADO_LOGICO = "Escenario.borradoLogico";
+	private static final String BORRADO_LOGICO = "Escenario.borradoLogicoEscenario";
 	
 	public EscenarioDAO() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +27,29 @@ public class EscenarioDAO {
 		try {
 			ibatis.generarSession();
 			
-			return (List<Escenario>)ibatis.getSqlSession().selectList(LISTA_ESCENARIO);
+			return (List<Escenario>)ibatis.getSqlSession().selectList(LISTA_ESCENARIO_SF);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener lista de escenario. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Escenario> consultarEscenario (Integer cursor, Integer registros, Boolean descendente) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Map<String, Object> pMap = new HashMap<String, Object>();
+			pMap.put("cursor", cursor);
+			pMap.put("registros", registros);
+			pMap.put("orden", descendente == true ? "DESC" : "ASC");
+			
+			return (List<Escenario>)ibatis.getSqlSession().selectList(LISTA_ESCENARIO, pMap);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

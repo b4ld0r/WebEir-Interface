@@ -16,6 +16,7 @@
 			activo			
 		FROM MODULO_SISTEMA	
 		WHERE activo = TRUE
+		ORDER BY descripcion ASC
 	</select>
 	<select id="getModuloSistema" parameterType="ModuloSistema" resultType="ModuloSistema">
 		SELECT 

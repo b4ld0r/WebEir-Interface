@@ -11,7 +11,7 @@ public class MotivoDAO {
 	private static final String INSERTAR_MOTIVO = "Motivo.insertMotivo";
 	private static final String ACTUALIZAR_MOTIVO = "Motivo.updateMotivo";
 	private static final String MOTIVO_POR_ESCENARIO = "Motivo.getMotivosEscenario";
-	private static final String BORRADO_LOGICO = "Motivo.borradoLogico";
+	private static final String BORRADO_LOGICO = "Motivo.borradoLogicoMotivo";
 	
 	public MotivoDAO() {
 		// TODO Auto-generated constructor stub

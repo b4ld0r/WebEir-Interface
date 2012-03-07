@@ -145,4 +145,14 @@ public class Usuario implements Serializable {
 		super();
 		this.idUsuario = idUsuario;
 	}
+
+	/**
+	 * @param idUsuario
+	 * @param activo
+	 */
+	public Usuario(Integer idUsuario, Boolean activo) {
+		super();
+		this.idUsuario = idUsuario;
+		this.activo = activo;
+	}
 }

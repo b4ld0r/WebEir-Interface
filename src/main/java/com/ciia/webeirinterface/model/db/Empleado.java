@@ -15,6 +15,7 @@ public class Empleado implements Serializable {
 	private String apellidoPaternoEmpleado;
 	private String apellidoMaternoEmpleado;
 	private String emailEmpleado;
+	private Cac cac;
 	
 	public Integer getIdEmpleadoFE() {
 		return idEmpleadoFE;
@@ -78,6 +79,14 @@ public class Empleado implements Serializable {
 
 	public void setEmailEmpleado(String emailEmpleado) {
 		this.emailEmpleado = emailEmpleado;
+	}
+
+	public Cac getCac() {
+		return cac;
+	}
+
+	public void setCac(Cac cac) {
+		this.cac = cac;
 	}
 
 	public String getNombreCompletoEmpleado(){

@@ -88,4 +88,14 @@ public class ModuloSistema implements Serializable {
 		super();
 		this.idModuloSistema = idModuloSistema;
 	}
+
+	/**
+	 * @param idModuloSistema
+	 * @param activo
+	 */
+	public ModuloSistema(Integer idModuloSistema, Boolean activo) {
+		super();
+		this.idModuloSistema = idModuloSistema;
+		this.activo = activo;
+	}
 }

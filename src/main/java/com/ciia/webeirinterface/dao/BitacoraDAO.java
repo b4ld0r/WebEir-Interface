@@ -23,8 +23,6 @@ public class BitacoraDAO {
 			
 			Map<String, Object> pMap = new HashMap<String, Object>();
 			pMap.put("idBitacora", bitacora.getIdBitacora());
-			pMap.put("fecha", bitacora.getFecha());
-			pMap.put("hora", bitacora.getHora());
 			pMap.put("campo", bitacora.getCampo());
 			pMap.put("idAccion", bitacora.getAccion().getIdAccion());
 			pMap.put("idModuloSistema", bitacora.getModuloSistema().getIdModuloSistema());

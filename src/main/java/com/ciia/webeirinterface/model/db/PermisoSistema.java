@@ -1,6 +1,7 @@
 package com.ciia.webeirinterface.model.db;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PermisoSistema implements Serializable {
 	/**
@@ -9,6 +10,10 @@ public class PermisoSistema implements Serializable {
 	private static final long serialVersionUID = -7756621902795988119L;
 	private Integer idPermisoSistema;
 	private String descripcion;	
+	private Integer orden;
+	private String url;
+	private String tituloPagina;
+	private List<PermisoSistema> permisoSistema;
 	private Integer idModuloSistema;
 	private Boolean activo;			
 
@@ -54,6 +59,38 @@ public class PermisoSistema implements Serializable {
 		this.descripcion = descripcion;
 	}
 
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTituloPagina() {
+		return tituloPagina;
+	}
+
+	public void setTituloPagina(String tituloPagina) {
+		this.tituloPagina = tituloPagina;
+	}
+
+	public List<PermisoSistema> getPermisoSistema() {
+		return permisoSistema;
+	}
+
+	public void setPermisoSistema(List<PermisoSistema> permisoSistema) {
+		this.permisoSistema = permisoSistema;
+	}
+
 	public Integer getIdModuloSistema() {
 		return idModuloSistema;
 	}
@@ -78,5 +115,15 @@ public class PermisoSistema implements Serializable {
 		super();
 		this.idPermisoSistema = idPermisoSistema;
 		this.descripcion = descripcion;
+	}
+
+	/**
+	 * @param idPermisoSistema
+	 * @param activo
+	 */
+	public PermisoSistema(Integer idPermisoSistema, Boolean activo) {
+		super();
+		this.idPermisoSistema = idPermisoSistema;
+		this.activo = activo;
 	}
 } 

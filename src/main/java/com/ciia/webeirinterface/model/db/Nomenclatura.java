@@ -65,4 +65,14 @@ public class Nomenclatura implements Serializable {
 		this.extension = extension;
 		this.definicion = definicion;
 	}
+
+	/**
+	 * @param idNomenclatura
+	 * @param activo
+	 */
+	public Nomenclatura(Integer idNomenclatura, Boolean activo) {
+		super();
+		this.idNomenclatura = idNomenclatura;
+		this.activo = activo;
+	}
 }

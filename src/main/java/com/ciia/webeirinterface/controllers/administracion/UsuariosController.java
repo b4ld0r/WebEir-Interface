@@ -1,11 +1,12 @@
 package com.ciia.webeirinterface.controllers.administracion;
 
 import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
+import com.ciia.webeirinterface.dao.PerfilSistemaDAO;
 import com.ciia.webeirinterface.dao.UsuarioDAO;
+import com.ciia.webeirinterface.model.db.PerfilSistema;
 import com.ciia.webeirinterface.model.db.Usuario;
 import com.ciia.webeirinterface.model.json.PaginaGrid;
 import com.ciia.webeirinterface.model.json.RespuestaJson;
-import java.util.ArrayList;
 import java.util.List;
 
 import java.util.logging.Level;
@@ -25,9 +26,24 @@ public class UsuariosController {
 	private final String tilesAsignado = "usuarioTiles";
 	
 	private UsuarioDAO usuarioDAO=new UsuarioDAO();
+	private PerfilSistemaDAO perfilSistemaDAO=new PerfilSistemaDAO();
 	
     @RequestMapping(value="usuarios.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
+		try {
+			System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+			List<PerfilSistema> perfiles=perfilSistemaDAO.consultarPerfilSistema();
+			
+			for(PerfilSistema perf: perfiles){
+				System.out.println("*"+perf.getIdPerfilSistema()+"*");
+			}
+			
+			System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+			model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LISTA_PERFILES, perfiles);
+			
+		} catch (Exception ex) {
+			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return this.tilesAsignado;
 	}
 	
@@ -36,12 +52,12 @@ public class UsuariosController {
 	 public @ResponseBody PaginaGrid<Usuario> listaUsuarios(
       @RequestParam(value = "page", required = false, defaultValue = "1") int page,
       @RequestParam(value = "max", required = false, defaultValue = "20") int max,
-	  @RequestParam(value = "sord", required = false, defaultValue = "nombre") String sord,
-	  @RequestParam(value = "sixd", required = false, defaultValue = "asc") String sixd) {
+	  @RequestParam(value = "sord", required = false, defaultValue = "usuariosT_nombre") String sord,
+	  @RequestParam(value = "sidx", required = false, defaultValue = "asc") String sidx) {
 		try {
-			sixd=(sixd!=null && !sixd.isEmpty()?sixd.split("_")[1]:ConstantesWeb.CONST_SORT_FIELD_USUARIO) +" "+sord;
-			List<Usuario> usuarios=usuarioDAO.consultarUsuarios(max*(page-1), max, sixd);
-			return new PaginaGrid<Usuario>(usuarios.subList(max*(page-1), (max*page)>usuarios.size()?usuarios.size():(max*page)), page, usuarios.size(), max);
+			sidx=(sidx!=null && !sidx.isEmpty()?sidx.split("_")[1]:ConstantesWeb.CONST_SORT_FIELD_USUARIO) +" "+sord;
+			List<Usuario> usuarios=usuarioDAO.consultarUsuarios(max*(page-1), max, sidx);
+			return new PaginaGrid<Usuario>(usuarios, page, usuarioDAO.consultarTotalUsuarios(Boolean.TRUE), max);
 		} catch (Exception ex) {
 			Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -52,18 +68,25 @@ public class UsuariosController {
 	public @ResponseBody RespuestaJson editarUsuario(@RequestBody Usuario usuario) {
 		
 		RespuestaJson respuesta=new RespuestaJson();
-		
+		usuario.setActivo(Boolean.TRUE);
 		try {
 			if(usuario.getIdUsuario()==null){
-				usuario.setContrasenia(usuario.getNombreUsuario());
-				if(usuarioDAO.insertarUsuario(usuario)!=null){
-					respuesta.setMessage("El usuario ha sido creado correctamente.");
-					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+				if(usuarioDAO.validarUsuarioNombre(usuario)){
+					usuario.setContrasenia(usuario.getNombreUsuario()+"00");
+					if(usuarioDAO.insertarUsuario(usuario)!=null){
+						usuarioDAO.asignarPerfil(usuario, usuario.getPerfilSistema());
+						respuesta.setMessage("El usuario ha sido creado correctamente.");
+						respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+					}else{
+						respuesta.setMessage("Ocurrió un error al insertar el usuario");
+						respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+					}
 				}else{
-					respuesta.setMessage("Ocurrió un error al insertar el usuario");
+					respuesta.setMessage("El nombre de usuario ya existe");
 					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
 				}
 			}else{
+				usuario.setPerfilSistema(perfilSistemaDAO.consultarPerfilPorUsuario(usuario));
 				if(usuarioDAO.actualizarUsuario(usuario)){
 					respuesta.setMessage("La información ha sido guardada correctamente.");
 					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
@@ -104,21 +127,6 @@ public class UsuariosController {
 		
 		
 		return respuesta;
-	}
-	
-	
-	private List<Usuario> dameusuaList(){
-		List<Usuario> usuarios= new ArrayList<Usuario>();//usuarioDAO.listaUsuarios();
-			usuarios.add(new Usuario(1, "Nombre", "Apellido", "Apellido", "nombreUs", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(2, "Nombre1", "Apellido1", "Apellido1", "nombreUs1", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(3, "Nombre2", "Apellido2", "Apellido2", "nombreUs2", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(4, "Nombre3", "Apellido3", "Apellido3", "nombreUs3", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(5, "Nombre4", "Apellido4", "Apellido4", "nombreUs4", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(6, "Nombre5", "Apellido5", "Apellido5", "nombreUs5", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(7, "Nombre6", "Apellido6", "Apellido6", "nombreUs6", "", "adasd@dfalsd.com", "alguna"));
-			usuarios.add(new Usuario(8, "Nombre7", "Apellido7", "Apellido7", "nombreUs7", "", "adasd@dfalsd.com", "alguna"));
-		for(Usuario us:usuarios) us.setActivo(Boolean.TRUE);
-		return usuarios;
 	}
 	
 }

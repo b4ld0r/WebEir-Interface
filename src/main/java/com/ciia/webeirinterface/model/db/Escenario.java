@@ -72,4 +72,14 @@ public class Escenario implements Serializable{
 		super();
 		this.idEscenario = idEscenario;
 	}
+
+	/**
+	 * @param idEscenario
+	 * @param activo
+	 */
+	public Escenario(Integer idEscenario, Boolean activo) {
+		super();
+		this.idEscenario = idEscenario;
+		this.activo = activo;
+	}
 }

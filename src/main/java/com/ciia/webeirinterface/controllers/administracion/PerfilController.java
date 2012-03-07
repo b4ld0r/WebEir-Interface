@@ -1,7 +1,5 @@
 package com.ciia.webeirinterface.controllers.administracion;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +10,6 @@ import com.ciia.webeirinterface.dao.PerfilSistemaDAO;
 import com.ciia.webeirinterface.model.db.PerfilSistema;
 import com.ciia.webeirinterface.model.json.PaginaGrid;
 import com.ciia.webeirinterface.model.json.RespuestaJson;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

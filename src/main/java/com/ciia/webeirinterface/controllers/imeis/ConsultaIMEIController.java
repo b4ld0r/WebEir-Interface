@@ -16,39 +16,37 @@ import com.ciia.webeirinterface.dao.ImeiDAO;
 import com.ciia.webeirinterface.model.db.Imei;
 
 @Controller
-@RequestMapping("consultaIMEI.htm")
+@RequestMapping("/imei/")
 public class ConsultaIMEIController {
 	
 	private final String tilesAsignado = "consultaIMEITiles";
-	private final String nombrePagina = "Consultar IMEI";
 	
-    @RequestMapping(method = RequestMethod.GET)
+	private ImeiDAO imeiDao = new ImeiDAO();
+	
+    @RequestMapping(value="consultaIMEI.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
     	
-    	model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_IMEI, new Imei());
+		
 		return this.tilesAsignado;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="consultaIMEI.htm",method = RequestMethod.POST)
 	public String processForm(@Valid Imei form, BindingResult result, ModelMap model){
-		
-		List<Imei> listaIMEI;
-		
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+		List<Imei> listaImei = new ArrayList<Imei>();
+
 		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_IMEI, form);
 		
 		if (!result.hasErrors()) {
 			try{
 				
-				ImeiDAO imeiDao = new ImeiDAO();
-				Imei imeiConsulta = imeiDao.consultarPorImei(form);
-				listaIMEI = new ArrayList<Imei>();
+				Imei imeiConsulta = this.imeiDao.consultarPorImei(form);
 
 				if(imeiConsulta != null){
-					listaIMEI.add(imeiConsulta);
+					
+					listaImei.add(imeiConsulta);
 				}
-				model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LISTA_IMEI, listaIMEI);
+				model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_LISTA_IMEI, listaImei);
 				
 			}catch(Exception e){
 				e.printStackTrace();

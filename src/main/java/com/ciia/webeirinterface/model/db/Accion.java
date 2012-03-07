@@ -14,6 +14,20 @@ public class Accion implements Serializable {
 	public Accion() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Accion(Integer idAccion, String descripcion) {
+		super();
+		this.idAccion = idAccion;
+		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * @param idAccion
+	 */
+	public Accion(Integer idAccion) {
+		super();
+		this.idAccion = idAccion;
+	}
 
 	public Integer getIdAccion() {
 		return idAccion;
@@ -30,18 +44,5 @@ public class Accion implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public Accion(Integer idAccion, String descripcion) {
-		super();
-		this.idAccion = idAccion;
-		this.descripcion = descripcion;
-	}
 	
-	/**
-	 * @param idAccion
-	 */
-	public Accion(Integer idAccion) {
-		super();
-		this.idAccion = idAccion;
-	}
 }

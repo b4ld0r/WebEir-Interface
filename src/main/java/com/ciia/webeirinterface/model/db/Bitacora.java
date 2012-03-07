@@ -17,6 +17,25 @@ public class Bitacora implements Serializable {
 	private ModuloSistema moduloSistema;		
 	private Usuario usuario;		
 	
+	public Bitacora() {}
+
+	public Bitacora(Accion accion, String campo){
+		this.accion = accion;
+		this.campo = campo;
+	}
+	
+	public Bitacora(Integer idBitacora, Date fecha, Time hora, String campo,
+			Accion accion, ModuloSistema moduloSistema, Usuario usuario) {
+		super();
+		this.idBitacora = idBitacora;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.campo = campo;
+		this.accion = accion;
+		this.moduloSistema = moduloSistema;
+		this.usuario = usuario;
+	}
+	
 	public Integer getIdBitacora() {
 		return idBitacora;
 	}
@@ -73,19 +92,4 @@ public class Bitacora implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Bitacora() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Bitacora(Integer idBitacora, Date fecha, Time hora, String campo,
-			Accion accion, ModuloSistema moduloSistema, Usuario usuario) {
-		super();
-		this.idBitacora = idBitacora;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.campo = campo;
-		this.accion = accion;
-		this.moduloSistema = moduloSistema;
-		this.usuario = usuario;
-	}
 }

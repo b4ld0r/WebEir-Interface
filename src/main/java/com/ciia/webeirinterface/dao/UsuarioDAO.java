@@ -12,13 +12,16 @@ import com.ciia.webeirinterface.mybatis.AccesoIbatis;
 public class UsuarioDAO {
 	private static final String LOGIN = "Usuario.permisoAcceso";
 	private static final String LISTA_USUARIOS = "Usuario.getListaUsuario";
+	private static final String LISTA_USUARIOS_SF = "Usuario.getListaUsuarioSF";
 	private static final String USUARIO_PORID = "Usuario.getUsuario";
 	private static final String VALIDA_USUARIO = "Usuario.validaNombre"; 
 	private static final String ACTUALIZAR_USUARIO = "Usuario.updateUsuario";
 	private static final String INSERTAR_USUARIO = "Usuario.insertUsuario";
 	private static final String CAMBIO_CONTRASENIA = "Usuario.updateContrasenia";
 	private static final String ASIGNAR_PERFIL = "Usuario.insertPerfilUsuario";
-	private static final String BORRADO_LOGICO = "Usuario.borradoLogico";
+	private static final String BORRADO_LOGICO = "Usuario.borradoLogicoUsuario";
+	private static final String CONTADOR_USUARIO = "Usuario.contadorUsuario";
+	private static final String REASIGNAR_PERFIL = "Usuario.updatePerfilUsuario";
 	
 	public UsuarioDAO() {
 		// TODO Auto-generated constructor stub
@@ -74,6 +77,39 @@ public class UsuarioDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new Exception("Error al obtener lista de usuarios. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> consultarUsuarios() throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			return (List<Usuario>)ibatis.getSqlSession().selectList(LISTA_USUARIOS_SF);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener lista de usuarios. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Integer consultarTotalUsuarios(Boolean activos) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			return (Integer)ibatis.getSqlSession().selectOne(CONTADOR_USUARIO, activos);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener el total de usuarios. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}
@@ -197,9 +233,9 @@ public class UsuarioDAO {
 			pMap.put("idUsuario", usuario.getIdUsuario());
 			pMap.put("idPerfilSistema", perfilSistema.getIdPerfilSistema());
 			
-			Integer insertar = ibatis.getSqlSession().insert(ASIGNAR_PERFIL, pMap);
+			Integer insertar = ibatis.getSqlSession().update(ASIGNAR_PERFIL, pMap);
 			
-			if (insertar != null &&  insertar > 0)
+			if (insertar != null && insertar > 0)
 			{
 				ibatis.getSqlSession().commit();
 				return true;
@@ -211,6 +247,35 @@ public class UsuarioDAO {
 			ibatis.getSqlSession().rollback();
 			e.printStackTrace();
 			throw new Exception("Error al asignar el perfil al usuario. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Boolean reasignarPerfil(Usuario usuario, PerfilSistema perfilSistema) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			Map<String,Object> pMap = new HashMap<String, Object>();
+			pMap.put("idUsuario", usuario.getIdUsuario());
+			pMap.put("idPerfilSistema", perfilSistema.getIdPerfilSistema());
+			
+			Integer actualizar = ibatis.getSqlSession().insert(REASIGNAR_PERFIL, pMap);
+			
+			if (actualizar != null &&  actualizar > 0)
+			{
+				ibatis.getSqlSession().commit();
+				return true;
+			}
+			
+			return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			ibatis.getSqlSession().rollback();
+			e.printStackTrace();
+			throw new Exception("Error al reasignar el perfil al usuario. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}

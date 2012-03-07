@@ -167,5 +167,15 @@ public class Operadora implements Serializable{
 		this.apellidoMaternoResposable = apellidoMaternoResposable;
 		this.emailResposable = emailResposable;
 		this.activo = activo;
+	}
+
+	/**
+	 * @param idOperadora
+	 * @param activo
+	 */
+	public Operadora(Integer idOperadora, Boolean activo) {
+		super();
+		this.idOperadora = idOperadora;
+		this.activo = activo;
 	}	
 }

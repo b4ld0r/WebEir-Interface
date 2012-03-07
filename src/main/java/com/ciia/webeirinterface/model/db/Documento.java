@@ -48,11 +48,30 @@ public class Documento implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Documento(Integer idDocumento, String descripcion,
-			Boolean obligatorio) {
+	public Documento(Integer idDocumento) {
 		super();
 		this.idDocumento = idDocumento;
+	}
+
+	/**
+	 * @param descripcion
+	 * @param obligatorio
+	 * @param activo
+	 */
+	public Documento(String descripcion, Boolean obligatorio, Boolean activo) {
+		super();
 		this.descripcion = descripcion;
 		this.obligatorio = obligatorio;
+		this.activo = activo;
+	}
+
+	/**
+	 * @param idDocumento
+	 * @param activo
+	 */
+	public Documento(Integer idDocumento, Boolean activo) {
+		super();
+		this.idDocumento = idDocumento;
+		this.activo = activo;
 	}
 }

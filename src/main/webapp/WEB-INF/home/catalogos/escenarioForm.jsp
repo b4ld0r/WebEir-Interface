@@ -53,13 +53,12 @@
 	</script>
 </head>
 <body>
-	<h2>${tituloPagina}</h2>
-	
 	<div class="forms">
+	<h2>${tituloPagina}</h2>
 		
 		<form:form method="POST" modelAttribute="<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>">
 			<div>
-				<div id="errores" class="errorblock"></div>
+				<div id="errores" class="errorBlock ui-corner-all"></div>
 				<p><strong><label for="descripcion">Nombre de escenario:</label></strong><form:errors path="descripcion" cssClass="error"/></p>
 				<p><form:input path="descripcion" class="formText ui-widget-content ui-corner-all"/></p>
 				<p><strong><label for="inicial">Inicial:</label></strong><form:errors path="inicial" cssClass="error"/></p>
@@ -83,7 +82,7 @@
 								<td style="height:0px;width:16px;"></td>
 								<td style="height:0px;width:174px;"></td>
 							</tr>
-							<c:forEach items="${escenario.motivo}" var="motivo" varStatus="status">
+							<c:forEach items="${escenario.motivos}" var="motivo" varStatus="status">
 							<tr class="ui-widget-content jqgrow ui-row-ltr">
 								<td>${status.count}</td>
 								<td>${motivo.descripcion}

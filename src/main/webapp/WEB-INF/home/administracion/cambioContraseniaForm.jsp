@@ -25,16 +25,16 @@
 							"contraseniaActual": "required",
 							"contraseniaNueva": "required",
 							"confirmaContraseniaNueva":{
-												required:true,
-												equalTo:"#contraseniaNueva"
+												"required":true,
+												"equalTo":"#contraseniaNueva"
 							},
 						},
 						messages: {
 							"contraseniaActual": "El campo contraseña es obligatorio",
 							"contraseniaNueva": "El campo de nueva contraseña es obligatorio",
 							"confirmaContraseniaNueva":{
-												required:"El campo de confirmación de contraseña es obligatorio",
-												equalTo:"Las contraseñas no coinciden, verifique y vuelva a intentarlo"
+												"required":"El campo de confirmación de contraseña es obligatorio",
+												"equalTo":"Las contraseñas no coinciden, verifique y vuelva a intentarlo"
 							}
 						}
 					});
@@ -44,7 +44,7 @@
 		</script>
 	</head>
 	<body>
-		<h2>${tituloPagina}</h2>
+		<h2><c:out value="${beanPermisoSeleccionado.tituloPagina}" default=" "/></h2>
 		<div class="forms">	
 			<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_CONTRASENIA%>">
 				<div>

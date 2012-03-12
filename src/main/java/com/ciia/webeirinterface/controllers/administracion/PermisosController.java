@@ -25,7 +25,6 @@ public class PermisosController {
 	PerfilSistemaDAO perfilSistemaDAO=new PerfilSistemaDAO();
 	
 	private final String tilesAsignado = "permisoTiles";
-	private final String nombrePagina = "Asigación de Permisos";
 	
 	@RequestMapping(value="asignaPerfil.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model,@RequestParam(value = "id", required = true) int id) {
@@ -37,7 +36,7 @@ public class PermisosController {
 		} catch (Exception ex) {
 			Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+		
 		return this.tilesAsignado;
 	}
 	

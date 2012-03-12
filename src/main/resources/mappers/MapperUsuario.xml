@@ -124,6 +124,7 @@
 		FROM USUARIO		
 		WHERE nombreUsuario = #{nombreUsuario}
 		AND contrasenia = #{contrasenia}
+		AND activo = TRUE
 	</select>
 	<update id="updateContrasenia" parameterType="Usuario">
 		UPDATE USUARIO

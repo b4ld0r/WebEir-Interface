@@ -138,7 +138,7 @@
 
 	</head>
 	<body>
-		<h2>${tituloPagina}</h2>
+		<h2><c:out value="${beanPermisoSeleccionado.tituloPagina}" default=" "/></h2>
 		<div class="gridCenter">
 			<div class="messages">
 				<div id="successMsg" class="noDisplay success ui-corner-all"></div>

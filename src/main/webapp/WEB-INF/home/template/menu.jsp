@@ -9,11 +9,11 @@
 					</div>
 					
 					<div id="accordion" class="hidden"> <!-- #accordion -->
-						<c:forEach var="modulo" items="${menu}">
-							<h3><a href="#">${modulo.nombre}</a></h3>
+						<c:forEach var="modulo" items="${login.perfilSistema.moduloSistema}">
+							<h3><a href="#">${modulo.descripcion}</a></h3>
 							<div>
-								<c:forEach var="opcion" items="${modulo.submenu}">								
-									<a href="${opcion.url}"><div id="option${opcion.idTag}"><Strong>${opcion.nombre}</Strong></div></a>
+								<c:forEach var="opcion" items="${modulo.permisoSistema}">								
+									<a href="${pageContext.request.contextPath}${opcion.url}"><div id="option${opcion.idPermisoSistema}"><Strong>${opcion.descripcion}</Strong></div></a>
 								</c:forEach>
 							</div>
 							

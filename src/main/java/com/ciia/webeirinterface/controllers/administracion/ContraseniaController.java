@@ -15,7 +15,7 @@ import com.ciia.webeirinterface.model.Contrasenia;
 import com.ciia.webeirinterface.model.db.Usuario;
 
 @Controller
-@RequestMapping("cambioClave.htm")
+@RequestMapping("/administracion/cambioClave.htm")
 public class ContraseniaController {
 	
 	private final String tilesAsignado = "cambioContraseniaTiles";

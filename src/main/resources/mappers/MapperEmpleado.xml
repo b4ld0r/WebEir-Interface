@@ -6,8 +6,6 @@
 		SELECT
 			idEmpleadoFE,
 			empleadoFE,
-			noSolicitudFE,
-			noSolicitud,
 			nombreEmpleado,
 			apellidoPaternoEmpleado,
 			apellidoMaternoEmpleado,
@@ -18,8 +16,6 @@
 		SELECT
 			idEmpleadoFE,
 			empleadoFE,
-			noSolicitudFE,
-			noSolicitud,
 			nombreEmpleado,
 			apellidoPaternoEmpleado,
 			apellidoMaternoEmpleado,
@@ -30,8 +26,6 @@
 	<update id="updateEmpleado" parameterType="Empleado">
 		UPDATE EMPLEADO
 		SET empleadoFE = #{empleadoFE},
-			noSolicitudFE = #{noSolicitudFE},
-			noSolicitud = #{noSolicitud},
 			nombreEmpleado = #{nombreEmpleado},
 			apellidoPaternoEmpleado = #{apellidoPaternoEmpleado},
 			apellidoMaternoEmpleado = #{apellidoMaternoEmpleado},
@@ -41,16 +35,12 @@
 	<insert id="insertEmpleado" parameterType="Empleado" keyProperty="idEmpleadoFE">
 		INSERT INTO EMPLEADO
 			(empleadoFE,
-			 noSolicitudFE,
-			 noSolicitud,
 			 nombreEmpleado,
 			 apellidoPaternoEmpleado,
 			 apellidoMaternoEmpleado,
 			 emailEmpleado)
 		VALUES 
 			(#{empleadoFE},
-			#{noSolicitudFE},
-			#{noSolicitud},
 			#{nombreEmpleado},
 			#{apellidoPaternoEmpleado},
 			#{apellidoMaternoEmpleado},

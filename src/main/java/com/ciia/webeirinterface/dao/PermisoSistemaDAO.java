@@ -43,8 +43,16 @@ public class PermisoSistemaDAO {
 			List<PermisoSistema> listaPermisos = ((List<PermisoSistema>)ibatis.getSqlSession().selectList(PERMISO_USUARIO, perfilSistema));
 			
 			//Recuperar permisos hijo
+			Map<String,Object> pMap = new HashMap<String, Object>();
+			pMap.put("idPerfilSistema", perfilSistema.getIdPerfilSistema());
+			
 			for (int i = 0; i < listaPermisos.size(); i++) {
-				List<PermisoSistema> permisoHijo = ((List<PermisoSistema>)ibatis.getSqlSession().selectList(PERMISO_HIJO, listaPermisos.get(i)));
+				if(pMap.containsKey("idPermisoSistema"))
+					pMap.remove("idPermisoSistema");
+				
+				pMap.put("idPermisoSistema", listaPermisos.get(i).getIdPermisoSistema());
+				
+				List<PermisoSistema> permisoHijo = ((List<PermisoSistema>)ibatis.getSqlSession().selectList(PERMISO_HIJO, pMap));
 
 				if (permisoHijo != null && !permisoHijo.isEmpty()){
 					listaPermisos.get(i).setPermisoSistema(permisoHijo);

@@ -5,7 +5,8 @@
 	<select id="getListaSolicitudSF" resultMap="rSolicitudLista">
 		SELECT 
 			S.idSolicitud,
-        	S.documentos,       
+        	S.documentos,
+        	S.noSolicitudFE,       
         	TS.idTipoSolicitud AS TSidTipoSolicitud,
  	        TS.descripcion AS TSdescripcion,       
     	    E.idEstatus AS EidEstatus,       
@@ -13,9 +14,7 @@
        	 	ES.idEscenario AS ESidEscenario,       
        		ES.descripcion AS ESdescripcion,       
 		    EM.idEmpleadoFE AS EMidEmpleadoFE,       
-       		EM.empleadoFE AS EMempleadoFE,       
-       		EM.noSolicitud AS EMnoSolicitud,       
-       		EM.noSolicitudFE AS EMnoSolicitudFE,       
+       		EM.empleadoFE AS EMempleadoFE,           
        		EM.nombreEmpleado AS EMnombreEmpleado,       
        		EM.apellidoPaternoEmpleado AS EMapellidoPaternoEmpleado,       
        		EM.apellidoMaternoEmpleado AS EMapellidoMaternoEmpleado,       
@@ -37,7 +36,8 @@
 	<select id="getListaSolicitud" resultMap="rSolicitudLista" parameterMap="pSolicitudFiltro">
 		SELECT 
 			S.idSolicitud,
-        	S.documentos,       
+        	S.documentos,   
+        	S.noSolicitudFE,    
         	TS.idTipoSolicitud AS TSidTipoSolicitud,
  	        TS.descripcion AS TSdescripcion,       
     	    E.idEstatus AS EidEstatus,       
@@ -46,8 +46,6 @@
        		ES.descripcion AS ESdescripcion,       
 		    EM.idEmpleadoFE AS EMidEmpleadoFE,       
        		EM.empleadoFE AS EMempleadoFE,       
-       		EM.noSolicitud AS EMnoSolicitud,       
-       		EM.noSolicitudFE AS EMnoSolicitudFE,       
        		EM.nombreEmpleado AS EMnombreEmpleado,       
        		EM.apellidoPaternoEmpleado AS EMapellidoPaternoEmpleado,       
        		EM.apellidoMaternoEmpleado AS EMapellidoMaternoEmpleado,       
@@ -81,7 +79,8 @@
 			idEstatus,		
 			idEscenario,		
 			idArchivo,		
-			documentos			
+			documentos,
+			noSolicitudFE			
 		FROM SOLICITUD
 		WHERE idSolicitud = #{idSolicitud}
 	</select>
@@ -91,7 +90,8 @@
 			idEstatus = #{idEstatus},		
 			idEscenario = #{idEscenario},		
 			idArchivo = #{idArchivo},		
-			documentos = #{documentos}
+			documentos = #{documentos},
+			noSolicitudFE = #{noSolicitudFE}
 		WHERE idSolicitud = #{idSolicitud}
 	</update>
 	<insert id="insertSolicitud" parameterType="Solicitud" keyProperty="idSolicitud">
@@ -100,13 +100,15 @@
 			idEstatus,		
 			idEscenario,		
 			idArchivo,		
-			documentos)
+			documentos,
+			noSolicitudFE)
 		VALUES 
 			(#{idTipoSolicitud},		
 			#{idEstatus},		
 			#{idEscenario},		
 			#{idArchivo},		
-			#{documentos})
+			#{documentos},
+			#{noSolicitudFE})
 	</insert>
 	
 	<parameterMap type="Solicitud" id="pSolicitudFiltro">
@@ -118,11 +120,10 @@
 	<resultMap type="Solicitud" id="rSolicitudLista">
 		<id property="idSolicitud" column="idSolicitud"/>
 		<result property="documentos" column="documentos"/>
+		<result property="noSolicitudFE" column="noSolicitudFE"/>
 		<association property="empleado" column="EMidEmpleadoFE" javaType="Empleado">
 			<id property="idEmpleadoFE" column="EMidEmpleadoFE"/>
 			<result property="empleadoFE" column="EMempleadoFE"/>
-			<result property="noSolicitud" column="EMnoSolicitud"/>
-			<result property="noSolicitudFE" column="EMnoSolicitudFE"/>
 			<result property="nombreEmpleado" column="EMnombreEmpleado"/>
 			<result property="apellidoPaternoEmpleado" column="EMapellidoPaternoEmpleado"/>
 			<result property="apellidoMaternoEmpleado" column="EMapellidoMaternoEmpleado"/>

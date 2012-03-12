@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="es-GB">
@@ -45,8 +46,7 @@
 					  width: 600,
 					  editable: true,
 					  editrules: {required: true}
-					}
-					,{
+					},{
 					  name:"obligatorio",
 					  label: "Obligatorio",
 					  index:"descripcion",
@@ -95,7 +95,7 @@
 	
 	</head>
 	<body>
-		<h2>${tituloPagina}</h2>
+		<h2><c:out value="${beanPermisoSeleccionado.tituloPagina}" default=" "/></h2>
 		<div class="gridCenter">
 			<div class="messages">
 				<div id="successMsg" class="noDisplay success ui-corner-all"></div>

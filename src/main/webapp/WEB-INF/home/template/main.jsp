@@ -22,7 +22,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#accordion").accordion({ active: <c:out value="${indexModuloSeleccionado}"/> });
-			$("#option<c:out value="${idPermisoSeleccionado}"/>").addClass("optionSelected");
+			$("#option<c:out value="${beanPermisoSeleccionado.idPermisoSistema}" default="0"/>").addClass("optionSelected");
 			$("#accordion").removeClass("hidden");
 		});
 	</script>

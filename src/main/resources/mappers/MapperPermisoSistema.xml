@@ -77,7 +77,7 @@
 			#{idModuloSistema},			
 			#{activo})
 	</insert>
-	<select id="permisoPerfil" parameterType="PerfilSistema" resultType="PermisoSistema">
+	<select id="permisoPerfil" parameterMap="pPermisoPerfilHijo" resultType="PermisoSistema">
 		SELECT
 			idPermisoSistema,
 			descripcion,
@@ -105,7 +105,12 @@
 			activo			
 		FROM PERMISO_SISTEMA
 		WHERE idPermisoPadre = #{idPermisoSistema}
+		AND idPermisoSistema IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
 		ORDER BY orden ASC
 	</select>
 	
+	<parameterMap type="PermisoSistema" id="pPermisoPerfilHijo">
+		<parameter property="idPerfilSistema" javaType="Integer" mode="IN"/>
+		<parameter property="idPermisoSistema" javaType="Integer" mode="IN"/>
+	</parameterMap>
 </mapper>

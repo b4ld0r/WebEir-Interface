@@ -38,7 +38,7 @@
 				
 				$.validator.addMethod("imeiRegExp", function(value, element) {
 					return this.optional(element) || /^[0-9]{14}[a-zA-Z0-9]?$/i.test(value);
-					}, "IMEI incorrecto");
+					}, "El formato es inadecuado");
 	
 				$(function(){
 					$("#<%=ConstantesWeb.CONST_ATTRIBUTE_IMEI%>").validate({
@@ -46,7 +46,9 @@
 							"imei": "required imeiRegExp"
 						},
 						messages: {
-							"imei": "El IMEI es incorrecto. Debe tener 15 dígitos"
+							"imei": {
+								"required":"El campo IMEI es obligatorio"
+							}
 						}
 					});
 				});
@@ -55,7 +57,7 @@
 		</script>
 	</head>
 	<body>
-		<h2>${tituloPagina}</h2>
+		<h2><c:out value="${beanPermisoSeleccionado.tituloPagina}" default=" "/></h2>
 		<div class="forms">	
 			<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_IMEI%>">
 				<div>

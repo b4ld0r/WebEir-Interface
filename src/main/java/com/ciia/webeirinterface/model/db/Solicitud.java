@@ -16,7 +16,8 @@ public class Solicitud implements Serializable{
 	private Empleado empleado;
 	private Operadora operadora;
 	private List<Imei> imei;
-	private Boolean documentos;			
+	private Boolean documentos;	
+	private String noSolicitudFE;
 
 	public Integer getIdSolicitud() {
 		return idSolicitud;
@@ -88,6 +89,14 @@ public class Solicitud implements Serializable{
 
 	public void setDocumentos(Boolean documentos) {
 		this.documentos = documentos;
+	}
+
+	public String getNoSolicitudFE() {
+		return noSolicitudFE;
+	}
+
+	public void setNoSolicitudFE(String noSolicitudFE) {
+		this.noSolicitudFE = noSolicitudFE;
 	}
 
 	public Solicitud() {

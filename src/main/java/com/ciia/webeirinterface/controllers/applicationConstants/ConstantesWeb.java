@@ -4,8 +4,6 @@ public final class ConstantesWeb {
 	public static final String CONST_ATTRIBUTE_LOGIN = "login";
 	public static final String CONST_ATTRIBUTE_USUARIO = "usuario";
 	public static final String CONST_ATTRIBUTE_CONTRASENIA = "contrasenia";
-	public static final String CONST_ATTRIBUTE_MENU = "menu";
-	public static final String CONST_ATTRIBUTE_TITULO_PAGINA = "tituloPagina";
 	public static final String CONST_ATTRIBUTE_ESCENARIO = "escenario";
 	public static final String CONST_ATTRIBUTE_SOLICITUD_INTERNA = "solicitudInterna";
 	public static final String CONST_ATTRIBUTE_PERFIL = "perfil";
@@ -14,8 +12,8 @@ public final class ConstantesWeb {
 	public static final String CONST_ATTRIBUTE_LISTA_PERFILES = "perfiles";
 	public static final String CONST_ATTRIBUTE_LISTA_PERMISOS = "permisos";
 	public static final String CONST_ATTRIBUTE_INDEX_MODULO_SELECCIONADO = "indexModuloSeleccionado";
-	public static final String CONST_ATTRIBUTE_ID_PERMISO_SELECCIONADO = "idPermisoSeleccionado";
 	public static final String CONST_ATTRIBUTE_INTERCEPTOR_BITACORA = "bitacoraInterceptor";
+	public static final String CONST_ATTRIBUTE_PERMISO_SELECCIONADO = "beanPermisoSeleccionado";
 	
 	public static final String CONST_SORT_FIELD_USUARIO = "nombre";
 	public static final String CONST_SORT_FIELD_DOCUMENTO = "descripcion";

@@ -9,8 +9,6 @@ public class Empleado implements Serializable {
 	private static final long serialVersionUID = 4334242746095835670L;
 	private Integer idEmpleadoFE;
 	private String empleadoFE;
-	private String noSolicitud;
-	private String noSolicitudFE;
 	private String nombreEmpleado;
 	private String apellidoPaternoEmpleado;
 	private String apellidoMaternoEmpleado;
@@ -31,22 +29,6 @@ public class Empleado implements Serializable {
 
 	public void setEmpleadoFE(String empleadoFE) {
 		this.empleadoFE = empleadoFE;
-	}
-
-	public String getNoSolicitud() {
-		return noSolicitud;
-	}
-
-	public void setNoSolicitud(String noSolicitud) {
-		this.noSolicitud = noSolicitud;
-	}
-
-	public String getNoSolicitudFE() {
-		return noSolicitudFE;
-	}
-
-	public void setNoSolicitudFE(String noSolicitudFE) {
-		this.noSolicitudFE = noSolicitudFE;
 	}
 
 	public String getNombreEmpleado() {

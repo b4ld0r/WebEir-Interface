@@ -10,15 +10,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript">
-			/*
-			function fadeError(){
-				$("#box1").fadeOut("slow");
-			}*/
 		
 			$(document).ready(function() {
-				/*
-				$("#nombreUsuario").focusin(fadeError);
-				$("#contrasenia").focusin(fadeError);*/
 				
 				$(function(){
 					$("#<%=ConstantesWeb.CONST_ATTRIBUTE_USUARIO%>").validate({
@@ -40,7 +33,7 @@
 	<body>
 	
 		<div id="loginBG">
-			<h2>${tituloPagina}</h2>
+			<h2>Acceso al sistema</h2>
 			
 			<form:form method="POST" commandName="<%=ConstantesWeb.CONST_ATTRIBUTE_USUARIO%>">
 				<form:errors path="*" cssClass="errorBlockLogin ui-corner-all" element="div"/>

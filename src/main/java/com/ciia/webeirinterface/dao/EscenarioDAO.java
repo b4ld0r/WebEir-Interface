@@ -15,6 +15,8 @@ public class EscenarioDAO {
 	private static final String ACTUALIZAR_ESCENARIO = "Escenario.updateEscenario";
 	private static final String ASIGNAR_MOTIVO = "Escenario.insertEscenarioMotivo";
 	private static final String BORRADO_LOGICO = "Escenario.borradoLogicoEscenario";
+	private static final String CONTADOR_ESCENARIO = "Escenario.contadorEscenario";
+	private static final String ESCENARIO_ID = "Escenario.getEscenario";
 	
 	public EscenarioDAO() {
 		// TODO Auto-generated constructor stub
@@ -54,6 +56,22 @@ public class EscenarioDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new Exception("Error al obtener lista de escenario. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Integer consultarTotalEscenario(Boolean activos) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();
+			
+			return (Integer)ibatis.getSqlSession().selectOne(CONTADOR_ESCENARIO, activos);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al obtener el total de escenarios. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}
@@ -174,4 +192,21 @@ public class EscenarioDAO {
 			ibatis.cerrarSession();
 		}
 	}
+	
+	public Escenario consultarEscenarioPorID(Escenario escenario) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();  
+			
+			return (Escenario)ibatis.getSqlSession().selectOne(ESCENARIO_ID, escenario);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al consultar el escenario. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
 }

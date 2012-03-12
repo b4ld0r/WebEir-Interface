@@ -14,10 +14,9 @@ public class DocumentoDAO {
 	private static final String ACTUALIZAR_DOCUMENTO = "Documento.updateDocumento";
 	private static final String BORRADO_LOGICO = "Documento.borradoLogicoDocumento";
 	private static final String CONTADOR_DOCUMENTO = "Documento.contadorDocumento";
+	private static final String DOCUMENTO_ID = "Documento.getDocumento";
 	
-	public DocumentoDAO() {
-		// TODO Auto-generated constructor stub
-	}
+	public DocumentoDAO() {}
 
 	@SuppressWarnings("unchecked")
 	public List<Documento> consultarDocumento() throws Exception {
@@ -90,7 +89,6 @@ public class DocumentoDAO {
 			
 			return null;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			throw new Exception("Error al insertar el documento. - " + e.getMessage());
 		} finally {
@@ -114,7 +112,6 @@ public class DocumentoDAO {
 			
 			return false;
 		} catch (Exception e) {
-			// TODO: handle exception
 			ibatis.getSqlSession().rollback();
 			e.printStackTrace();
 			throw new Exception("Error al acutalizar el documento. - " + e.getMessage());
@@ -143,6 +140,22 @@ public class DocumentoDAO {
 			ibatis.getSqlSession().rollback();
 			e.printStackTrace();
 			throw new Exception("Error al " + (documento.getActivo() == true ? "activar" : "desactivar") + " el documento. - " + e.getMessage());
+		} finally {
+			ibatis.cerrarSession();
+		}
+	}
+	
+	public Documento consultarDocumentoPorID(Documento documento) throws Exception {
+		AccesoIbatis ibatis = new AccesoIbatis();
+		
+		try {
+			ibatis.generarSession();  
+			
+			return (Documento)ibatis.getSqlSession().selectOne(DOCUMENTO_ID, documento);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception("Error al consultar el documento. - " + e.getMessage());
 		} finally {
 			ibatis.cerrarSession();
 		}

@@ -61,9 +61,8 @@ public class DocumentosController {
 	
 	@RequestMapping(value="editaDocumento.htm",method = {RequestMethod.PUT, RequestMethod.POST})
 	public @ResponseBody RespuestaJson agregarEditar(@RequestBody Documento elemento, HttpServletRequest request) {
-		
 		RespuestaJson respuesta=new RespuestaJson();
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<ControllerModelo:"  + request);
+		
 		try {
 			
 			if(elemento.getIdDocumento() == null){
@@ -97,11 +96,16 @@ public class DocumentosController {
 				
 			}
 			
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			logger.error(ex.getStackTrace());
-			respuesta.setMessage("Ocurrió un error al insertar el registro de documento:"+ex.getMessage());
-			respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
-			
+			if(ex.getMessage().contains("MySQLIntegrityConstraintViolationException")){
+				respuesta.setMessage("El registro ya existe");
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+			}
+			else{
+				respuesta.setMessage("Ocurrió un error al insertar el registro de documento:"+ex.getMessage());
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+			}
 		}
 		
 		return respuesta;
@@ -110,13 +114,14 @@ public class DocumentosController {
 	@RequestMapping(value="eliminaDocumento.htm",method = RequestMethod.POST)
 	public @ResponseBody RespuestaJson eliminar(@RequestParam(value = "id", required = true) int id, HttpServletRequest request) {
 		RespuestaJson respuesta=new RespuestaJson();
-		Documento elemento = new Documento(new Integer(id),Boolean.FALSE);
+		Documento elemento = null;
 		
 		try {
-			
-			if(documentoDAO.activarDesactivarDocumento(elemento)){
-				elemento.setDescripcion("NoImplementado");
-				elemento.setObligatorio(new Boolean(false));
+			elemento = documentoDAO.consultarDocumentoPorID(new Documento(id));
+			if(elemento != null){
+				elemento.setActivo(Boolean.FALSE);
+			}
+			if(elemento != null && documentoDAO.activarDesactivarDocumento(elemento)){
 				this.agregarBitacora(request,new Accion(ConstantesWeb.CONST_ID_ACCION_ELIMINAR),elemento);
 				
 				respuesta.setMessage("El registro se eliminó correctamente.");

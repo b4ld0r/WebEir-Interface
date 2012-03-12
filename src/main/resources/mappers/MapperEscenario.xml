@@ -72,6 +72,15 @@
 		SET activo = #{activo}
 		WHERE idEscenario = #{idEscenario} 
 	</update>
+	<select id="contadorEscenario" parameterType="Boolean" resultType="Integer">
+		SELECT COUNT(*) AS total
+		FROM ESCENARIO
+		<choose>
+			<when test="value eq true">
+				WHERE activo = #{value}
+			</when>
+		</choose>
+	</select>
 	
 	<parameterMap type="Escenario" id="pEscenarioMotivo">
 		<parameter property="idEscenario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>

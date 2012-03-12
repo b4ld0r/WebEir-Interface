@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PerfilController {
 	
 	private final String tilesAsignado = "perfilTiles";
-	private final String nombrePagina = "Registrar Perfil";
 	
 	PerfilSistemaDAO perfilSistemaDAO=new PerfilSistemaDAO();
 
@@ -31,7 +30,7 @@ public class PerfilController {
 	
     @RequestMapping(value="perfiles.htm",method = RequestMethod.GET)
 	public String initForm(ModelMap model) {
-    	model.addAttribute(ConstantesWeb.CONST_ATTRIBUTE_TITULO_PAGINA, nombrePagina);
+    	
 		return this.tilesAsignado;
 	}
 	

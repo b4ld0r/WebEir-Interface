@@ -99,7 +99,7 @@ public class DocumentosController {
 		} catch (Exception ex) {
 			logger.error(ex.getStackTrace());
 			if(ex.getMessage().contains("MySQLIntegrityConstraintViolationException")){
-				respuesta.setMessage("El registro ya existe");
+				respuesta.setMessage("Nombre de documento: El registro ya existe");
 				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
 			}
 			else{

@@ -108,10 +108,7 @@
 					position:"first"
 				});
 				
-				var name = $( "#name" ),
-					email = $( "#email" ),
-					password = $( "#password" ),
-					allFields = $( [] ).add( name ).add( email ).add( password );
+				var allFields = $( [] ).add( $( "#descripcion" ) ).add( $( "#inicial" ) ).add( $( "#motivo" ) );
 				$( "#escenario-form" ).dialog({
 					autoOpen: false,
 					width: 670,
@@ -121,12 +118,14 @@
 					draggable: false,
 					buttons: {
 						"Guardar": function() {
+							$("#<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>").submit();
 							var id = jQuery("#escenariosT").jqGrid('getGridParam','selrow');
-							alert("Guardar:" +  id);
+							allFields.val("");
 							$( this ).dialog( "close" );
 						},
 						"Cancelar": function() {
 							alert("Cancelar");
+							allFields.val("");
 							$( this ).dialog( "close" );
 						}
 					},
@@ -137,9 +136,8 @@
 				
 				
 				$("#agregarMotivos").click(function() {
-					var regExp = /^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/;
-					 
-					if($("#motivo").val() != '' && regExp.test($("#motivo").val())){
+					
+					if(Validaciones.esAlfabetico($("#motivo").val())){
 						
 						$("#listaMotivos tr:last").after("<tr class=\"ui-widget-content jqgrow ui-row-ltr\">"
 												+ "<td>"+ (cntMotivos+1) + "</td>"
@@ -151,17 +149,15 @@
 					}
 				});
 				
-				$(function(){
-					$("#<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>").validate({
-						rules: {
-							"descripcion": "required",
-							"inicial": "required"
-						},
-						messages: {
-							"descripcion": "Debe ingresar el nombre de escenario",
-							"inicial": "Debe ingresar la inicial"
-						}
-					});
+				$("#<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>").validate({
+					rules: {
+						"descripcion": "required",
+						"inicial": "required"
+					},
+					messages: {
+						"descripcion": "Debe ingresar el nombre de escenario",
+						"inicial": "Debe ingresar la inicial"
+					}
 				});
 				
 			});
@@ -185,7 +181,7 @@
 			<form:form method="POST" modelAttribute="<%=ConstantesWeb.CONST_ATTRIBUTE_ESCENARIO%>">
 				<div>
 					<div class="messages">
-						<div id="errores" class="errorBlock ui-corner-all"></div>	
+						<div id="errores" class="noDisplay ui-state-error"></div>
 					</div>
 					<p><strong><label for="descripcion">Nombre de escenario:</label></strong><form:errors path="descripcion" cssClass="error"/>
 					<form:input path="descripcion" class="formText ui-widget-content ui-corner-all"/></p>
@@ -196,15 +192,13 @@
 						<strong class="break15px"><label>Motivo:</label></strong>
 							<input type="text" id="motivo" class="formText ui-widget-content ui-corner-all"/>
 							<input type="button" id="agregarMotivos" class="ui-button ui-state-default ui-corner-all ui-state-hover"  value="Agregar" />
-						<table class="ui-jqgrid-htable">
+						<table id="listaMotivos" class="ui-widget ui-widget-content">
 							<thead>
-								<tr class="ui-jqgrid-labels">
+								<tr class="ui-widget-header ">
 									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:16px;">#</th>
 									<th class="ui-state-default ui-th-column ui-th-ltr" style="height:0px;width:174px;">Motivo</th>
 								</tr>
 							</thead>
-						</table>
-						<table class="ui-jqgrid-btable" id="listaMotivos">
 							<tbody>
 								<tr class="jqgfirstrow" style="height:auto">
 									<td style="height:0px;width:16px;"></td>

@@ -13,7 +13,6 @@
 		<script src="${pageContext.request.contextPath}/js/jqGrid.defaults.js" type="text/javascript"></script>
 		
 		<script type="text/javascript">
-		
 			function asignaIdCorrecto(data){
 				data.idDocumento = data.id;
 			}
@@ -45,7 +44,14 @@
 					  index:"descripcion",
 					  width: 600,
 					  editable: true,
-					  editrules: {required: true}
+					  editrules: {
+						  required: true,
+						  custom:true,
+						  custom_func:Validaciones.esAlfabetico
+					  },
+					  editoptions:{
+									  maxlength: 45
+					  }
 					},{
 					  name:"obligatorio",
 					  label: "Obligatorio",

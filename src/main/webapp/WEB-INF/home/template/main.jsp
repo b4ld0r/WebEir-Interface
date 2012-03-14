@@ -13,6 +13,7 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-1.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
+	<script src="${pageContext.request.contextPath}/js/general.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$( "input:submit, input:button").button();

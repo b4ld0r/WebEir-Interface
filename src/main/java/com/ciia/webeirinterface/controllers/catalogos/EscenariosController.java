@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.ciia.webeirinterface.controllers.applicationConstants.ConstantesWeb;
 import com.ciia.webeirinterface.dao.EscenarioDAO;
 import com.ciia.webeirinterface.model.db.Accion;
 import com.ciia.webeirinterface.model.db.Bitacora;
+import com.ciia.webeirinterface.model.db.Documento;
 import com.ciia.webeirinterface.model.db.Escenario;
 import com.ciia.webeirinterface.model.json.PaginaGrid;
 import com.ciia.webeirinterface.model.json.RespuestaJson;
@@ -56,6 +58,58 @@ public class EscenariosController {
 		}
 		return new PaginaGrid<Escenario>();
 		
+	}
+	
+	@RequestMapping(value="editaEscenario.htm",method = {RequestMethod.PUT, RequestMethod.POST})
+	public @ResponseBody RespuestaJson agregarEditar(@RequestBody Escenario elemento, HttpServletRequest request) {
+		RespuestaJson respuesta=new RespuestaJson();
+		
+		try {
+			/*
+			if(elemento.getIdEscenario() == null){
+				
+				elemento.setActivo(Boolean.TRUE);
+				if(escenarioDAO.insertarEscenario(elemento) != null){
+					this.agregarBitacora(request,new Accion(ConstantesWeb.CONST_ID_ACCION_INSERTAR),elemento);
+					
+					respuesta.setMessage("El documento ha sido registrado correctamente.");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+				}else{
+					
+					respuesta.setMessage("Ocurrió un error al registrar el documento");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+				}				
+				
+			}
+			else{
+				
+				if(escenarioDAO.actualizarEscenario(elemento)){
+					
+					this.agregarBitacora(request,new Accion(ConstantesWeb.CONST_ID_ACCION_ACTUALIZAR),elemento);
+					
+					respuesta.setMessage("La información ha sido guardada correctamente.");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_SUCCESS);
+				}
+				else{
+					respuesta.setMessage("Ocurrió un error al editar el documento");
+					respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+				}
+				
+			}*/
+			
+		} catch (Exception ex) {
+			logger.error(ex.getStackTrace());
+			if(ex.getMessage().contains("MySQLIntegrityConstraintViolationException")){
+				respuesta.setMessage("Nombre de escenario: El registro ya existe");
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+			}
+			else{
+				respuesta.setMessage("Ocurrió un error al insertar el registro de documento:"+ex.getMessage());
+				respuesta.setStatus(ConstantesWeb.CONST_JSON_RESPONSE_STATUS_FAIL);
+			}
+		}
+		
+		return respuesta;
 	}
 	
 	@RequestMapping(value="eliminaEscenario.htm",method = RequestMethod.POST)

@@ -5,7 +5,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
 
 html,body {
 	outline: 0;
-	background: #014F91;
+	background: #053C7C;
 	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
 	/*font-family:Lucida Grande, Lucida Sans, Arial, sans-serif;*/
 	font-size: 14px;
@@ -35,9 +35,10 @@ html,body {
 	margin-left:30px;}
 	
 img[src*="telefonica"]{
-	float:right;
-	margin-top:25px;
-	margin-right:60px;}
+	float: right;
+	margin-top: 4px;
+	margin-right: 60px;
+	height: 88px}
 	
 img[src*="huawei"]{
 	float:right;

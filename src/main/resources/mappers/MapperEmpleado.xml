@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Empleado">
+	<select id="getListaEmpleado" resultType="Empleado">
+		SELECT
+			idEmpleadoFE,
+			empleadoFE,
+			nombreEmpleado,
+			apellidoPaternoEmpleado,
+			apellidoMaternoEmpleado,
+			emailEmpleado
+		FROM EMPLEADO
+	</select>
+	<select id="getEmpleado" parameterType="Empleado" resultType="Empleado">
+		SELECT
+			idEmpleadoFE,
+			empleadoFE,
+			nombreEmpleado,
+			apellidoPaternoEmpleado,
+			apellidoMaternoEmpleado,
+			emailEmpleado
+		FROM EMPLEADO
+		WHERE idEmpleadoFE = #{idEmpleadoFE}
+	</select>
+	<update id="updateEmpleado" parameterType="Empleado">
+		UPDATE EMPLEADO
+		SET empleadoFE = #{empleadoFE},
+			nombreEmpleado = #{nombreEmpleado},
+			apellidoPaternoEmpleado = #{apellidoPaternoEmpleado},
+			apellidoMaternoEmpleado = #{apellidoMaternoEmpleado},
+			emailEmpleado  = #{emailEmpleado}
+		WHERE idEmpleadoFE = #{idEmpleadoFE}
+	</update>
+	<insert id="insertEmpleado" parameterType="Empleado" keyProperty="idEmpleadoFE">
+		INSERT INTO EMPLEADO
+			(empleadoFE,
+			 nombreEmpleado,
+			 apellidoPaternoEmpleado,
+			 apellidoMaternoEmpleado,
+			 emailEmpleado)
+		VALUES 
+			(#{empleadoFE},
+			#{nombreEmpleado},
+			#{apellidoPaternoEmpleado},
+			#{apellidoMaternoEmpleado},
+			#{emailEmpleado})
+	</insert>
+</mapper>

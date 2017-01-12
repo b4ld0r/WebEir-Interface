@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Imei">
+	<select id="getListaImei" resultType="Imei">
+		SELECT
+			idImei,
+			imei,			
+			idTipoLista,		
+			fechaRegistro,			
+			fechaModificacion,
+			concepto			
+		FROM IMEI
+	</select>
+	<select id="getImei" parameterType="Imei" resultType="Imei">
+		SELECT
+			idImei,
+			imei,			
+			idTipoLista,		
+			fechaRegistro,			
+			fechaModificacion,
+			concepto			
+		FROM IMEI
+		WHERE idImei = #{idImei}
+	</select>
+	<update id="updateImei" parameterType="Imei">
+		UPDATE IMEI
+		SET imei = #{imei},			
+			idTipoLista = #{idTipoLista},		
+			fechaRegistro = #{fechaRegistro},			
+			fechaModificacion = #{fechaModificacion},
+			concepto = #{concepto}
+		WHERE idImei = #{idImei}
+	</update>
+	<insert id="insertImei" parameterType="Imei" keyProperty="idImei">
+		INSERT INTO IMEI
+			(imei,			
+			idTipoLista,		
+			fechaRegistro,			
+			fechaModificacion,
+			concepto)
+		VALUES
+			(#{imei},			
+			#{idTipoLista},		
+			#{fechaRegistro},			
+			#{fechaModificacion},
+			#{concepto})
+	</insert>
+	<select id="consultaIMEI" parameterType="Imei" resultMap="rConsultaImei">
+		SELECT
+			I.idImei,
+			I.imei,			
+			I.idTipoLista,		
+			I.fechaRegistro,			
+			I.fechaModificacion,
+			I.concepto,
+			T.descripcion AS Tdescripcion,
+			O.nombre AS Ooperadora		
+		FROM IMEI AS I
+		INNER JOIN TIPO_LISTA AS T
+		ON T.idTipoLista = I.idTipoLista
+		INNER JOIN OPERADORA AS O
+		ON O.idOperadora = (SELECT idOperadora FROM OPERADORA_SOLICITUD 
+			WHERE idSolicitud = (SELECT idSolicitud FROM SOLICITUD_IMEI WHERE idImei = I.idImei)) 
+		WHERE imei = #{imei}
+	</select>
+	
+	<resultMap type="Imei" id="rConsultaImei">
+		<result property="idImei" column="idImei"/>
+		<result property="imei" column="imei"/>
+		<result property="fechaRegistro" column="fechaRegistro"/>
+		<result property="fechaModificacion" column="fechaModificacion"/>
+		<result property="concepto" column="concepto"/>
+		<result property="operadora" column="Ooperadora"/>
+		<association property="tipoLista" column="idTipoLista" javaType="TipoLista">
+			<id property="idTipoLista" column="idTipoLista"/>
+			<result property="descripcion" column="Tdescripcion"/>
+		</association>
+	</resultMap>
+</mapper>

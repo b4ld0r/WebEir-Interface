@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.PermisoSistema">
+	<select id="getCatPermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,			
+			activo			
+		FROM PERMISO_SISTEMA
+		ORDER BY descripcion ASC
+	</select>
+	<select id="getListaPermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
+			idModuloSistema,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE activo = TRUE
+	</select>
+	<select id="getListaPermisoSistemaSF" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
+			idModuloSistema,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE activo = TRUE
+		ORDER BY descripcion ASC
+	</select>
+	<select id="getPermisoSistema" parameterType="PermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,	
+			tituloPagina,
+			idModuloSistema,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoSistema = #{idPermisoSistema}
+	</select>
+	<update id="updatePermisoSistema" parameterType="PermisoSistema">
+		UPDATE PERMISO_SISTEMA
+		SET descripcion = #{descripcion},
+			orden = #{orden},
+			url = #{url},
+			tituloPagina = #{tituloPagina},
+			idModuloSistema = #{idModuloSistema},		
+			activo = #{activo}
+		WHERE idPermisoSistema = #{idPermisoSistema}
+	</update>
+	<insert id="insertPermisoSistema" parameterType="PermisoSistema" keyProperty="idPermisoSistema">
+		INSERT INTO PERMISO_SISTEMA
+			(descripcion,
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,			
+			activo)
+		VALUES
+			(#{descripcion},
+			#{orden},
+			#{url},
+			#{tituloPagina},
+			#{idModuloSistema},			
+			#{activo})
+	</insert>
+	<select id="permisoPerfil" parameterMap="pPermisoPerfilHijo" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,	
+            idPermisoPadre,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoSistema
+		IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
+		AND idPermisoPadre IS NULL
+		ORDER BY idModuloSistema, orden ASC
+	</select>
+	<select id="permisoPerfilHijo" parameterType="PermisoSistema" resultType="PermisoSistema">
+		SELECT
+			idPermisoSistema,
+			descripcion,
+			orden,
+			url,
+			tituloPagina,
+			idModuloSistema,	
+            idPermisoPadre,		
+			activo			
+		FROM PERMISO_SISTEMA
+		WHERE idPermisoPadre = #{idPermisoSistema}
+		AND idPermisoSistema IN (SELECT idPermisoSistema FROM PERFIL_PERMISO_SISTEMA WHERE idPerfilSistema = #{idPerfilSistema})
+		ORDER BY orden ASC
+	</select>
+	
+	<parameterMap type="PermisoSistema" id="pPermisoPerfilHijo">
+		<parameter property="idPerfilSistema" javaType="Integer" mode="IN"/>
+		<parameter property="idPermisoSistema" javaType="Integer" mode="IN"/>
+	</parameterMap>
+</mapper>

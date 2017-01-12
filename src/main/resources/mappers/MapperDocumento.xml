@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Documento">
+	<select id="getCatDocumento" resultType="Documento">
+		SELECT 
+			idDocumento,
+			descripcion,			
+			obligatorio,			
+			activo			
+		FROM DOCUMENTO
+	</select>
+	<select id="getListaDocumentoSF" resultType="Documento">
+		SELECT 
+			idDocumento,
+			descripcion,			
+			obligatorio,			
+			activo			
+		FROM DOCUMENTO
+		WHERE activo = TRUE
+		ORDER BY descripcion ASC
+	</select>
+	<select id="getListaDocumento" resultType="Documento" parameterMap="pDocumentoFiltro">
+		SELECT 
+			idDocumento,
+			descripcion,			
+			obligatorio,			
+			activo			
+		FROM DOCUMENTO
+		WHERE activo = TRUE
+		ORDER BY descripcion ${orden}
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
+	</select>
+	<select id="getDocumento" parameterType="Documento" resultType="Documento">
+		SELECT 
+			idDocumento,
+			descripcion,			
+			obligatorio,			
+			activo			
+		FROM DOCUMENTO
+		WHERE idDocumento = #{idDocumento}
+	</select>
+	<update id="updateDocumento" parameterType="Documento">
+		UPDATE DOCUMENTO
+		SET descripcion = #{descripcion},			
+			obligatorio = #{obligatorio}
+		WHERE idDocumento = #{idDocumento}
+	</update>
+	<insert id="insertDocumento" parameterType="Documento" keyProperty="idDocumento">
+		INSERT INTO DOCUMENTO
+			(descripcion,			
+			obligatorio,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{obligatorio},			
+			#{activo})
+	</insert>
+	<update id="borradoLogicoDocumento" parameterType="Documento">
+		UPDATE DOCUMENTO
+		SET activo = #{activo}
+		WHERE idDocumento = #{idDocumento}
+	</update>
+	<select id="contadorDocumento" parameterType="Boolean" resultType="Integer">
+		SELECT COUNT(*) AS total
+		FROM DOCUMENTO
+		<choose>
+			<when test="value eq true">
+				WHERE activo = #{value}
+			</when>
+		</choose>
+	</select>
+	
+	<parameterMap type="Documento" id="pDocumentoFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="orden" javaType="Boolean" jdbcType="TINYINT" mode="IN"/>
+	</parameterMap>
+</mapper>

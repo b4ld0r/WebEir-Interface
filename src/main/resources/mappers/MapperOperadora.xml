@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Operadora">
+	<select id="getCatOperadora" resultType="Operadora">
+		SELECT
+			idOperadora,
+			nombre,			
+			fechaAlta,			
+			idEstatus,		
+			userNameSFTP,			
+			contraseniaSFTP,			
+			ipSFTP,			
+			puertoSFTP,	
+			fechaCaducidadSFTP,		
+			nombreResposable,			
+			apellidoPaternoResposable,			
+			apellidoMaternoResposable,			
+			emailResposable,			
+			activo			
+		FROM OPERADORA	
+	</select>
+	<select id="getListaOperadora" resultType="Operadora">
+		SELECT
+			idOperadora,
+			nombre,			
+			fechaAlta,			
+			idEstatus,		
+			userNameSFTP,			
+			contraseniaSFTP,			
+			ipSFTP,			
+			puertoSFTP,	
+			fechaCaducidadSFTP,		
+			nombreResposable,			
+			apellidoPaternoResposable,			
+			apellidoMaternoResposable,			
+			emailResposable,			
+			activo			
+		FROM OPERADORA	
+		WHERE activo = TRUE
+	</select>
+	<select id="getOperadora" parameterType="Operadora" resultType="Operadora">
+		SELECT
+			idOperadora,
+			nombre,			
+			fechaAlta,			
+			idEstatus,		
+			userNameSFTP,			
+			contraseniaSFTP,			
+			ipSFTP,			
+			puertoSFTP,		
+			fechaCaducidadSFTP,	
+			nombreResposable,			
+			apellidoPaternoResposable,			
+			apellidoMaternoResposable,			
+			emailResposable,			
+			activo			
+		FROM OPERADORA
+		WHERE idOperadora = #{idOperadora}	
+	</select>
+	<update id="updateOperadora" parameterType="Operadora">
+		UPDATE OPERADORA
+		SET nombre = #{nombre},			
+			fechaAlta = #{fechaAlta},			
+			idEstatus = #{idEstatus},		
+			userNameSFTP = #{userNameSFTP},			
+			contraseniaSFTP = #{contraseniaSFTP},			
+			ipSFTP = #{ipSFTP},			
+			puertoSFTP = #{puertoSFTP},			
+			nombreResposable = #{nombreResposable},			
+			apellidoPaternoResposable = #{apellidoPaternoResposable},			
+			apellidoMaternoResposable = #{apellidoMaternoResposable},			
+			emailResposable = #{emailResposable},			
+			activo = #{activo}
+		WHERE idOperadora = #{idOperadora}	
+	</update>
+	<insert id="insertOperadora" parameterType="Operadora" keyProperty="idOperadora">
+		INSERT INTO OPERADORA
+			(nombre,			
+			fechaAlta,			
+			idEstatus,		
+			userNameSFTP,			
+			contraseniaSFTP,			
+			ipSFTP,			
+			puertoSFTP,			
+			nombreResposable,			
+			apellidoPaternoResposable,			
+			apellidoMaternoResposable,			
+			emailResposable,			
+			activo)
+		VALUES
+			(#{nombre},			
+			#{fechaAlta},			
+			#{idEstatus},		
+			#{userNameSFTP},			
+			#{contraseniaSFTP},			
+			#{ipSFTP},			
+			#{puertoSFTP},			
+			#{nombreResposable},			
+			#{apellidoPaternoResposable},			
+			#{apellidoMaternoResposable},			
+			#{emailResposable},			
+			#{activo})
+	</insert>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Escenario">
+	<select id="getCatEscenario" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+	</select>
+	<select id="getListaEscenarioSF" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE activo = TRUE
+	</select>
+	<select id="getListaEscenario" resultType="Escenario" parameterMap="pEscenarioFiltro">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE activo = TRUE
+		ORDER BY descripcion ${orden}
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
+	</select>
+	<select id="getEscenario" parameterType="Escenario" resultType="Escenario">
+		SELECT 
+			idEscenario,
+			descripcion,			
+			inicial,			
+			activo
+		FROM ESCENARIO
+		WHERE idEscenario = #{idEscenario}
+	</select>
+	<update id="updateEscenario" parameterType="Escenario">
+		UPDATE ESCENARIO
+		SET descripcion = #{descripcion},			
+			inicial = #{inicial}
+		WHERE idEscenario = #{idEscenario} 
+	</update>
+	<insert id="insertEscenario" parameterType="Escenario" keyProperty="idEscenario">
+		INSERT INTO ESCENARIO
+			(descripcion,			
+			inicial,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{inicial},			
+			#{activo})
+	</insert>
+	<insert id="insertEscenarioMotivo" parameterMap="pEscenarioMotivo">
+		INSERT INTO ESCENARIO_MOTIVO
+			(idEscenario,
+			idMotivo)
+		VALUES
+			(#{idEscenario},
+			#{idMotivo})
+	</insert>
+	<update id="borradoLogicoEscenario" parameterType="Escenario">
+		UPDATE ESCENARIO
+		SET activo = #{activo}
+		WHERE idEscenario = #{idEscenario} 
+	</update>
+	<select id="contadorEscenario" parameterType="Boolean" resultType="Integer">
+		SELECT COUNT(*) AS total
+		FROM ESCENARIO
+		<choose>
+			<when test="value eq true">
+				WHERE activo = #{value}
+			</when>
+		</choose>
+	</select>
+	
+	<parameterMap type="Escenario" id="pEscenarioMotivo">
+		<parameter property="idEscenario" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idMotivo" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
+	<parameterMap type="Escenario" id="pEscenarioFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="orden" javaType="Boolean" jdbcType="TINYINT" mode="IN"/>
+	</parameterMap>
+</mapper>

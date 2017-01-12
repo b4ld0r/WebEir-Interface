@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+  
+ <!--
+  We declare a new template named template-main.
+  This template is used for displaying the main page.
+  It has 4 attributes. These attributes are placeholder for our contents
+  For each attribute, we have assigned a corresponding JSP
+ -->
+ <definition name="main-template" template="/WEB-INF/home/template/main.jsp">
+  <put-attribute name="header" value="/WEB-INF/home/template/header.jsp" />
+  <put-attribute name="menu" value="/WEB-INF/home/template/menu.jsp" />
+  <put-attribute name="body" value="" />
+  <put-attribute name="footer" value="/WEB-INF/home/template/footer.jsp" />
+ </definition>
+  
+  
+ <definition name="principalTiles" extends="main-template">
+  <put-attribute name="body" value=""/>
+ </definition>
+ 
+ <definition name="loginTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/loginForm.jsp"/>
+ </definition>
+ 
+ <!-- Catalogos -->
+ <definition name="documentoTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/catalogos/documentosForm.jsp"/>
+ </definition>
+ <definition name="escenarioTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/catalogos/escenariosForm.jsp"/>
+ </definition>
+ 
+ <!-- Administracion -->
+ <definition name="cambioContraseniaTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/cambioContraseniaForm.jsp"/>
+ </definition>
+ 
+ <definition name="perfilTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/perfilesForm.jsp"/>
+ </definition>
+ 
+ <definition name="permisoTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/asignaPermisosForm.jsp"/>
+ </definition>
+ 
+  <definition name="usuarioTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/administracion/usuariosForm.jsp"/>
+ </definition>
+ 
+ <!-- Imeis -->
+ <definition name="consultaIMEITiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/imeis/consultaIMEIForm.jsp"/>
+ </definition> 
+ 
+ <!-- Solicitudes -->
+ <definition name="solicitudesTiles" extends="main-template">
+  <put-attribute name="body" value="/WEB-INF/home/solicitudes/solicitudesForm.jsp"/>
+ </definition>
+ 
+</tiles-definitions>

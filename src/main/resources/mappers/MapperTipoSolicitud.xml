@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.TipoSolicitud">
+	<select id="getListaTipoSolicitud" resultType="TipoSolicitud">
+		SELECT
+			idTipoSolicitud,
+			descripcion			
+		FROM TIPO_SOLICITUD
+		ORDER BY descripcion ASC
+	</select>
+	<select id="getTipoSolicitud" parameterType="TipoSolicitud" resultType="TipoSolicitud">
+		SELECT
+			idTipoSolicitud,
+			descripcion			
+		FROM TIPO_SOLICITUD
+		WHERE idTipoSolicitud = #{idTipoSolicitud}
+	</select>
+	<update id="updateTipoSolicitud" parameterType="TipoSolicitud">
+		UPDATE TIPO_SOLICITUD
+		SET descripcion = #{descripcion}
+		WHERE idTipoSolicitud = #{idTipoSolicitud}
+	</update>
+	<insert id="insertTipoSolicitud" parameterType="TipoSolicitud" keyProperty="idTipoSolicitud">
+		INSERT INTO TIPO_SOLICITUD
+			(descripcion)
+		VALUES 
+			(#{descripcion})
+	</insert>
+</mapper>

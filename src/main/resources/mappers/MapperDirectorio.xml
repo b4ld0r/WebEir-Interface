@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.Directorio">
+	<select id="getCatDirectorio" resultType="Directorio">
+		SELECT
+			idDirectorio,
+			nombre,			
+			ruta,			
+			activo,			
+			idNomenclatura,		
+			idRaiz		
+		FROM DIRECTORIO	
+	</select>
+	<select id="getListaDirectorio" resultType="Directorio">
+		SELECT
+			idDirectorio,
+			nombre,			
+			ruta,			
+			activo,			
+			idNomenclatura,		
+			idRaiz		
+		FROM DIRECTORIO
+		WHERE activo = TRUE 
+	</select>
+	<select id="getDirectorio" parameterType="Directorio" resultType="Directorio">
+		SELECT
+			idDirectorio,
+			nombre,			
+			ruta,			
+			activo,			
+			idNomenclatura,		
+			idRaiz		
+		FROM DIRECTORIO
+		WHERE idDirectorio = #{idDirectorio}
+	</select>
+	<update id="updateDirectorio" parameterType="Directorio">
+		UPDATE DIRECTORIO
+		SET nombre = #{nombre},			
+			ruta = #{ruta},			
+			activo = #{activo},			
+			idNomenclatura = #{idNomenclatura},		
+			idRaiz = #{idRaiz}
+		WHERE idDirectorio = #{idDirectorio}	
+	</update>
+	<insert id="insertDirectorio"  parameterType="Directorio" keyProperty="idDirectorio">
+		INSERT INTO DIRECTORIO
+			(nombre,			
+			ruta,			
+			activo,			
+			idNomenclatura,		
+			idRaiz
+		VALUES
+			(#{nombre},			
+			#{ruta},			
+			#{activo},			
+			#{idNomenclatura},		
+			#{idRaiz})
+	</insert>
+	<select id="directorioPadreUsuario" parameterType="Usuario" resultMap="rDirectorioPadre">
+		SELECT
+			D.idDirectorio,
+			D.nombre,			
+			D.ruta,			 
+			D.activo,			
+			D.idNomenclatura,		
+			N.descripcion AS Ddescripcion, 			
+			N.extension	AS Dextension,	
+			N.definicion AS	Ddefinicio,		
+			N.activo AS	Dactivo	
+		FROM DIRECTORIO AS D
+		INNER JOIN NOMENCLATURA AS N 
+		ON N.idNomenclatura = D.idNomenclatura
+		WHERE idDirectorio
+		= (SELECT idDirectorio FROM DIRECTORIO_USUARIO WHERE idUsuario = #{idUsuario})
+	</select>
+	
+	<select id="subdirectorioUsuario" parameterType="Directorio" resultMap="rDirectorioPadre">
+		SELECT
+			D.idDirectorio,
+			D.nombre,			
+			D.ruta,			 
+			D.activo,			
+			D.idNomenclatura,		
+			N.descripcion AS Ddescripcion, 			
+			N.extension	AS Dextension,	
+			N.definicion AS	Ddefinicio,		
+			N.activo AS	Dactivo	
+		FROM DIRECTORIO AS D
+		INNER JOIN NOMENCLATURA AS N 
+		ON N.idNomenclatura = D.idNomenclatura
+		WHERE idDirectorio
+		IN (SELECT idDirectorio FROM DIRECTORIO_USUARIO WHERE idRaiz = #{idDirectorio})
+	</select>
+	
+	<resultMap type="Directorio" id="rDirectorioPadre">
+		<result property="idDirectorio" column="idDirectorio"/>
+		<result property="nombre" column="nombre"/>
+		<result property="ruta" column="ruta"/>
+		<result property="activo" column="activo"/>
+		<association property="nomenclatura" column="idNomenclatura" javaType="Nomenclatura">
+			<id property="idNomenclatura" column="idNomenclatura"/>
+			<result property="descripcion" column="Ddescripcion"/>
+			<result property="extension" column="Ddescripcion"/>
+			<result property="definicion" column="Dactivo"/>
+		</association>
+	</resultMap>
+</mapper>

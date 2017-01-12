@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ciia.webeirinterface.model.db.PerfilSistema">
+	<select id="getCatPerfilSistema" resultType="PerfilSistema">
+		SELECT
+			idPerfilSistema,
+			descripcion,			
+			activo			
+		FROM PERFIL_SISTEMA	
+	</select>
+	<select id="getListaPerfilSistemaSF" resultType="PerfilSistema">
+		SELECT
+			idPerfilSistema,
+			descripcion,			
+			activo			
+		FROM PERFIL_SISTEMA
+		WHERE activo = TRUE
+		ORDER BY descripcion ASC
+	</select>
+	<select id="getListaPerfilSistema" resultType="PerfilSistema" parameterMap="pPerfilSistemaFiltro">
+		SELECT
+			idPerfilSistema,
+			descripcion,			
+			activo			
+		FROM PERFIL_SISTEMA
+		WHERE activo = TRUE
+		ORDER BY descripcion ${orden}
+		<choose>
+			<when test="cursor neq null and registros neq null">
+				LIMIT #{cursor}, #{registros}
+			</when>
+		</choose>
+	</select>
+	<select id="getPerfilSistema" parameterType="PerfilSistema" resultType="PerfilSistema">
+		SELECT
+			idPerfilSistema,
+			descripcion,			
+			activo			
+		FROM PERFIL_SISTEMA
+		WHERE idPerfilSistema = #{idPerfilSistema}
+	</select>
+	<update id="updatePerfilSistema" parameterType="PerfilSistema">
+		UPDATE PERFIL_SISTEMA
+		SET descripcion = #{descripcion}
+		WHERE idPerfilSistema = #{idPerfilSistema}
+	</update>
+	<insert id="insertPerfilSistema" parameterType="PerfilSistema" keyProperty="idPerfilSistema">
+		INSERT INTO PERFIL_SISTEMA
+			(descripcion,			
+			activo)
+		VALUES
+			(#{descripcion},			
+			#{activo})
+	</insert>
+	<select id="perfilUsuario" parameterType="Usuario" resultType="PerfilSistema">
+		SELECT
+			idPerfilSistema,
+			descripcion,			
+			activo			
+		FROM PERFIL_SISTEMA
+		WHERE idPerfilSistema 
+		IN (SELECT idPerfilSistema FROM PERFIL_SISTEMA_USUARIO WHERE idUsuario = #{idUsuario})
+	</select>
+	<update id="borradoLogicoPerfilSistema" parameterType="PerfilSistema">
+		UPDATE PERFIL_SISTEMA
+		SET activo = #{activo}
+		WHERE idPerfilSistema = #{idPerfilSistema}
+	</update>
+	<select id="contadorPerfilSistema" parameterType="Boolean" resultType="Integer">
+		SELECT COUNT(*) AS total
+		FROM PERFIL_SISTEMA
+		<choose>
+			<when test="value eq true">
+				WHERE activo = #{value}
+			</when>
+		</choose>
+	</select>
+	<insert id="insertPermisoPerfil" parameterMap="pPerfilPermiso">
+		INSERT INTO PERFIL_PERMISO_SISTEMA
+			(idPerfilSistema,
+			idPermisoSistema)
+		VALUES
+			(#{idPerfilSistema},
+			#{idPermisoSistema})
+	</insert>
+	<delete id="deletePermisoPerfil" parameterType="PerfilSistema">
+		DELETE FROM PERFIL_PERMISO_SISTEMA
+		WHERE idPerfilSistema = #{idPerfilSistema}
+	</delete>
+	
+	<parameterMap type="PerfilSistema" id="pPerfilSistemaFiltro">
+		<parameter property="cursor" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="registros" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="orden" javaType="Boolean" jdbcType="TINYINT" mode="IN"/>
+	</parameterMap>
+	<parameterMap type="PerfilSistema" id="pPerfilPermiso">
+		<parameter property="idPerfilSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+		<parameter property="idPermisoSistema" javaType="Integer" jdbcType="BIGINT" mode="IN"/>
+	</parameterMap>
+</mapper>
